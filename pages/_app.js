@@ -26,6 +26,7 @@ const StyledMain = styled.main`
   margin: 0;
   width: 100%;
   max-width: 1200px;
+  min-height: 500px;
   padding: 3rem 2rem;
   z-index: 1;
   overflow: visible;
@@ -39,18 +40,17 @@ const StyledMain = styled.main`
       padding: 1.5rem 1rem;
       margin: 8px auto;
       min-height: auto;
-      border-radius: var(--border-radius);
+      border-radius: 20px;
   }
 `;
 
 const ContentWrapper = styled.div`
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 10px;
     width: 100%;
     max-width: 1200px;
     margin: 10px auto 10px;
-    min-height: calc(100vh - 120px);
 
     @media (max-width: 768px) {
         flex-direction: column;
