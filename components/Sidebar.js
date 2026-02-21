@@ -14,10 +14,6 @@ const StyledSidebar = styled.aside`
   align-self: stretch;
 
   @media (max-width: 768px) {
-    width: 100%;
-    min-width: unset;
-    min-height: unset;
-    height: 50px;
-    border-radius: 16px;
+      display: none;
   }
 `;
