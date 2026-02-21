@@ -4,6 +4,7 @@ export default function Footer() {
 
     return (
         <StyledFooter>
+            <p>© {new Date().getFullYear()} FlipWise — Learn smarter, flip faster.</p>
         </StyledFooter>
     );
 }
@@ -19,11 +20,11 @@ const StyledFooter = styled.footer`
     margin: 0 auto;
     overflow: visible;
     text-align: center;
-    background-image: linear-gradient(135deg, #ff8c00 0%, #ff6b35 50%, #68B300 100%);
-    backdrop-filter: blur(10px);
-    border: 2pt solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  background-image: linear-gradient(135deg, #00757F 0%, #009E8F 50%, #3ECFB2 100%);
+  backdrop-filter: blur(10px);
+  border: 2pt solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 
     &::before {
         content: '';
@@ -33,8 +34,8 @@ const StyledFooter = styled.footer`
         transform: translateX(-50%);
         width: 80%;
         height: 2px;
-        background: #56a500;
-        box-shadow: 0 4px 16px rgba(104, 179, 0, 0.25);
+      background: #3ECFB2;
+      box-shadow: 0 4px 16px rgba(62, 207, 178, 0.35);
       }
 
     a {
@@ -44,8 +45,8 @@ const StyledFooter = styled.footer`
         transition: all 0.3s ease;
         
         &hover {
-        color: #ff8c00;
-        text-shadow: 0 0 8px #ff8c00;
+          color: #D4F5EE;
+          text-shadow: 0 0 8px #3ECFB2;
         }
     }
   
@@ -54,7 +55,7 @@ const StyledFooter = styled.footer`
         font-size: 0.875rem;
         color: #ffffff;
         font-weight: 500;
-        text-shadow: 1px 1px 0 #0e7a4a, 0 0 6px rgba(104, 179, 0, 0.7);
+      text-shadow: 1px 1px 0 #00757F, 0 0 6px rgba(62, 207, 178, 0.5);
         position: relative;
         z-index: 2;
     }
@@ -66,7 +67,7 @@ const StyledFooter = styled.footer`
 
     p {
       font-size: 0.8rem;
-      text-shadow: 0.8px 0.8px 0 #0e7a4a;
+      text-shadow: 0.8px 0.8px 0 #00757F;
     }
   }
 `;
