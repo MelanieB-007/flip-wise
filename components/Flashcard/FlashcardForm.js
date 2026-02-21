@@ -50,9 +50,9 @@ export default function FlashcardForm() {
 }
 
 const CardContainer = styled.div`
-  grid-column: 1 / -1;  
-  width: 600px;
-  margin: 0 auto;         
+  width: 420px;
+  max-width: 420px;
+  flex-shrink: 0;
   border: 3px solid #222;
   border-radius: 20px;
   overflow: hidden;

@@ -1,12 +1,12 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
-import FlashcardForm from "@/components/Flashcard/FlashcardForm";
+import FlashcardButton from "@/components/Flashcard/FlashcardButton";
 
 export default function FlashcardList() {
     return (
         <>
             <FlashcardListContainer>
-                <FlashcardForm />
+                <FlashcardButton />
                 <Flashcard
                     category = "Biology"
                     color = "#8B9467"

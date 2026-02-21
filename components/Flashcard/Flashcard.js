@@ -22,9 +22,12 @@ const CardContainer = styled.div`
   overflow: hidden;
   font-family: "Caveat", cursive;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;              
+  flex-direction: column;
 `;
 
 const FlashcardBody = styled.div`
   background-color: white;
   padding: 1.5rem 1.8rem;
+  flex: 1;
 `;
