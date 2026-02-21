@@ -1,44 +1,37 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export default function FlipWiseLogo({ $isFlipping, flipId, onClick }) {
+export default function FlipWiseLogo({ flipKey, onClick }) {
     return (
-        <LogoContainer $isFlipping={$isFlipping} flipId={flipId} onClick={onClick}>
-            <FlipWord $flipDirection="up" $isFlipping={$isFlipping}>Flip</FlipWord>
-            <FlipWord $flipDirection="down" $isFlipping={$isFlipping}>Wise</FlipWord>
+        <LogoContainer onClick={onClick}>
+            <PerspectiveWrapper>
+                <FlipWord key={`flip-${flipKey}`} $flipDirection="up">Flip</FlipWord>
+            </PerspectiveWrapper>
+            <PerspectiveWrapper>
+                <FlipWord key={`wise-${flipKey}`} $flipDirection="down">Wise</FlipWord>
+            </PerspectiveWrapper>
         </LogoContainer>
     );
 }
 
-const flipUp = keyframes`
-  0% {
-    transform: translateY(0) rotateX(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotateX(90deg);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(0) rotateX(0deg);
-  }
+const flipUpAndBack = keyframes`
+  0%   { transform: rotateX(0deg);    opacity: 1; }
+  25%  { transform: rotateX(90deg);   opacity: 0; }
+  50%  { transform: rotateX(180deg);  opacity: 1; }
+  75%  { transform: rotateX(90deg);   opacity: 0; }
+  100% { transform: rotateX(0deg);    opacity: 1; }
 `;
 
-const flipDown = keyframes`
-  0% {
-    transform: translateY(0) rotateX(0deg);
-  }
-  50% {
-    transform: translateY(20px) rotateX(-90deg);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(0) rotateX(0deg);
-  }
+const flipDownAndBack = keyframes`
+  0%   { transform: rotateX(0deg);    opacity: 1; }
+  25%  { transform: rotateX(-90deg);  opacity: 0; }
+  50%  { transform: rotateX(-180deg); opacity: 1; }
+  75%  { transform: rotateX(-90deg);  opacity: 0; }
+  100% { transform: rotateX(0deg);    opacity: 1; }
 `;
 
-const flippingStyle = css`
-  animation: ${({ $flipDirection }) =>
-          $flipDirection === 'up' ? flipUp : flipDown
-  } 2s ease-in-out;
+const PerspectiveWrapper = styled.span`
+  display: inline-block;
+  perspective: 400px;
 `;
 
 const FlipWord = styled.span`
@@ -47,7 +40,9 @@ const FlipWord = styled.span`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  ${({ $isFlipping }) => $isFlipping && flippingStyle}
+  animation: ${({ $flipDirection }) =>
+          $flipDirection === 'up' ? flipUpAndBack : flipDownAndBack
+  } 1.2s ease-in-out both;
 `;
 
 const LogoContainer = styled.h1`
@@ -62,4 +57,8 @@ const LogoContainer = styled.h1`
   align-items: baseline;
   justify-content: center;
   width: 100%;
+
+  &:hover span span {
+    filter: brightness(1.2);
+  }
 `;

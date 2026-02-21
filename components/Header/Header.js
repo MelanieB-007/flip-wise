@@ -1,24 +1,32 @@
 import styled from "styled-components";
 import FlipWiseLogo from "@/components/Header/FlipWiseLogo";
-import {useEffect, useState} from "react";
-import Sidebar from "@/components/Sidebar";
+import { useEffect, useState } from "react";
 
-export default function Header(){
-    const [isFlipping, setIsFlipping] = useState(false);
+export default function Header() {
+    const [flipKey, setFlipKey] = useState(0);
 
-// Trigger z.B. bei Klick oder Mount
+    const triggerFlip = () => {
+        setFlipKey(prev => prev + 1);
+    };
+
+    // Automatisch alle 4 Sekunden flippen, startet nach 1 Sekunde
     useEffect(() => {
-        setIsFlipping(true);
-        const timer = setTimeout(() => setIsFlipping(false), 2000);
-        return () => clearTimeout(timer);
+        const initial = setTimeout(() => {
+            triggerFlip();
+            const interval = setInterval(() => triggerFlip(), 4000);
+            return () => clearInterval(interval);
+        }, 1000);
+        return () => clearTimeout(initial);
     }, []);
 
     return (
         <StyledHeader>
-            <FlipWiseLogo $isFlipping={isFlipping} onClick={() => setIsFlipping(true)} />
+            <FlipWiseLogo
+                flipKey={flipKey}
+                onClick={triggerFlip}
+            />
         </StyledHeader>
     );
-
 }
 
 const StyledHeader = styled.header`
