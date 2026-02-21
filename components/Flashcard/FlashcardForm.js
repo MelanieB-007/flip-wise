@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function FlashcardForm() {
+export default function FlashcardForm({ onClose }) {
     return (
         <CardContainer>
             <CardHeader>
@@ -41,7 +41,7 @@ export default function FlashcardForm() {
 
                     <Actions>
                         <ButtonSubmit type="submit">Add</ButtonSubmit>
-                        <ButtonCancel type="button">Cancel</ButtonCancel>
+                        <ButtonCancel type="button" onClick={onClose}>Cancel</ButtonCancel>
                     </Actions>
                 </form>
             </CardBody>
