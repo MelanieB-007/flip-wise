@@ -1,4 +1,4 @@
-import Flashcard from "@/components/Flashcard";
+import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
 
 export default function FlashcardList() {

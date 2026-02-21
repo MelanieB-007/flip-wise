@@ -9,7 +9,6 @@ export default function Header() {
         setFlipKey(prev => prev + 1);
     };
 
-    // Automatisch alle 4 Sekunden flippen, startet nach 1 Sekunde
     useEffect(() => {
         const initial = setTimeout(() => {
             triggerFlip();

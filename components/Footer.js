@@ -29,11 +29,11 @@ const StyledFooter = styled.footer`
     margin: 0 auto;
     overflow: visible;
     text-align: center;
-  background-color: #00757F;
-  backdrop-filter: blur(10px);
-  border: 2pt solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    background-color: #00757F;
+    backdrop-filter: blur(10px);
+    border: 2pt solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 
     &::before {
         content: '';
@@ -64,7 +64,7 @@ const StyledFooter = styled.footer`
         font-size: 0.875rem;
         color: #ffffff;
         font-weight: 500;
-      text-shadow: 1px 1px 0 #00757F, 0 0 6px rgba(62, 207, 178, 0.5);
+        text-shadow: 1px 1px 0 #00757F, 0 0 6px rgba(62, 207, 178, 0.5);
         position: relative;
         z-index: 2;
     }
