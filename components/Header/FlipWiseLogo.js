@@ -1,8 +1,11 @@
 import styled, { keyframes } from 'styled-components';
+import { Permanent_Marker } from 'next/font/google';
+
+const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: ['400'] });
 
 export default function FlipWiseLogo({ flipKey, onClick }) {
     return (
-        <LogoContainer onClick={onClick}>
+        <LogoContainer className={permanentMarker.className} onClick={onClick}>
             <PerspectiveWrapper>
                 <FlipWord key={`flip-${flipKey}`} $flipDirection="up">Flip</FlipWord>
             </PerspectiveWrapper>
@@ -36,22 +39,25 @@ const PerspectiveWrapper = styled.span`
 
 const FlipWord = styled.span`
   display: inline-block;
-  background: linear-gradient(135deg, #00757F 0%, #3ECFB2 100%);
+  background: linear-gradient(135deg, #e0fffa 0%, #3ECFB2 50%, #e0fffa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(62, 207, 178, 0.7));
   animation: ${({ $flipDirection }) =>
           $flipDirection === 'up' ? flipUpAndBack : flipDownAndBack
   } 1.2s ease-in-out both;
 `;
 
 const LogoContainer = styled.h1`
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.05em;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
   margin: 0;
   cursor: pointer;
   user-select: none;
+  gap: 0.15em;
 
   display: inline-flex;
   align-items: baseline;
@@ -59,6 +65,6 @@ const LogoContainer = styled.h1`
   width: 100%;
 
   &:hover span span {
-    filter: brightness(1.2);
+    filter: drop-shadow(0 0 18px rgba(62, 207, 178, 0.95)) brightness(1.2);
   }
 `;
