@@ -4,9 +4,24 @@ import styled from "styled-components";
 export default function HomePage() {
     return (
         <CardContainer>
-            <Flashcard />
-            <Flashcard />
-            <Flashcard />
+            <Flashcard
+                category = "Biology"
+                color = "#8B9467"
+                question = "What is the powerhouse of the cell?"
+                answer = "The mitochondrion."
+            />
+            <Flashcard
+                category = "Geography"
+                color = "#34A85A"
+                question = "What is the capital of France?"
+                answer = "Paris"
+            />
+            <Flashcard
+                category = "Technology"
+                color = "#456778"
+                question = "What does HTML stand for?"
+                answer = "HyperText Markup Language"
+            />
         </CardContainer>
     );
 }

@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-export default function Flashcard() {
+export default function Flashcard({category, color, question, answer}) {
     return (
-        <CardContainer>
-            <Header>
-                <Category>Biology</Category>
+        <CardContainer color={color}>
+            <Header color={color}>
+                <Category>{category}</Category>
             </Header>
             <Body>
-                <Question>What is the powerhouse of the cell?</Question>
+                <Question>{question}</Question>
                 <AnswerSection>
                     <AnswerLabel>Answer</AnswerLabel>
-                    <Answer>The mitochondrion.</Answer>
+                    <Answer>{answer}</Answer>
                 </AnswerSection>
             </Body>
         </CardContainer>
@@ -18,7 +18,7 @@ export default function Flashcard() {
 }
 
 const CardContainer = styled.div`
-  border: 3px solid #4ecfb3;
+  border: 3px solid ${({ color }) => color};
   border-radius: 20px;
   width: 420px;
   overflow: hidden;
@@ -27,7 +27,7 @@ const CardContainer = styled.div`
 `;
 
 const Header = styled.div`
-  background-color: #4ecfb3;
+  background-color: ${({ color }) => color};
   padding: 0.8rem 1.2rem;
 `;
 
