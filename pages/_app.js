@@ -1,11 +1,13 @@
 import GlobalStyle from "../styles";
 import styled from "styled-components";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
+        <Header />
         <StyledMain>
             <Component {...pageProps} />
         </StyledMain>
@@ -24,7 +26,7 @@ const StyledMain = styled.main`
   min-height: calc(100vh - 120px);
   z-index: 1;
   overflow: visible;
-  background-color: #DAE67F;
+  background-color: #D4F5EE;
   backdrop-filter: blur(10px);
   border: 2pt solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
