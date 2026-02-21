@@ -8,7 +8,8 @@ export default createGlobalStyle`
   }
 
   body {
-    margin: 0;
-    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 `;

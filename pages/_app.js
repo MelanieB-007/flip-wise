@@ -1,29 +1,32 @@
 import GlobalStyle from "../styles";
 import styled from "styled-components";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
+import Sidebar from "@/components/Sidebar";
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
-      <GlobalStyle />
-        <Header />
-        <StyledMain>
-            <Component {...pageProps} />
-        </StyledMain>
-        <Footer/>
-    </>
+      <>
+          <GlobalStyle />
+          <Header />
+          <ContentWrapper>
+              <Sidebar />
+              <StyledMain>
+                  <Component {...pageProps} />
+              </StyledMain>
+          </ContentWrapper>
+          <Footer />
+      </>
   );
 }
 
 const StyledMain = styled.main`
   position: relative;
-  flex: 1 1 auto;
-  margin: 0 auto 10px;
+  flex: 1;
+  margin: 0;
   width: 100%;
   max-width: 1200px;
   padding: 3rem 2rem;
-  min-height: calc(100vh - 120px);
   z-index: 1;
   overflow: visible;
   background-color: #D4F5EE;
@@ -38,4 +41,20 @@ const StyledMain = styled.main`
       min-height: auto;
       border-radius: var(--border-radius);
   }
+`;
+
+const ContentWrapper = styled.div`
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px auto 10px;
+    min-height: calc(100vh - 120px);
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 0 8px;
+        min-height: auto;
+    }
 `;

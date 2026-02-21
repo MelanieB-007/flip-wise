@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import FlipWiseLogo from "@/components/FlipWiseLogo";
+import FlipWiseLogo from "@/components/Header/FlipWiseLogo";
 import {useEffect, useState} from "react";
+import Sidebar from "@/components/Sidebar";
 
 export default function Header(){
     const [isFlipping, setIsFlipping] = useState(false);
@@ -13,11 +14,11 @@ export default function Header(){
     }, []);
 
     return (
-
         <StyledHeader>
             <FlipWiseLogo $isFlipping={isFlipping} onClick={() => setIsFlipping(true)} />
         </StyledHeader>
     );
+
 }
 
 const StyledHeader = styled.header`
