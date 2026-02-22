@@ -1,13 +1,33 @@
 import styled from "styled-components";
+import useSWR from "swr";
 
 export default function FlashcardForm({ onClose }) {
+    const { mutate } = useSWR("/api/flashcards");
+
+    async function handleSubmit(data) {
+        const response = await fetch("/api/flashcards", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            console.error(response.status);
+            return;
+        }
+
+        mutate();
+    }
+
     return (
         <CardContainer>
             <CardHeader>
                 <Headline>Add new card</Headline>
             </CardHeader>
             <CardBody>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <FormGroup>
                         <Label htmlFor="question">Question:</Label>
                         <Input
