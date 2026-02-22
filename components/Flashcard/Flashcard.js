@@ -18,7 +18,7 @@ export default function Flashcard({category, color, question, answer}) {
 const CardContainer = styled.div`
   border: 3px solid ${({ color }) => color};
   border-radius: 20px;
-  width: 420px;
+  width: 100%;
   overflow: hidden;
   font-family: "Caveat", cursive;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

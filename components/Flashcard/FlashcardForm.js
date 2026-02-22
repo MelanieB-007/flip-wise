@@ -50,7 +50,7 @@ export default function FlashcardForm({ onClose }) {
 }
 
 const CardContainer = styled.div`
-  width: 420px;
+  width: 100%;
   max-width: 420px;
   flex-shrink: 0;
   border: 3px solid #222;

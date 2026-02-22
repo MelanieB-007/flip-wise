@@ -17,7 +17,7 @@ export default function FlashcardButton() {
 }
 
 const ToggleButton = styled.button`
-  width: 420px;
+  width: 100%;
   height: 100%;
   min-height: 200px;
   border: 3px dashed #2d8c6e;
