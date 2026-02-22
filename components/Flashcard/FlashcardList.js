@@ -1,27 +1,18 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
 
-export default function FlashcardList() {
+export default function FlashcardList({flashcards}) {
     return (
         <FlashcardListContainer>
+            {flashcards.map((flashcard) => (
             <Flashcard
-                category = "Biology"
+                key={flashcard._id}
+                category ={flashcard.collection}
                 color = "#8B9467"
-                question = "What is the powerhouse of the cell?"
-                answer = "The mitochondrion."
+                question ={flashcard.question}
+                answer ={flashcard.answer}
             />
-            <Flashcard
-                category = "Geography"
-                color = "#34A85A"
-                question = "What is the capital of France?"
-                answer = "Paris"
-            />
-            <Flashcard
-                category = "Technology"
-                color = "#456778"
-                question = "What does HTML stand for?"
-                answer = "HyperText Markup Language"
-            />
+            ))}
         </FlashcardListContainer>
     );
 }
