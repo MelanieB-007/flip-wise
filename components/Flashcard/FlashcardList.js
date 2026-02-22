@@ -6,11 +6,11 @@ export default function FlashcardList({flashcards}) {
         <FlashcardListContainer>
             {flashcards.map((flashcard) => (
             <Flashcard
-                key={flashcard._id}
-                category ={flashcard.collection}
-                color = "#8B9467"
-                question ={flashcard.question}
-                answer ={flashcard.answer}
+                key = {flashcard._id}
+                category = {flashcard.collection}
+                color = {flashcard.color}
+                question = {flashcard.question}
+                answer  ={flashcard.answer}
             />
             ))}
         </FlashcardListContainer>
