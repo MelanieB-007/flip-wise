@@ -8,6 +8,6 @@ const flashcardSchema = new Schema({
     answer: { type: String, required: true },
 });
 
-const Flashcard = mongoose.models.Fashcard || mongoose.model("Flashcard", flashcardSchema);
+const Flashcard = mongoose.models.Flashcard || mongoose.model("Flashcard", flashcardSchema);
 
 export default Flashcard;
