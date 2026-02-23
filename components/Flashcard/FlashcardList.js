@@ -9,6 +9,7 @@ export default function FlashcardList({ flashcards, collections }) {
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}
+          id={flashcard._id}
           collection={flashcard.collection}
           collections={collections}
           color={flashcard.color}

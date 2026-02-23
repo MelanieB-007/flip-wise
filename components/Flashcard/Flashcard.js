@@ -6,6 +6,7 @@ import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { useState } from "react";
 
 export default function Flashcard({
+  id,
   collection,
   collections,
   color,
@@ -18,7 +19,7 @@ export default function Flashcard({
     return (
       <FlashcardForm
         onClose={() => setIsEditing(false)}
-        initialData={{ collection, question, answer }}
+        initialData={{ id, collection, question, answer }}
         collections={collections}
       />
     );

@@ -23,7 +23,7 @@ export default function FlashcardForm({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, _id: initialData.id }),
       });
     } else {
       response = await fetch("/api/flashcards", {
