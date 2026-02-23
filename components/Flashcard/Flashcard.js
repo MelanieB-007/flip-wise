@@ -12,6 +12,7 @@ export default function Flashcard({
   color,
   question,
   answer,
+  onDelete,
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -31,9 +32,7 @@ export default function Flashcard({
         color={color}
         collection={collection}
         onEdit={() => setIsEditing(true)}
-        onDelete={() => {
-          /* delete logic */
-        }}
+        onDelete={onDelete}
       />
       <FlashcardBody>
         <FlashcardQuestion question={question} />

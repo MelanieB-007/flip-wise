@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function deleteIcon({ onDelete }) {
+export default function DeleteIcon({ onDelete }) {
   return (
     <IconButton onClick={onDelete} title="Delete" aria-label="Delete card">
       <svg

@@ -2,7 +2,7 @@ import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
 import FlashcardButton from "@/components/Flashcard/FlashcardButton";
 
-export default function FlashcardList({ flashcards, collections }) {
+export default function FlashcardList({ flashcards, collections, onDelete }) {
   return (
     <FlashcardListContainer>
       <FlashcardButton collections={collections} />
@@ -15,6 +15,7 @@ export default function FlashcardList({ flashcards, collections }) {
           color={flashcard.color}
           question={flashcard.question}
           answer={flashcard.answer}
+          onDelete={() => onDelete(flashcard._id)}
         />
       ))}
     </FlashcardListContainer>

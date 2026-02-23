@@ -6,6 +6,7 @@ export default function HomePage() {
     data: flashcards,
     isLoading: loadingFlashcards,
     error: errorFlashcards,
+    mutate: mutateFlashcards,
   } = useSWR(`/api/flashcards`);
 
   const {
@@ -25,12 +26,25 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
+  async function handleDelete(id) {
+    await fetch(`/api/flashcards`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ _id: id }),
+    });
+    mutateFlashcards();
+  }
+
   const flashcardsWithColor = flashcards.map((flashcard) => {
     const collection = collections.find((c) => c.name === flashcard.collection);
     return { ...flashcard, color: collection?.color || "#CCC" };
   });
 
   return (
-    <FlashcardList flashcards={flashcardsWithColor} collections={collections} />
+    <FlashcardList
+      flashcards={flashcardsWithColor}
+      collections={collections}
+      onDelete={handleDelete}
+    />
   );
 }
