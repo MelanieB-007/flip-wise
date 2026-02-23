@@ -1,4 +1,5 @@
 import FlashcardList from "@/components/Flashcard/FlashcardList";
+import useSWR from "swr";
 
 export default function HomePage() {
   const {
@@ -29,6 +30,7 @@ export default function HomePage() {
     return { ...flashcard, color: collection?.color || "#CCC" };
   });
 
-  return <FlashcardList flashcards={flashcardsWithColor} />;
-  return <FlashcardList />;
+  return (
+    <FlashcardList flashcards={flashcardsWithColor} collections={collections} />
+  );
 }

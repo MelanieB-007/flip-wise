@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import useSWR from "swr";
 
-export default function FlashcardForm({ onClose }) {
+export default function FlashcardForm({ collections, onClose }) {
   const { mutate } = useSWR("/api/flashcards");
 
-  async function handleSubmit(data) {
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
     const response = await fetch("/api/flashcards", {
       method: "POST",
       headers: {
@@ -19,6 +24,7 @@ export default function FlashcardForm({ onClose }) {
     }
 
     mutate();
+    onClose();
   }
 
   return (
@@ -55,8 +61,11 @@ export default function FlashcardForm({ onClose }) {
                 <option value="" disabled selected>
                   Please select a collection
                 </option>
-                <option value="Biology">Biology</option>
-                <option value="Technology">Technology</option>
+                {collections.map((collection) => (
+                  <option key={collection.id} value={collection.name}>
+                    {collection.name}
+                  </option>
+                ))}
               </Select>
             </SelectWrapper>
           </FormGroup>
