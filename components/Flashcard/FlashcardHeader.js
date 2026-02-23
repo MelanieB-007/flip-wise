@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export default function FlashcardHeader({color, category}){
-    return (
-        <Header color={color}>
-            <Category>{category}</Category>
-        </Header>
-    );
+export default function FlashcardHeader({ color, category }) {
+  return (
+    <Header color={color}>
+      <Category>{category}</Category>
+    </Header>
+  );
 }
 
 const Header = styled.div`

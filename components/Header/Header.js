@@ -3,29 +3,26 @@ import FlipWiseLogo from "@/components/Header/FlipWiseLogo";
 import { useEffect, useState } from "react";
 
 export default function Header() {
-    const [flipKey, setFlipKey] = useState(0);
+  const [flipKey, setFlipKey] = useState(0);
 
-    const triggerFlip = () => {
-        setFlipKey(prev => prev + 1);
-    };
+  const triggerFlip = () => {
+    setFlipKey((prev) => prev + 1);
+  };
 
-    useEffect(() => {
-        const initial = setTimeout(() => {
-            triggerFlip();
-            const interval = setInterval(() => triggerFlip(), 4000);
-            return () => clearInterval(interval);
-        }, 1000);
-        return () => clearTimeout(initial);
-    }, []);
+  useEffect(() => {
+    const initial = setTimeout(() => {
+      triggerFlip();
+      const interval = setInterval(() => triggerFlip(), 4000);
+      return () => clearInterval(interval);
+    }, 1000);
+    return () => clearTimeout(initial);
+  }, []);
 
-    return (
-        <StyledHeader>
-            <FlipWiseLogo
-                flipKey={flipKey}
-                onClick={triggerFlip}
-            />
-        </StyledHeader>
-    );
+  return (
+    <StyledHeader>
+      <FlipWiseLogo flipKey={flipKey} onClick={triggerFlip} />
+    </StyledHeader>
+  );
 }
 
 const StyledHeader = styled.header`
@@ -40,7 +37,7 @@ const StyledHeader = styled.header`
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
-  background-color: #00757F;
+  background-color: #00757f;
   backdrop-filter: blur(10px);
   border: 2pt solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;

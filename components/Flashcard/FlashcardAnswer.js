@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function FlashcardAnswer ({answer}) {
-    return (
-        <AnswerSection>
-            <AnswerLabel>Answer</AnswerLabel>
-            <AnswerValue>{answer}</AnswerValue>
-        </AnswerSection>
-    );
+export default function FlashcardAnswer({ answer }) {
+  return (
+    <AnswerSection>
+      <AnswerLabel>Answer</AnswerLabel>
+      <AnswerValue>{answer}</AnswerValue>
+    </AnswerSection>
+  );
 }
 
 const AnswerSection = styled.div``;
