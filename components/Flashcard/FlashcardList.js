@@ -9,7 +9,7 @@ export default function FlashcardList({ flashcards, collections }) {
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}
-          category={flashcard.collection}
+          collection={flashcard.collection}
           color={flashcard.color}
           question={flashcard.question}
           answer={flashcard.answer}
