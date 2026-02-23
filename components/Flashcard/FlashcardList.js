@@ -2,9 +2,10 @@ import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
 import FlashcardButton from "@/components/Flashcard/FlashcardButton";
 
-export default function FlashcardList({ flashcards }) {
+export default function FlashcardList({ flashcards, collections }) {
   return (
     <FlashcardListContainer>
+      <FlashcardButton collections={collections} />
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}
@@ -18,9 +19,6 @@ export default function FlashcardList({ flashcards }) {
   );
 }
 
-const FlashcardListContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
 const FlashcardListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);

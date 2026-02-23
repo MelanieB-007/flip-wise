@@ -2,11 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
-export default function FlashcardButton() {
+export default function FlashcardButton({ collections }) {
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) {
-    return <FlashcardForm onClose={() => setShowForm(false)} />;
+    return (
+      <FlashcardForm
+        collections={collections}
+        onClose={() => setShowForm(false)}
+      />
+    );
   }
 
   return (
