@@ -3,19 +3,27 @@ import styled from "styled-components";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
+import { SWRConfig } from "swr";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Header />
-      <ContentWrapper>
-        <Sidebar />
-        <StyledMain>
-          <Component {...pageProps} />
-        </StyledMain>
-      </ContentWrapper>
-      <Footer />
+      <SWRConfig
+        value={{
+          fetcher: (resource, init) =>
+            fetch(resource, init).then((res) => res.json()),
+        }}
+      >
+        <Header />
+        <ContentWrapper>
+          <Sidebar />
+          <StyledMain>
+            <Component {...pageProps} />
+          </StyledMain>
+        </ContentWrapper>
+        <Footer />
+      </SWRConfig>
     </>
   );
 }
