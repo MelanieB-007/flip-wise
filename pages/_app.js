@@ -18,9 +18,7 @@ export default function App({ Component, pageProps }) {
           <ContentWrapper>
               <Sidebar />
               <StyledMain>
-
                   <Component {...pageProps} />
-
               </StyledMain>
           </ContentWrapper>
           <Footer />

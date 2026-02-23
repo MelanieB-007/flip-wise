@@ -1,5 +1,5 @@
 import dbConnect from "../../../db/connect";
-import * as Collection from "styled-components/test-utils";
+import {Collection} from "mongoose";
 
 export default async function handler(request, response) {
     await dbConnect();
