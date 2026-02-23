@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import useSWR from "swr";
 
-export default function FlashcardForm({ collections, onClose }) {
+export default function FlashcardForm({
+  collections,
+  onClose,
+  initialData = null,
+}) {
+  const isEditMode = initialData !== null;
+
   const { mutate } = useSWR("/api/flashcards");
 
   async function handleSubmit(event) {
@@ -9,14 +15,25 @@ export default function FlashcardForm({ collections, onClose }) {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    let response;
 
-    const response = await fetch("/api/flashcards", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    if (isEditMode) {
+      response = await fetch("/api/flashcards", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    } else {
+      response = await fetch("/api/flashcards", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    }
 
     if (!response.ok) {
       console.error(response.status);
@@ -30,7 +47,7 @@ export default function FlashcardForm({ collections, onClose }) {
   return (
     <CardContainer>
       <CardHeader>
-        <Headline>Add new card</Headline>
+        <Headline>{isEditMode ? "Edit card" : "Add new card"}</Headline>
       </CardHeader>
       <CardBody>
         <form onSubmit={handleSubmit}>
@@ -41,6 +58,7 @@ export default function FlashcardForm({ collections, onClose }) {
               id="question"
               name="question"
               placeholder="question"
+              defaultValue={initialData?.question ?? ""}
               required
             />
           </FormGroup>
@@ -51,13 +69,19 @@ export default function FlashcardForm({ collections, onClose }) {
               id="answer"
               name="answer"
               placeholder="answer"
+              defaultValue={initialData?.answer ?? ""}
               required
             />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="collection">Collection:</Label>
             <SelectWrapper>
-              <Select id="collection" name="collection" required>
+              <Select
+                id="collection"
+                name="collection"
+                defaultValue={initialData?.collection ?? ""}
+                required
+              >
                 <option value="" disabled selected>
                   Please select a collection
                 </option>
@@ -71,7 +95,9 @@ export default function FlashcardForm({ collections, onClose }) {
           </FormGroup>
 
           <Actions>
-            <ButtonSubmit type="submit">Add</ButtonSubmit>
+            <ButtonSubmit type="submit">
+              {isEditMode ? "Save" : "Add"}
+            </ButtonSubmit>
             <ButtonCancel type="button" onClick={onClose}>
               Cancel
             </ButtonCancel>

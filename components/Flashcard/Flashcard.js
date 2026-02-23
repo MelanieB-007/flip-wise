@@ -2,34 +2,48 @@ import styled from "styled-components";
 import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
 import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
+import { useState } from "react";
 
-function handleEdit() {
+export default function Flashcard({
+  collection,
+  collections,
+  color,
+  question,
+  answer,
+}) {
+  const [isEditing, setIsEditing] = useState(false);
 
-}
-
-function handleDelete() {
-
-}
-
-export default function Flashcard({category, color, question, answer}) {
+  if (isEditing) {
     return (
-        <CardContainer color={color}>
-            <FlashcardHeader
-                color={color}
-                category={category}
-                onEdit={handleEdit}
-                onDelete={handleDelete()}
-            />
-            <FlashcardBody>
-                <FlashcardQuestion question={question}/>
-                <FlashcardAnswer answer={answer}/>
-            </FlashcardBody>
-        </CardContainer>
+      <FlashcardForm
+        onClose={() => setIsEditing(false)}
+        initialData={{ collection, question, answer }}
+        collections={collections}
+      />
     );
+  }
+
+  return (
+    <CardContainer color={color}>
+      <FlashcardHeader
+        color={color}
+        collection={collection}
+        onEdit={() => setIsEditing(true)}
+        onDelete={() => {
+          /* delete logic */
+        }}
+      />
+      <FlashcardBody>
+        <FlashcardQuestion question={question} />
+        <FlashcardAnswer answer={answer} />
+      </FlashcardBody>
+    </CardContainer>
+  );
 }
 
 const CardContainer = styled.div`
-  border: 3px solid ${({color}) => color};
+  border: 3px solid ${({ color }) => color};
   border-radius: 20px;
   width: 100%;
   overflow: hidden;
