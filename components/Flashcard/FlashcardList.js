@@ -1,10 +1,22 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
 import FlashcardButton from "@/components/Flashcard/FlashcardButton";
+import { useState } from "react";
 
 export default function FlashcardList({ flashcards, collections, onDelete }) {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  async function handleDelete(id) {
+    await onDelete(id);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
+  }
+
   return (
     <FlashcardListContainer>
+      {showSuccess && (
+        <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
+      )}
       <FlashcardButton collections={collections} />
       {flashcards.map((flashcard) => (
         <Flashcard
@@ -15,7 +27,7 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
           color={flashcard.color}
           question={flashcard.question}
           answer={flashcard.answer}
-          onDelete={() => onDelete(flashcard._id)}
+          onDelete={() => handleDelete(flashcard._id)}
         />
       ))}
     </FlashcardListContainer>
@@ -36,4 +48,15 @@ const FlashcardListContainer = styled.div`
     grid-template-columns: 1fr;
     padding: 1rem;
   }
+`;
+
+const SuccessMessage = styled.div`
+  grid-column: 1 / -1;
+  background-color: #2d8c6e;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-family: "Caveat", cursive;
+  font-size: 1.3rem;
+  text-align: center;
 `;
