@@ -16,6 +16,12 @@ export default function Flashcard({
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
+  function handleDelete() {
+    if (window.confirm("Are you sure you want to delete this flashcard?")) {
+      onDelete();
+    }
+  }
+
   if (isEditing) {
     return (
       <FlashcardForm
@@ -32,7 +38,7 @@ export default function Flashcard({
         color={color}
         collection={collection}
         onEdit={() => setIsEditing(true)}
-        onDelete={onDelete}
+        onDelete={handleDelete}
       />
       <FlashcardBody>
         <FlashcardQuestion question={question} />
