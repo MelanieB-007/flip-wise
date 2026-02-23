@@ -2,43 +2,27 @@ import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
 import FlashcardButton from "@/components/Flashcard/FlashcardButton";
 
-export default function FlashcardList() {
-    return (
-        <>
-            <FlashcardListContainer>
-                <FlashcardButton />
-                <Flashcard
-                    category = "Biology"
-                    color = "#8B9467"
-                    question = "What is the powerhouse of the cell?"
-                    answer = "The mitochondrion."
-                />
-                <Flashcard
-                    category = "Geography"
-                    color = "#34A85A"
-                    question = "What is the capital of France?"
-                    answer = "Paris"
-                />
-                <Flashcard
-                    category = "Technology"
-                    color = "#456778"
-                    question = "What does HTML stand for?"
-                    answer = "HyperText Markup Language"
-                />
-            </FlashcardListContainer>
-        </>
-    );
+export default function FlashcardList({ flashcards }) {
+  return (
+    <FlashcardListContainer>
+      {flashcards.map((flashcard) => (
+        <Flashcard
+          key={flashcard._id}
+          category={flashcard.collection}
+          color={flashcard.color}
+          question={flashcard.question}
+          answer={flashcard.answer}
+        />
+      ))}
+    </FlashcardListContainer>
+  );
 }
+
 const FlashcardListContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-  }
+  justify-content: flex-start;
+  align-content: flex-start;
 `;
