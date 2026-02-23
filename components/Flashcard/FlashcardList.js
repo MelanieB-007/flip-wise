@@ -12,6 +12,16 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
     setTimeout(() => setShowSuccess(false), 3000);
   }
 
+  if (flashcards.length === 0) {
+    return (
+      <EmptyContainer>
+        <EmptyMessage>No flashcards yet!</EmptyMessage>
+        <EmptySubtext>Start learning by adding your first card.</EmptySubtext>
+        <FlashcardButton collections={collections} />
+      </EmptyContainer>
+    );
+  }
+
   return (
     <FlashcardListContainer>
       {showSuccess && (
@@ -59,4 +69,28 @@ const SuccessMessage = styled.div`
   font-family: "Caveat", cursive;
   font-size: 1.3rem;
   text-align: center;
+`;
+
+const EmptyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+`;
+
+const EmptyMessage = styled.h2`
+  font-family: "Caveat", cursive;
+  font-size: 2rem;
+  color: #2d8c6e;
+  margin: 0;
+`;
+
+const EmptySubtext = styled.p`
+  font-family: "Caveat", cursive;
+  font-size: 1.3rem;
+  color: #888;
+  margin: 0;
 `;
