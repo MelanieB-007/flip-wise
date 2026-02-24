@@ -30,5 +30,7 @@ export default function HomePage() {
     return { ...flashcard, color: collection?.color || "#CCC" };
   });
 
-  return <FlashcardList flashcards={flashcardsWithColor} />;
+  return (
+    <FlashcardList flashcards={flashcardsWithColor} collections={collections} />
+  );
 }

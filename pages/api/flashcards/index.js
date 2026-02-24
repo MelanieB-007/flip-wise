@@ -6,12 +6,25 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const flashcards = await Flashcard.find();
-      return response.status(200).json(flashcards);
+      const flashcards = await Flashcard.find().sort({ createdAt: -1 });
+      response.status(200).json(flashcards);
+      return;
     } catch (error) {
-      return response.status(500).json({ error: error.message });
+      response.status(500).json({ error: error.message });
+      return;
     }
-  } else {
-    return response.status(405).json({ message: "Method not allowed" });
+  }
+
+  if (request.method === "POST") {
+    try {
+      const flashcardData = request.body;
+      await Flashcard.create(flashcardData);
+      response.status(201).json({ status: "Flashcard created." });
+      return;
+    } catch (error) {
+      console.error(error);
+      response.status(400).json({ error: error.message });
+      return;
+    }
   }
 }
