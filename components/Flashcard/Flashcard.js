@@ -31,9 +31,6 @@ export default function Flashcard({
         color={color}
         collection={collection}
         onEdit={() => setIsEditing(true)}
-        onDelete={() => {
-          /* delete logic */
-        }}
       />
       <FlashcardBody>
         <FlashcardQuestion question={question} />

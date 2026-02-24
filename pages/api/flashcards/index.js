@@ -7,9 +7,11 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     try {
       const flashcards = await Flashcard.find().sort({ createdAt: -1 });
-      return response.status(200).json(flashcards);
+      response.status(200).json(flashcards);
+      return;
     } catch (error) {
-      return response.status(500).json({ error: error.message });
+      response.status(500).json({ error: error.message });
+      return;
     }
   }
 
@@ -17,10 +19,12 @@ export default async function handler(request, response) {
     try {
       const flashcardData = request.body;
       await Flashcard.create(flashcardData);
-      return response.status(201).json({ status: "Flashcard created." });
+      response.status(201).json({ status: "Flashcard created." });
+      return;
     } catch (error) {
       console.error(error);
-      return response.status(400).json({ error: error.message });
+      response.status(400).json({ error: error.message });
+      return;
     }
   }
 

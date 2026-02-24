@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import useSWR from "swr";
+import { StyledButton } from "@/components/Button";
 
 export default function FlashcardForm({
   collections,
@@ -111,8 +112,7 @@ export default function FlashcardForm({
 const CardContainer = styled.div`
   width: 100%;
   max-width: 420px;
-  flex-shrink: 0;
-  border: 3px solid #222;
+  border: 3px solid #2d8c6e;
   border-radius: 20px;
   overflow: hidden;
   font-family: "Caveat", cursive;
@@ -121,21 +121,19 @@ const CardContainer = styled.div`
 
 const CardHeader = styled.div`
   background-color: #2d8c6e;
-  padding: 16px 24px;
+  padding: 0.8rem 1.2rem;
 `;
 
-const Headline = styled.h2`
-  font-family: "Caveat", cursive;
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0;
-  color: #fff;
+const Headline = styled.div`
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 1;
 `;
 
 const CardBody = styled.div`
-  background: #fff;
-  padding: 24px 24px 20px;
+  background-color: white;
+  padding: 1.5rem 1.8rem;
 `;
 
 const FormGroup = styled.div`
@@ -211,54 +209,20 @@ const Actions = styled.div`
   gap: 12px;
 `;
 
-const ButtonSubmit = styled.button`
-  flex: 1;
-  padding: 11px 20px;
-  border: 2px solid #222;
-  border-radius: 10px;
-  font-family: "Caveat", cursive;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s;
-  background: #6b8f6e;
+const ButtonSubmit = styled(StyledButton)`
+  background-color: #6b8f6e;
   color: #fff;
-  box-shadow: 3px 3px 0 #222;
 
   &:hover {
     background: #5a7a5d;
   }
-
-  &:active {
-    transform: translate(2px, 2px);
-    box-shadow: none;
-  }
 `;
 
-const ButtonCancel = styled.button`
-  flex: 1;
-  padding: 11px 20px;
-  border: 2px solid #222;
-  border-radius: 10px;
-  font-family: "Caveat", cursive;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s;
+const ButtonCancel = styled(StyledButton)`
   background: #fff;
   color: #222;
-  box-shadow: 3px 3px 0 #222;
 
   &:hover {
     background: #f0ede8;
-  }
-
-  &:active {
-    transform: translate(2px, 2px);
-    box-shadow: none;
   }
 `;

@@ -1,19 +1,16 @@
 import styled from "styled-components";
 import EditIcon from "../Icons/EditIcon";
-import DeleteIcon from "../Icons/DeleteIcon";
 
 export default function FlashcardHeader({
   color,
   collection,
   onEdit,
-  onDelete,
 }) {
   return (
     <Header color={color}>
       <Collection>{collection}</Collection>
       <IconGroup>
         <EditIcon onEdit={onEdit} />
-        <DeleteIcon onDelete={onDelete} />
       </IconGroup>
     </Header>
   );
