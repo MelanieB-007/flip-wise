@@ -1,11 +1,11 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
-import FlashcardButton from "@/components/Flashcard/FlashcardButton";
+import FlashcardAddCard from "@/components/Flashcard/FlashcardAddCard";
 
 export default function FlashcardList({ flashcards, collections }) {
   return (
     <FlashcardListContainer>
-      <FlashcardButton collections={collections} />
+      <FlashcardAddCard collections={collections} />
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}

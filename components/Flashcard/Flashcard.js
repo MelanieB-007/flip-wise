@@ -3,18 +3,14 @@ import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
 import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
 
-function handleEdit() {}
-
-function handleDelete() {}
-
 export default function Flashcard({ collection, color, question, answer }) {
   return (
     <CardContainer color={color}>
       <FlashcardHeader
         color={color}
         collection={collection}
-        onEdit={handleEdit}
-        onDelete={handleDelete()}
+        onEdit={null}
+        onDelete={null}
       />
       <FlashcardBody>
         <FlashcardQuestion question={question} />

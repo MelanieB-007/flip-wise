@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import EditIcon from "../Icons/EditIcon";
-import DeleteIcon from "../Icons/DeleteIcon";
 
 export default function FlashcardHeader({
   color,
@@ -11,10 +9,6 @@ export default function FlashcardHeader({
   return (
     <Header color={color}>
       <Collection>{collection}</Collection>
-      <IconGroup>
-        <EditIcon onEdit={onEdit} />
-        <DeleteIcon onDelete={onDelete} />
-      </IconGroup>
     </Header>
   );
 }
@@ -33,11 +27,4 @@ const Collection = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 1;
-`;
-
-const IconGroup = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.4rem;
 `;

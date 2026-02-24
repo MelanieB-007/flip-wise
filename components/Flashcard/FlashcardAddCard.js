@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
-export default function FlashcardButton({ collections }) {
+export default function FlashcardAddCard({ collections }) {
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) {

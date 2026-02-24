@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import useSWR from "swr";
+import Button, { StyledButton } from "@/components/Button";
 
 export default function FlashcardForm({ collections, onClose }) {
   const { mutate } = useSWR("/api/flashcards");
@@ -85,7 +86,6 @@ export default function FlashcardForm({ collections, onClose }) {
 const CardContainer = styled.div`
   width: 100%;
   max-width: 420px;
-  flex-shrink: 0;
   border: 3px solid #222;
   border-radius: 20px;
   overflow: hidden;
@@ -185,54 +185,20 @@ const Actions = styled.div`
   gap: 12px;
 `;
 
-const ButtonSubmit = styled.button`
-  flex: 1;
-  padding: 11px 20px;
-  border: 2px solid #222;
-  border-radius: 10px;
-  font-family: "Caveat", cursive;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s;
-  background: #6b8f6e;
+const ButtonSubmit = styled(StyledButton)`
+  background-color: #6b8f6e;
   color: #fff;
-  box-shadow: 3px 3px 0 #222;
 
   &:hover {
     background: #5a7a5d;
   }
-
-  &:active {
-    transform: translate(2px, 2px);
-    box-shadow: none;
-  }
 `;
 
-const ButtonCancel = styled.button`
-  flex: 1;
-  padding: 11px 20px;
-  border: 2px solid #222;
-  border-radius: 10px;
-  font-family: "Caveat", cursive;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s;
+const ButtonCancel = styled(StyledButton)`
   background: #fff;
   color: #222;
-  box-shadow: 3px 3px 0 #222;
 
   &:hover {
     background: #f0ede8;
-  }
-
-  &:active {
-    transform: translate(2px, 2px);
-    box-shadow: none;
   }
 `;
