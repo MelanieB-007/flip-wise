@@ -1,11 +1,16 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
-import FlashcardAddCard from "@/components/Flashcard/FlashcardAddCard";
+import Collapsible from "@/components/Collapsible";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
 export default function FlashcardList({ flashcards, collections }) {
   return (
     <FlashcardListContainer>
-      <FlashcardAddCard collections={collections} />
+      <Collapsible label="+ Add Flashcard">
+        {({ onClose }) => (
+          <FlashcardForm collections={collections} onClose={onClose} />
+        )}
+      </Collapsible>
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}

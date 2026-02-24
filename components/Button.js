@@ -17,11 +17,3 @@ export const StyledButton = styled.button`
     box-shadow: none;
   }
 `;
-
-export default function Button({ type, onClick, text }) {
-  return (
-    <StyledButton type={type} onClick={onClick}>
-      {text}
-    </StyledButton>
-  );
-}

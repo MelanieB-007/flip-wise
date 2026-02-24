@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-export default function FlashcardHeader({
-  color,
-  collection,
-  onEdit,
-  onDelete,
-}) {
+export default function FlashcardHeader({ color, collection }) {
   return (
     <Header color={color}>
       <Collection>{collection}</Collection>
