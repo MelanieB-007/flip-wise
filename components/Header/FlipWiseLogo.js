@@ -81,7 +81,7 @@ const FlipWord = styled.span`
 `;
 
 const LogoContainer = styled.h1`
-  font-family: "permanent_marker", sans-serif;
+  font-family: "permanent marker", sans-serif;
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 400;
   letter-spacing: 0.04em;
