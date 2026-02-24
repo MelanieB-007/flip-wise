@@ -4,7 +4,7 @@ import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
 import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
 import { useState } from "react";
 
-export default function Flashcard({ category, color, question, answer }) {
+export default function Flashcard({ collection, color, question, answer }) {
   function flipFlashcard() {
     setIsFlipping(true);
     setTimeout(() => {
@@ -23,7 +23,12 @@ export default function Flashcard({ category, color, question, answer }) {
       $isShowingAnswer={isShowingAnswer}
       $isFlipping={isFlipping}
     >
-      <FlashcardHeader color={color} category={category} />
+      <FlashcardHeader
+        color={color}
+        collection={collection}
+        onEdit={null}
+        onDelete={null}
+      />
       <FlashcardBody>
         {isShowingAnswer ? (
           <FlashcardAnswer answer={answer} />
