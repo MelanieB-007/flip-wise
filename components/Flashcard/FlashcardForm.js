@@ -83,11 +83,11 @@ export default function FlashcardForm({
                 defaultValue={initialData?.collection ?? ""}
                 required
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Please select a collection
                 </option>
                 {collections.map((collection) => (
-                  <option key={collection.id} value={collection.name}>
+                  <option key={collection._id} value={collection.name}>
                     {collection.name}
                   </option>
                 ))}
