@@ -5,6 +5,8 @@ import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
 import { useState } from "react";
 
 export default function Flashcard({ collection, color, question, answer }) {
+  const [isShowingAnswer, setIsShowingAnswer] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
   function flipFlashcard() {
     setIsFlipping(true);
     setTimeout(() => {
@@ -14,8 +16,6 @@ export default function Flashcard({ collection, color, question, answer }) {
       setIsFlipping(false);
     }, 200);
   }
-  const [isShowingAnswer, setIsShowingAnswer] = useState(false);
-  const [isFlipping, setIsFlipping] = useState(false);
   return (
     <CardContainer
       color={color}
