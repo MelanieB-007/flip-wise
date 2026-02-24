@@ -15,6 +15,18 @@ export default function Flashcard({
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
+    const [isShowingAnswer, setIsShowingAnswer] = useState(false);
+    const [isFlipping, setIsFlipping] = useState(false);
+    function flipFlashcard() {
+        setIsFlipping(true);
+        setTimeout(() => {
+            setIsShowingAnswer(!isShowingAnswer);
+        }, 100);
+        setTimeout(() => {
+            setIsFlipping(false);
+        }, 200);
+    }
+
   if (isEditing) {
     return (
       <FlashcardForm
@@ -26,33 +38,52 @@ export default function Flashcard({
   }
 
   return (
-    <CardContainer color={color}>
+    <CardContainer
+      color={color}
+      onClick={flipFlashcard}
+      $isShowingAnswer={isShowingAnswer}
+      $isFlipping={isFlipping}
+    >
       <FlashcardHeader
         color={color}
         collection={collection}
         onEdit={() => setIsEditing(true)}
       />
       <FlashcardBody>
-        <FlashcardQuestion question={question} />
-        <FlashcardAnswer answer={answer} />
+        {isShowingAnswer ? (
+          <FlashcardAnswer answer={answer} />
+        ) : (
+          <FlashcardQuestion question={question} />
+        )}
       </FlashcardBody>
     </CardContainer>
   );
 }
 
-const CardContainer = styled.div`
+const CardContainer = styled.button`
   border: 3px solid ${({ color }) => color};
   border-radius: 20px;
   width: 100%;
-  overflow: hidden;
+  overflow: clip;
   font-family: "Caveat", cursive;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  background-color: ${({ $isShowingAnswer }) =>
+    $isShowingAnswer ? ({ color }) => color : "#fff"};
+  padding: 0;
+  height: 300px;
+  overflow-clip-margin: 1px;
+  transform: ${({ $isFlipping }) =>
+    $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
+  transition: transform 0.2s ease-in-out;
 `;
 
 const FlashcardBody = styled.div`
-  background-color: white;
   padding: 1.5rem 1.8rem;
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
