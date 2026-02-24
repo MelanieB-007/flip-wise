@@ -1,14 +1,8 @@
 import styled, { keyframes } from "styled-components";
-import { Permanent_Marker } from "next/font/google";
-
-const permanentMarker = Permanent_Marker({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 export default function FlipWiseLogo({ flipKey, onClick }) {
   return (
-    <LogoContainer className={permanentMarker.className} onClick={onClick}>
+    <LogoContainer onClick={onClick}>
       <PerspectiveWrapper>
         <FlipWord key={`flip-${flipKey}`} $flipDirection="up">
           Flip
@@ -87,6 +81,7 @@ const FlipWord = styled.span`
 `;
 
 const LogoContainer = styled.h1`
+  font-family: "permanent_marker", sans-serif;
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 400;
   letter-spacing: 0.04em;
