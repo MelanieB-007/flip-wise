@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useSWR from "swr";
-import Button, { StyledButton } from "@/components/Button";
+import { StyledButton } from "@/components/Button";
 
 export default function FlashcardForm({ collections, onClose }) {
   const { mutate } = useSWR("/api/flashcards");
@@ -86,7 +86,7 @@ export default function FlashcardForm({ collections, onClose }) {
 const CardContainer = styled.div`
   width: 100%;
   max-width: 420px;
-  border: 3px solid #222;
+  border: 3px solid #2d8c6e;
   border-radius: 20px;
   overflow: hidden;
   font-family: "Caveat", cursive;
@@ -95,21 +95,19 @@ const CardContainer = styled.div`
 
 const CardHeader = styled.div`
   background-color: #2d8c6e;
-  padding: 16px 24px;
+  padding: 0.8rem 1.2rem;
 `;
 
-const Headline = styled.h2`
-  font-family: "Caveat", cursive;
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0;
-  color: #fff;
+const Headline = styled.div`
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 1;
 `;
 
 const CardBody = styled.div`
-  background: #fff;
-  padding: 24px 24px 20px;
+  background-color: white;
+  padding: 1.5rem 1.8rem;
 `;
 
 const FormGroup = styled.div`
