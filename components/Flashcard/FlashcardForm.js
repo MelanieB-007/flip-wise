@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useSWR from "swr";
-import { StyledButton } from "@/components/Button";
+import { StyledButton } from "/components/Button";
 
 export default function FlashcardForm({
   collections,
