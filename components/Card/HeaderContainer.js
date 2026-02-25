@@ -1,9 +1,13 @@
 import styled from "styled-components";
+import EditIcon from "../Icons/EditIcon";
 
-export default function HeaderContainer({ color, headline }) {
+export default function HeaderContainer({ color, headline,onEdit }) {
   return (
     <Header color={color}>
       <Headline>{headline}</Headline>
+        <IconGroup>
+            <EditIcon onEdit={onEdit} />
+        </IconGroup>
     </Header>
   );
 }
@@ -22,4 +26,11 @@ const Headline = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 1;
+`;
+
+const IconGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
 `;

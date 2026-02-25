@@ -1,7 +1,11 @@
 import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
+import {useRouter} from "next/router";
 
-export default function HomePage() {
+export default function CollectionPae() {
+  const router = useRouter();
+  const { name } = router.query;
+
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
@@ -25,12 +29,14 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsWithColor = flashcards.map((flashcard) => {
-    const collection = collections.find((c) => c.name === flashcard.collection);
-    return { ...flashcard, color: collection?.color || "#CCC" };
-  });
+  const filteredFlashcards = flashcards
+      .filter(collectionFlashcards => collectionFlashcards.collection === name)
+       .map((flashcard) => {
+         const collection = collections.find((c) => c.name === flashcard.collection);
+         return { ...flashcard, color: collection?.color || "#CCC" };
+       });
 
   return (
-    <FlashcardList flashcards={flashcardsWithColor} collections={collections} />
+    <FlashcardList flashcards={filteredFlashcards} collections={collections} />
   );
 }

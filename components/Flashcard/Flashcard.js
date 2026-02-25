@@ -33,6 +33,8 @@ export default function Flashcard({collection, color, question, answer}) {
             <HeaderContainer
                 color={color}
                 headline={collection}
+                onEdit={null}
+                onDelete={null}
             />
             <BodyContainer>
                 {isShowingAnswer ? (

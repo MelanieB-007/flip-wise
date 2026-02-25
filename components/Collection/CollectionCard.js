@@ -2,11 +2,15 @@ import HeaderContainer from "@/components/Card/HeaderContainer";
 import CardContainer from "@/components/Card/CardContainer";
 import BodyContainer from "@/components/Card/BodyContainer";
 import styled from "styled-components";
+import {useRouter} from "next/router";
 
 export default function CollectionCard({collection, flashcardCount, correctFlashcardCount}) {
+    const router = useRouter();
+
     return (
         <CardContainer
             color={collection.color}
+            onClick={() => router.push(`/collections/${collection.name}`)}
         >
             <HeaderContainer
                 color={collection.color}
