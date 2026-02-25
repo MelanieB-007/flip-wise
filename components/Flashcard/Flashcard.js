@@ -2,10 +2,20 @@ import styled from "styled-components";
 import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
 import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { useState } from "react";
 import { StyledButton } from "@/components/Button";
 
-export default function Flashcard({ collection, color, question, answer }) {
+export default function Flashcard({
+  id,
+  collection,
+  collections,
+  color,
+  question,
+  answer,
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+
   const [isShowingAnswer, setIsShowingAnswer] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
   function flipFlashcard() {
@@ -17,13 +27,24 @@ export default function Flashcard({ collection, color, question, answer }) {
       setIsFlipping(false);
     }, 200);
   }
+
+  if (isEditing) {
+    return (
+      <FlashcardForm
+        onClose={() => setIsEditing(false)}
+        initialData={{ id, collection, question, answer }}
+        collections={collections}
+      />
+    );
+  }
+
   return (
     <CardWrapper color={color} $isFlipping={isFlipping}>
       <CardContainer onClick={flipFlashcard}>
         <FlashcardHeader
           color={color}
           collection={collection}
-          onEdit={null}
+          onEdit={() => setIsEditing(true)}
           onDelete={null}
         />
         <FlashcardBody $isShowingAnswer={isShowingAnswer} color={color}>
