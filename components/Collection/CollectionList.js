@@ -5,13 +5,14 @@ export default function CollectionList({flashcards, collections}) {
     return (
         <ListContainer>
             {collections.map((collection) => {
-                const count = flashcards.filter(f => f.collection === collection.name).length;
+                const count = flashcards.filter(flashcard => flashcard.collection === collection.name).length;
+                const countCorrectAnswer = flashcards.filter(flashcard => flashcard.isCorrectlyAnswered).length;
                 return (
                     <CollectionCard
                         key={collection.name}
                         collection={collection}
                         flashcardCount={count}
-                        correctFlashcardCount={0}
+                        correctFlashcardCount={countCorrectAnswer}
                     />
                 );
             })}
