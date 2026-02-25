@@ -1,7 +1,7 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import Collapsible from "@/components/Collapsible";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
-import ListContainer from "@/components/ListContainer"
+import ListContainer from "@/components/Card/ListContainer"
 
 export default function FlashcardList({ flashcards, collections }) {
   return (

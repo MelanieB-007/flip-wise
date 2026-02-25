@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export default function FlashcardHeader({ color, collection }) {
+export default function HeaderContainer({ color, headline }) {
   return (
     <Header color={color}>
-      <Collection>{collection}</Collection>
+      <Headline>{headline}</Headline>
     </Header>
   );
 }
@@ -17,7 +17,7 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
-const Collection = styled.div`
+const Headline = styled.div`
   color: white;
   font-size: 1.8rem;
   font-weight: bold;
