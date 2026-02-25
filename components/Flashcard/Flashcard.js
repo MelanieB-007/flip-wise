@@ -5,6 +5,7 @@ import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { useState } from "react";
 import { StyledButton } from "@/components/Button";
+import useSWR from "swr";
 
 export default function Flashcard({
   id,
@@ -15,9 +16,10 @@ export default function Flashcard({
   answer,
 }) {
   const [isEditing, setIsEditing] = useState(false);
-
   const [isShowingAnswer, setIsShowingAnswer] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
+  const { mutate } = useSWR("/api/flashcards");
+
   function flipFlashcard() {
     setIsFlipping(true);
     setTimeout(() => {
@@ -26,6 +28,24 @@ export default function Flashcard({
     setTimeout(() => {
       setIsFlipping(false);
     }, 200);
+  }
+
+  async function setIsAnswered() {
+    const response = await fetch("/api/flashcards", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isCorrectlyAnswered: "true", _id: id }),
+    });
+    if (!response.ok) {
+      console.error(response.status);
+      return;
+    }
+    if (response.ok) {
+      console.log("test");
+    }
+    mutate();
   }
 
   if (isEditing) {
@@ -56,7 +76,9 @@ export default function Flashcard({
         </FlashcardBody>
       </CardContainer>
       {isShowingAnswer ? (
-        <ButtonCorrectlyAnswered>Mark as Correct</ButtonCorrectlyAnswered>
+        <ButtonCorrectlyAnswered onClick={setIsAnswered}>
+          Mark as Correct
+        </ButtonCorrectlyAnswered>
       ) : null}
     </CardWrapper>
   );
@@ -108,5 +130,8 @@ const ButtonCorrectlyAnswered = styled(StyledButton)`
   &:hover {
     color: #ddd;
     border-color: #ddd;
+  }
+  &:active {
+    transform: translate(-48%, 2px);
   }
 `;
