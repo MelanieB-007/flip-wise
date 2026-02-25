@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import EditIcon from "../Icons/EditIcon";
+import DeleteIcon from "../Icons/DeleteIcon";
 
-export default function HeaderContainer({ color, headline,onEdit }) {
+export default function HeaderContainer({ color, headline,onEdit, onDelete }) {
   return (
     <Header color={color}>
       <Headline>{headline}</Headline>
         <IconGroup>
             <EditIcon onEdit={onEdit} />
+            <DeleteIcon onDelete={onDelete} />
         </IconGroup>
     </Header>
   );

@@ -3,11 +3,12 @@ import useSWR from "swr";
 import CollectionList from "@/components/Collection/CollectionList";
 
 export default function HomePage() {
-    const {
-        data: flashcards,
-        isLoading: loadingFlashcards,
-        error: errorFlashcards,
-    } = useSWR(`/api/flashcards`);
+  const {
+    data: flashcards,
+    isLoading: loadingFlashcards,
+    error: errorFlashcards,
+    mutate: mutateFlashcards,
+  } = useSWR(`/api/flashcards`);
 
     const {
         data: collections,
