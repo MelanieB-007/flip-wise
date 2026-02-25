@@ -12,8 +12,15 @@ export default function Flashcard({
   color,
   question,
   answer,
+  onDelete,
 }) {
   const [isEditing, setIsEditing] = useState(false);
+
+  function handleDelete() {
+    if (window.confirm("Are you sure you want to delete this flashcard?")) {
+      onDelete();
+    }
+  }
 
     const [isShowingAnswer, setIsShowingAnswer] = useState(false);
     const [isFlipping, setIsFlipping] = useState(false);
@@ -48,6 +55,7 @@ export default function Flashcard({
         color={color}
         collection={collection}
         onEdit={() => setIsEditing(true)}
+        onDelete={handleDelete}
       />
       <FlashcardBody>
         {isShowingAnswer ? (
