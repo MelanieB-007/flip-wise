@@ -5,7 +5,7 @@ export default function Footer() {
     <StyledFooter>
       <p>© {new Date().getFullYear()} FlipWise — Learn smarter, flip faster.</p>
       <Developers>
-        Made by Melanie Busse, Hannah Capell & Roman Isbarn
+        Made by Melanie Busse, Hannah Capell & Ramon Isbarn
       </Developers>
     </StyledFooter>
   );

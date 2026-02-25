@@ -5,6 +5,8 @@ import { useState } from "react";
 
 export default function FlashcardList({ flashcards, collections, onDelete }) {
   const [showSuccess, setShowSuccess] = useState(false);
+import Collapsible from "@/components/Collapsible";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
   async function handleDelete(id) {
     await onDelete(id);
@@ -24,10 +26,15 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
 
   return (
     <FlashcardListContainer>
-      {showSuccess && (
-        <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
-      )}
-      <FlashcardButton collections={collections} />
+        {showSuccess && (
+            <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
+        )}
+        <FlashcardButton collections={collections} />
+      <Collapsible label="+ Add Flashcard">
+        {({ onClose }) => (
+          <FlashcardForm collections={collections} onClose={onClose} />
+        )}
+      </Collapsible>
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}

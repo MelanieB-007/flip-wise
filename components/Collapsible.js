@@ -1,23 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
-import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
-export default function FlashcardButton({ collections }) {
-  const [showForm, setShowForm] = useState(false);
-
-  if (showForm) {
-    return (
-      <FlashcardForm
-        collections={collections}
-        onClose={() => setShowForm(false)}
-      />
-    );
-  }
+export default function Collapsible({ label, children }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <ToggleButton onClick={() => setShowForm(true)}>
-      + Add Flashcard
-    </ToggleButton>
+    <>
+      {isOpen ? (
+        children({ onClose: () => setIsOpen(false) })
+      ) : (
+        <ToggleButton onClick={() => setIsOpen(true)}>{label}</ToggleButton>
+      )}
+    </>
   );
 }
 
