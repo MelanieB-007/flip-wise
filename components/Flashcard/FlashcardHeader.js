@@ -1,9 +1,17 @@
 import styled from "styled-components";
+import EditIcon from "../Icons/EditIcon";
 
-export default function FlashcardHeader({ color, collection }) {
+export default function FlashcardHeader({
+  color,
+  collection,
+  onEdit,
+}) {
   return (
     <Header color={color}>
       <Collection>{collection}</Collection>
+      <IconGroup>
+        <EditIcon onEdit={onEdit} />
+      </IconGroup>
     </Header>
   );
 }
@@ -22,4 +30,11 @@ const Collection = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 1;
+`;
+
+const IconGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
 `;

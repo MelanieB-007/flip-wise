@@ -2,20 +2,41 @@ import styled from "styled-components";
 import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
 import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { useState } from "react";
 
-export default function Flashcard({ collection, color, question, answer }) {
-  const [isShowingAnswer, setIsShowingAnswer] = useState(false);
-  const [isFlipping, setIsFlipping] = useState(false);
-  function flipFlashcard() {
-    setIsFlipping(true);
-    setTimeout(() => {
-      setIsShowingAnswer(!isShowingAnswer);
-    }, 100);
-    setTimeout(() => {
-      setIsFlipping(false);
-    }, 200);
+export default function Flashcard({
+  id,
+  collection,
+  collections,
+  color,
+  question,
+  answer,
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+
+    const [isShowingAnswer, setIsShowingAnswer] = useState(false);
+    const [isFlipping, setIsFlipping] = useState(false);
+    function flipFlashcard() {
+        setIsFlipping(true);
+        setTimeout(() => {
+            setIsShowingAnswer(!isShowingAnswer);
+        }, 100);
+        setTimeout(() => {
+            setIsFlipping(false);
+        }, 200);
+    }
+
+  if (isEditing) {
+    return (
+      <FlashcardForm
+        onClose={() => setIsEditing(false)}
+        initialData={{ id, collection, question, answer }}
+        collections={collections}
+      />
+    );
   }
+
   return (
     <CardContainer
       color={color}
@@ -26,8 +47,7 @@ export default function Flashcard({ collection, color, question, answer }) {
       <FlashcardHeader
         color={color}
         collection={collection}
-        onEdit={null}
-        onDelete={null}
+        onEdit={() => setIsEditing(true)}
       />
       <FlashcardBody>
         {isShowingAnswer ? (
