@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export default function ListContainer({ children }) {
+export default function ListContainer({children}) {
     return (
         <StyledListContainer>
-            { children }
+            {children}
         </StyledListContainer>
     );
 }
