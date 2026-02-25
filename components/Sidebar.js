@@ -1,6 +1,20 @@
 import styled from "styled-components";
 import Link from "next/link";
 import useSWR from "swr";
+import { AiOutlineHome } from "react-icons/ai";
+import { GiMicroscope, GiChemicalDrop, GiEarthAmerica, GiCalculator, GiAtom, GiCircuitry, GiPaintBrush, GiMusicalNotes } from "react-icons/gi";
+
+const navItems = [
+    { name: "Home", href: "/", icon: <AiOutlineHome /> },
+    { name: "Biology", href: "/collections/Biology", icon: <GiMicroscope /> },
+    { name: "Chemistry", href: "/collections/Chemistry", icon: <GiChemicalDrop /> },
+    { name: "Geography", href: "/collections/Geography", icon: <GiEarthAmerica /> },
+    { name: "Math", href: "/collections/Math", icon: <GiCalculator /> },
+    { name: "Physics", href: "/collections/Physics", icon: <GiAtom /> },
+    { name: "Technology", href: "/collections/Technology", icon: <GiCircuitry /> },
+    { name: "Art", href: "/collections/Art", icon: <GiPaintBrush /> },
+    { name: "Music", href: "/collections/Music", icon: <GiMusicalNotes /> },
+];
 
 export default function Sidebar() {
   const {
@@ -11,13 +25,19 @@ export default function Sidebar() {
       <StyledSidebar>
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/"><AiOutlineHome /> Home</Link>
           </li>
-          {collections.map((collection) => (
-              <li key={collection.name}>
-                <Link href={`/collections/${collection.name}`}>{collection.name}</Link>
-              </li>
-          ))}
+            {collections.map((collection) => {
+                const match = navItems.find((item) => item.name === collection.name);
+                return (
+                    <li key={collection.name}>
+                        <Link href={`/collections/${collection.name}`}>
+                            {match?.icon}
+                            {collection.name}
+                        </Link>
+                    </li>
+                );
+            })}
         </ul>
       </StyledSidebar>
   );
@@ -43,7 +63,9 @@ const StyledSidebar = styled.aside`
   }
 
   li a {
-    display: block;
+    display: flex;          
+    align-items: center;
+    gap: 10px;             
     color: #e0f7f4;
     text-decoration: none;
     font-size: 0.9rem;
