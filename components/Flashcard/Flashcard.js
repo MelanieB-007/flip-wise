@@ -56,7 +56,7 @@ export default function Flashcard({
     >
       <HeaderContainer
         color={color}
-        headline={collection.headline}
+        headline={collection}
         onEdit={() => setIsEditing(true)}
         onDelete={handleDelete}
       />

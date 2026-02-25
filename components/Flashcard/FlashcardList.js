@@ -3,6 +3,7 @@ import Collapsible from "@/components/Collapsible";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import ListContainer from "@/components/Card/ListContainer"
 import styled from "styled-components";
+import {useState} from "react";
 
 export default function FlashcardList({ flashcards, collections, onDelete }) {
   const [showSuccess, setShowSuccess] = useState(false);

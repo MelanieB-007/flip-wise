@@ -6,7 +6,9 @@ export default function CollectionList({flashcards, collections}) {
         <ListContainer>
             {collections.map((collection) => {
                 const count = flashcards.filter(flashcard => flashcard.collection === collection.name).length;
-                const countCorrectAnswer = flashcards.filter(flashcard => flashcard.isCorrectlyAnswered).length;
+                const countCorrectAnswer = flashcards.filter(
+                    flashcard => flashcard.collection === collection.name && flashcard.isCorrectlyAnswered
+                ).length;
                 return (
                     <CollectionCard
                         key={collection.name}
