@@ -36,7 +36,10 @@ export default function Flashcard({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isCorrectlyAnswered: "true", _id: id }),
+      body: JSON.stringify({
+        isCorrectlyAnswered: true,
+        _id: id,
+      }),
     });
     if (!response.ok) {
       console.error(response.status);
