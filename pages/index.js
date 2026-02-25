@@ -25,10 +25,16 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsWithColor = flashcards.map((flashcard) => {
-    const collection = collections.find((c) => c.name === flashcard.collection);
-    return { ...flashcard, color: collection?.color || "#CCC" };
-  });
+  const flashcardsWithColor = flashcards
+    .map((flashcard) => {
+      const collection = collections.find(
+        (c) => c.name === flashcard.collection
+      );
+      return { ...flashcard, color: collection?.color || "#CCC" };
+    })
+    .filter((flashcard) => {
+      return flashcard.isCorrectlyAnswered !== "true";
+    });
 
   return (
     <FlashcardList flashcards={flashcardsWithColor} collections={collections} />

@@ -9,7 +9,9 @@ export default function FlashcardAnswer({ answer }) {
   );
 }
 
-const AnswerSection = styled.div``;
+const AnswerSection = styled.div`
+  margin-top: 30px;
+`;
 
 const AnswerLabel = styled.span`
   font-size: 1rem;
