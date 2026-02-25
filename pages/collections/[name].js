@@ -31,12 +31,22 @@ export default function CollectionPae() {
     }
 
     async function handleDelete(id) {
-        await fetch(`/api/flashcards`, {
-            method: "DELETE",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({_id: id}),
-        });
-        mutateFlashcards();
+        try {
+            const response = await fetch("/api/flashcards", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ _id: id }),
+            });
+
+            if (!response.ok) {
+                console.error("Deleting flashcard failed:", response.statusText);
+                return;
+            }
+
+            mutateFlashcards();
+        } catch (error) {
+            console.error("Deleting failed:", error);
+        }
     }
 
     const filteredFlashcards = flashcards
