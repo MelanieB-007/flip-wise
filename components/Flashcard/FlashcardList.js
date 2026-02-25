@@ -1,12 +1,12 @@
-import Flashcard from "@/components/Flashcard/Flashcard";
 import styled from "styled-components";
-import FlashcardButton from "@/components/Flashcard/FlashcardButton";
 import { useState } from "react";
+
+import Flashcard from "@/components/Flashcard/Flashcard";
+import Collapsible from "@/components/Collapsible";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
 export default function FlashcardList({ flashcards, collections, onDelete }) {
   const [showSuccess, setShowSuccess] = useState(false);
-import Collapsible from "@/components/Collapsible";
-import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
   async function handleDelete(id) {
     await onDelete(id);
@@ -19,7 +19,11 @@ import FlashcardForm from "@/components/Flashcard/FlashcardForm";
       <EmptyContainer>
         <EmptyMessage>No flashcards yet!</EmptyMessage>
         <EmptySubtext>Start learning by adding your first card.</EmptySubtext>
-        <FlashcardButton collections={collections} />
+          <Collapsible label="+ Add Flashcard">
+              {({ onClose }) => (
+                  <FlashcardForm collections={collections} onClose={onClose} />
+              )}
+          </Collapsible>
       </EmptyContainer>
     );
   }
@@ -29,7 +33,6 @@ import FlashcardForm from "@/components/Flashcard/FlashcardForm";
         {showSuccess && (
             <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
         )}
-        <FlashcardButton collections={collections} />
       <Collapsible label="+ Add Flashcard">
         {({ onClose }) => (
           <FlashcardForm collections={collections} onClose={onClose} />
