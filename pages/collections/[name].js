@@ -1,6 +1,7 @@
 import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
 import {useRouter} from "next/router";
+import styled from 'styled-components';
 
 export default function CollectionPae() {
   const router = useRouter();
