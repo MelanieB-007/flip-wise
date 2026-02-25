@@ -7,44 +7,59 @@ import HeaderContainer from "@/components/Card/HeaderContainer";
 import CardContainer from "@/components/Card/CardContainer";
 import BodyContainer from "@/components/Card/BodyContainer";
 
-export default function Flashcard({collection, color, question, answer}) {
+export default function Flashcard({
+  id,
+  collection,
+  collections,
+  color,
+  question,
+  answer,
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+
     const [isShowingAnswer, setIsShowingAnswer] = useState(false);
     const [isFlipping, setIsFlipping] = useState(false);
-
     function flipFlashcard() {
         setIsFlipping(true);
-
         setTimeout(() => {
             setIsShowingAnswer(!isShowingAnswer);
         }, 100);
-
         setTimeout(() => {
             setIsFlipping(false);
         }, 200);
     }
 
+  if (isEditing) {
     return (
-        <FlashcardContainer
-            color={color}
-            onClick={flipFlashcard}
-            $isShowingAnswer={isShowingAnswer}
-            $isFlipping={isFlipping}
-        >
-            <HeaderContainer
-                color={color}
-                headline={collection}
-                onEdit={null}
-                onDelete={null}
-            />
-            <BodyContainer>
-                {isShowingAnswer ? (
-                    <FlashcardAnswer answer={answer}/>
-                ) : (
-                    <FlashcardQuestion question={question}/>
-                )}
-            </BodyContainer>
-        </FlashcardContainer>
+      <FlashcardForm
+        onClose={() => setIsEditing(false)}
+        initialData={{ id, collection, question, answer }}
+        collections={collections}
+      />
     );
+  }
+
+  return (
+    <FlashcardContainer
+      color={color}
+      onClick={flipFlashcard}
+      $isShowingAnswer={isShowingAnswer}
+      $isFlipping={isFlipping}
+    >
+      <HeaderContainer
+        color={color}
+        headline={headline}
+        onEdit={() => setIsEditing(true)}
+      />
+      <BodyContainer>
+        {isShowingAnswer ? (
+          <FlashcardAnswer answer={answer} />
+        ) : (
+          <FlashcardQuestion question={question} />
+        )}
+      </BodyContainer>
+    </FlashcardContainer>
+  );
 }
 
 const FlashcardContainer = styled(CardContainer)`
