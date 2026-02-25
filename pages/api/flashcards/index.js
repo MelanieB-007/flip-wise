@@ -42,4 +42,15 @@ export default async function handler(request, response) {
       response.status(500).json({ status: "error updating flashcard" });
     }
   }
+
+  if (request.method === "DELETE") {
+    try {
+      const flashcardData = request.body;
+      await Flashcard.findByIdAndDelete(flashcardData._id);
+      response.status(260).json("Place deleted");
+    } catch (error) {
+      console.log(error);
+      response.status(500).json({ status: "error deleting flashcard" });
+    }
+  }
 }

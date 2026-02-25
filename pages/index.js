@@ -1,11 +1,13 @@
-import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
+
+import CollectionList from "@/components/Collection/CollectionList";
 
 export default function HomePage() {
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
     error: errorFlashcards,
+    mutate: mutateFlashcards,
   } = useSWR(`/api/flashcards`);
 
   const {
@@ -37,6 +39,9 @@ export default function HomePage() {
     });
 
   return (
-    <FlashcardList flashcards={flashcardsWithColor} collections={collections} />
+    <CollectionList
+      flashcards={flashcardsWithColor}
+      collections={collections}
+    />
   );
 }
