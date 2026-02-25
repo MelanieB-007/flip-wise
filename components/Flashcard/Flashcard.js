@@ -6,6 +6,7 @@ import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
 import HeaderContainer from "@/components/Card/HeaderContainer";
 import CardContainer from "@/components/Card/CardContainer";
 import BodyContainer from "@/components/Card/BodyContainer";
+import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
 export default function Flashcard({
   id,
@@ -48,7 +49,7 @@ export default function Flashcard({
     >
       <HeaderContainer
         color={color}
-        headline={headline}
+        headline={collection.headline}
         onEdit={() => setIsEditing(true)}
       />
       <BodyContainer>
