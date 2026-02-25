@@ -1,9 +1,7 @@
-import styled from "styled-components";
-import { useState } from "react";
-
 import Flashcard from "@/components/Flashcard/Flashcard";
 import Collapsible from "@/components/Collapsible";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
+import ListContainer from "@/components/Card/ListContainer"
 
 export default function FlashcardList({ flashcards, collections, onDelete }) {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -29,7 +27,7 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
   }
 
   return (
-    <FlashcardListContainer>
+    <ListContainer>
         {showSuccess && (
             <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
         )}
@@ -50,25 +48,9 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
           onDelete={() => handleDelete(flashcard._id)}
         />
       ))}
-    </FlashcardListContainer>
+    </ListContainer>
   );
 }
-
-const FlashcardListContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  padding: 2rem;
-  justify-content: flex-start;
-  align-content: flex-start;
-  max-width: 900px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-  }
-`;
 
 const SuccessMessage = styled.div`
   grid-column: 1 / -1;

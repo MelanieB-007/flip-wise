@@ -1,34 +1,42 @@
 [
   {
     "name": "Biology",
-    "color": "#8B9467"
+    "color": "#8B9467",
+    "icon": "GiMicroscope"
   },
   {
     "name": "Chemistry",
-    "color": "#FFC107"
+    "color": "#FFC107",
+    "icon": "GiChemicalDrop"
   },
   {
     "name": "Geography",
-    "color": "#34A85A"
+    "color": "#34A85A",
+    "icon": "GiEarthAmerica"
   },
   {
     "name": "Math",
-    "color": "#4B5154"
+    "color": "#4B5154",
+    "icon": "GiCalculator"
   },
   {
     "name": "Physics",
-    "color": "#FFA07A"
+    "color": "#FFA07A",
+    "icon": "GiAtom"
   },
   {
     "name": "Technology",
-    "color": "#456778"
+    "color": "#456778",
+    "icon": "GiCircuitry"
   },
   {
     "name": "Art",
-    "color": "#8F8E94"
+    "color": "#8F8E94",
+    "icon": "GiPaintBrush"
   },
   {
     "name": "Music",
-    "color": "#FF69B4"
+    "color": "#FF69B4",
+    "icon": "GiMusicalNotes"
   }
 ]

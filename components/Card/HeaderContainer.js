@@ -2,19 +2,14 @@ import styled from "styled-components";
 import EditIcon from "../Icons/EditIcon";
 import DeleteIcon from "../Icons/DeleteIcon";
 
-export default function FlashcardHeader({
-  color,
-  collection,
-  onEdit,
-  onDelete,
-}) {
+export default function HeaderContainer({ color, headline,onEdit, onDelete }) {
   return (
     <Header color={color}>
-      <Collection>{collection}</Collection>
-      <IconGroup>
-        <EditIcon onEdit={onEdit} />
-        <DeleteIcon onDelete={onDelete} />
-      </IconGroup>
+      <Headline>{headline}</Headline>
+        <IconGroup>
+            <EditIcon onEdit={onEdit} />
+            <DeleteIcon onDelete={onDelete} />
+        </IconGroup>
     </Header>
   );
 }
@@ -28,7 +23,7 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
-const Collection = styled.div`
+const Headline = styled.div`
   color: white;
   font-size: 1.8rem;
   font-weight: bold;

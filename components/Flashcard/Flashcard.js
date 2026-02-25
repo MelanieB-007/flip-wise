@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import {useState} from "react";
+
 import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
-import FlashcardHeader from "@/components/Flashcard/FlashcardHeader";
+import HeaderContainer from "@/components/Card/HeaderContainer";
+import CardContainer from "@/components/Card/CardContainer";
+import BodyContainer from "@/components/Card/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
-import { useState } from "react";
 
 export default function Flashcard({
   id,
@@ -45,53 +48,33 @@ export default function Flashcard({
   }
 
   return (
-    <CardContainer
+    <FlashcardContainer
       color={color}
       onClick={flipFlashcard}
       $isShowingAnswer={isShowingAnswer}
       $isFlipping={isFlipping}
     >
-      <FlashcardHeader
+      <HeaderContainer
         color={color}
-        collection={collection}
+        headline={collection.headline}
         onEdit={() => setIsEditing(true)}
         onDelete={handleDelete}
       />
-      <FlashcardBody>
+      <BodyContainer>
         {isShowingAnswer ? (
           <FlashcardAnswer answer={answer} />
         ) : (
           <FlashcardQuestion question={question} />
         )}
-      </FlashcardBody>
-    </CardContainer>
+      </BodyContainer>
+    </FlashcardContainer>
   );
 }
 
-const CardContainer = styled.button`
-  border: 3px solid ${({ color }) => color};
-  border-radius: 20px;
-  width: 100%;
-  overflow: clip;
-  font-family: "Caveat", cursive;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  background-color: ${({ $isShowingAnswer }) =>
-    $isShowingAnswer ? ({ color }) => color : "#fff"};
-  padding: 0;
-  height: 300px;
-  overflow-clip-margin: 1px;
-  transform: ${({ $isFlipping }) =>
-    $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
+const FlashcardContainer = styled(CardContainer)`
+  background-color: ${({$isShowingAnswer}) =>
+          $isShowingAnswer ? ({color}) => color : "#fff"};
+  transform: ${({$isFlipping}) =>
+          $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
   transition: transform 0.2s ease-in-out;
-`;
-
-const FlashcardBody = styled.div`
-  padding: 1.5rem 1.8rem;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
