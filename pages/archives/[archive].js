@@ -3,9 +3,9 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import Headline from "@/components/Headline/Headline";
 
-export default function CollectionPae() {
+export default function CollectionArchive() {
   const router = useRouter();
-  const { name } = router.query;
+  const { archive } = router.query;
 
   const {
     data: flashcards,
@@ -30,33 +30,28 @@ export default function CollectionPae() {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsFromCollection = flashcards
-    .filter((collectionFlashcards) => collectionFlashcards.collection === name)
+  const filteredFlashcards = flashcards
+    .filter(
+      (collectionFlashcards) => collectionFlashcards.collection === archive
+    )
     .map((flashcard) => {
       const collection = collections.find(
         (c) => c.name === flashcard.collection
       );
       return { ...flashcard, color: collection?.color || "#CCC" };
+    })
+    .filter((flashcard) => {
+      return flashcard.isCorrectlyAnswered === "true";
     });
-
-  const filteredFlashcards = flashcardsFromCollection.filter((flashcard) => {
-    return flashcard.isCorrectlyAnswered !== "true";
-  });
-
-  const isEmpty = flashcardsFromCollection.length === 0 ? true : false;
 
   return (
     <>
-      <Headline
-        headline={name}
-        link={`/archives/${name}`}
-        tooltip={`to the ${name} archive`}
-      ></Headline>
+      <Headline headline={`${archive} Archive`}></Headline>
 
       <FlashcardList
         flashcards={filteredFlashcards}
         collections={collections}
-        isEmpty={isEmpty}
+        isArchive={true}
       />
     </>
   );

@@ -36,7 +36,6 @@ export default async function handler(request, response) {
         flashcardData
       );
       response.status(200).json(flashcardToUpdate);
-      console.log(request.body);
     } catch (error) {
       console.log(error);
       response.status(500).json({ status: "error updating flashcard" });
