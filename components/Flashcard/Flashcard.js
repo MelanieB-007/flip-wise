@@ -9,6 +9,7 @@ import BodyContainer from "@/components/Card/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
 import useSWR from "swr";
+import CardWrapper from "../Card/CardWrapper";
 
 export default function Flashcard({
   id,
@@ -70,7 +71,7 @@ export default function Flashcard({
   }
 
   return (
-    <CardWrapper color={color} $isFlipping={isFlipping}>
+    <CardWrapper color={color} isFlipping={isFlipping}>
       <FlashcardContainer onClick={flipFlashcard}>
         <HeaderContainer
           color={color}
@@ -112,20 +113,6 @@ export default function Flashcard({
 const FlashcardContainer = styled(CardContainer)`
   background-color: ${({ $isShowingAnswer }) =>
     $isShowingAnswer ? ({ color }) => color : "#fff"};
-  transform: ${({ $isFlipping }) =>
-    $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
-  transition: transform 0.2s ease-in-out;
-`;
-
-const CardWrapper = styled.div`
-  border: 3px solid ${({ color }) => color};
-  border-radius: 20px;
-  overflow: clip;
-  font-family: "Caveat", cursive;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 0;
-  height: 300px;
-  overflow-clip-margin: 1px;
   transform: ${({ $isFlipping }) =>
     $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
   transition: transform 0.2s ease-in-out;
