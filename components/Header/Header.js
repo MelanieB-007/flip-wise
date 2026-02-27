@@ -11,7 +11,6 @@ export default function Header() {
 
   const triggerFlip = () => {
     setFlipKey((prev) => prev + 1);
-    router.push('/');
   };
 
   useEffect(() => {
@@ -23,9 +22,13 @@ export default function Header() {
     return () => clearTimeout(initial);
   }, []);
 
+  function goToHomepage(){
+    router.push('/');
+  }
+
   return (
     <StyledHeader>
-      <FlipWiseLogo flipKey={flipKey} onClick={triggerFlip} />
+      <FlipWiseLogo flipKey={flipKey} onClick={goToHomepage} />
     </StyledHeader>
   );
 }
