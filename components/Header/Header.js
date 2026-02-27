@@ -1,12 +1,17 @@
+'use client'
+
 import styled from "styled-components";
 import FlipWiseLogo from "@/components/Header/FlipWiseLogo";
 import { useEffect, useState } from "react";
+import {useRouter} from "next/router";
 
 export default function Header() {
   const [flipKey, setFlipKey] = useState(0);
+  const router = useRouter();
 
   const triggerFlip = () => {
     setFlipKey((prev) => prev + 1);
+    router.push('/');
   };
 
   useEffect(() => {
