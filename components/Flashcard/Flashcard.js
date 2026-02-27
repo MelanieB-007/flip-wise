@@ -3,9 +3,9 @@ import {useState} from "react";
 
 import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
-import HeaderContainer from "@/components/Card/HeaderContainer";
-import CardContainer from "@/components/Card/CardContainer";
-import BodyContainer from "@/components/Card/BodyContainer";
+import HeaderContainer from "@/components/Container/HeaderContainer";
+import CardContainer from "@/components/Container/CardContainer";
+import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 
 export default function Flashcard({

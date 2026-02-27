@@ -1,6 +1,6 @@
-import HeaderContainer from "@/components/Card/HeaderContainer";
-import CardContainer from "@/components/Card/CardContainer";
-import BodyContainer from "@/components/Card/BodyContainer";
+import HeaderContainer from "@/components/Container/HeaderContainer";
+import CardContainer from "@/components/Container/CardContainer";
+import BodyContainer from "@/components/Container/BodyContainer";
 import styled from "styled-components";
 import {useRouter} from "next/router";
 

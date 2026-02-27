@@ -1,4 +1,4 @@
-import ListContainer from "@/components/Card/ListContainer";
+import ListContainer from "@/components/Container/ListContainer";
 import CollectionCard from "@/components/Collection/CollectionCard";
 
 export default function CollectionList({flashcards, collections}) {
