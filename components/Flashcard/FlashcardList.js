@@ -5,7 +5,13 @@ import ListContainer from "@/components/Card/ListContainer";
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function FlashcardList({ flashcards, collections, onDelete }) {
+export default function FlashcardList({
+  flashcards,
+  collections,
+  onDelete,
+  isArchive,
+  isEmpty,
+}) {
   const [showSuccess, setShowSuccess] = useState(false);
 
   async function handleDelete(id) {
@@ -14,7 +20,7 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
     setTimeout(() => setShowSuccess(false), 3000);
   }
 
-  if (flashcards.length === 0) {
+  if (isEmpty) {
     return (
       <EmptyContainer>
         <EmptyMessage>No flashcards yet!</EmptyMessage>
@@ -24,6 +30,18 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
             <FlashcardForm collections={collections} onClose={onClose} />
           )}
         </Collapsible>
+      </EmptyContainer>
+    );
+  }
+
+  if (flashcards <= 0) {
+    return (
+      <EmptyContainer>
+        <EmptyMessage>
+          {isArchive
+            ? "No flashcards have been correctly answered yet!"
+            : "All flashcards have been correctly answered!"}
+        </EmptyMessage>
       </EmptyContainer>
     );
   }
@@ -48,6 +66,7 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
           question={flashcard.question}
           answer={flashcard.answer}
           onDelete={() => handleDelete(flashcard._id)}
+          isArchive={isArchive}
         />
       ))}
     </ListContainer>
