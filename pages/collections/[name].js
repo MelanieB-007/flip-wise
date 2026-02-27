@@ -14,6 +14,7 @@ export default function CollectionPae() {
     data: flashcards,
     isLoading: loadingFlashcards,
     error: errorFlashcards,
+    mutate: mutateFlashcards,
   } = useSWR(`/api/flashcards`);
 
   const {
@@ -31,6 +32,25 @@ export default function CollectionPae() {
 
   if (isLoading || !flashcards || !collections) {
     return <h1>Loading...</h1>;
+  }
+
+  async function handleDelete(id) {
+    try {
+      const response = await fetch("/api/flashcards", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _id: id }),
+      });
+
+      if (!response.ok) {
+        console.error("Deleting flashcard failed:", response.statusText);
+        return;
+      }
+
+      mutateFlashcards();
+    } catch (error) {
+      console.error("Deleting failed:", error);
+    }
   }
 
   const flashcardsFromCollection = flashcards
@@ -56,6 +76,7 @@ export default function CollectionPae() {
         flashcards={filteredFlashcards}
         collections={collections}
         isEmpty={isEmpty}
+        onDelete={handleDelete}
       />
       <StyledLink href={`/archives/${name}`} title={`to the ${name} archive`}>
         <StyledIcon />
