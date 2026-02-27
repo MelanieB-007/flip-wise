@@ -5,7 +5,13 @@ import ListContainer from "@/components/Container/ListContainer"
 import styled from "styled-components";
 import {useState} from "react";
 
-export default function FlashcardList({ flashcards, collections, onDelete }) {
+export default function FlashcardList({
+  flashcards,
+  collections,
+  onDelete,
+  isArchive,
+  isEmpty,
+}) {
   const [showSuccess, setShowSuccess] = useState(false);
 
   async function handleDelete(id) {
@@ -14,25 +20,37 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
     setTimeout(() => setShowSuccess(false), 3000);
   }
 
-  if (flashcards.length === 0) {
+  if (isEmpty) {
     return (
       <EmptyContainer>
         <EmptyMessage>No flashcards yet!</EmptyMessage>
         <EmptySubtext>Start learning by adding your first card.</EmptySubtext>
-          <Collapsible label="+ Add Flashcard">
-              {({ onClose }) => (
-                  <FlashcardForm collections={collections} onClose={onClose} />
-              )}
-          </Collapsible>
+        <Collapsible label="+ Add Flashcard">
+          {({ onClose }) => (
+            <FlashcardForm collections={collections} onClose={onClose} />
+          )}
+        </Collapsible>
+      </EmptyContainer>
+    );
+  }
+
+  if (flashcards <= 0) {
+    return (
+      <EmptyContainer>
+        <EmptyMessage>
+          {isArchive
+            ? "No flashcards have been correctly answered yet!"
+            : "All flashcards have been correctly answered!"}
+        </EmptyMessage>
       </EmptyContainer>
     );
   }
 
   return (
     <ListContainer>
-        {showSuccess && (
-            <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
-        )}
+      {showSuccess && (
+        <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
+      )}
       <Collapsible label="+ Add Flashcard">
         {({ onClose }) => (
           <FlashcardForm collections={collections} onClose={onClose} />
@@ -48,6 +66,7 @@ export default function FlashcardList({ flashcards, collections, onDelete }) {
           question={flashcard.question}
           answer={flashcard.answer}
           onDelete={() => handleDelete(flashcard._id)}
+          isArchive={isArchive}
         />
       ))}
     </ListContainer>

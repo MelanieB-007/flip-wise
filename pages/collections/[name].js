@@ -1,5 +1,10 @@
 import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
+import { useRouter } from "next/router";
+import Headline from "@/components/Headline/Headline";
+import styled from "styled-components";
+import Link from "next/link";
+import { AiOutlineContainer } from "react-icons/ai";
 import {useRouter} from "next/router";
 
 export default function CollectionPae() {
@@ -49,14 +54,56 @@ export default function CollectionPae() {
         }
     }
 
-    const filteredFlashcards = flashcards
-        .filter(collectionFlashcards => collectionFlashcards.collection === name)
+    const flashcardsFromCollection = flashcards
+        .filter((collectionFlashcards) => collectionFlashcards.collection === name)
         .map((flashcard) => {
-            const collection = collections.find((c) => c.name === flashcard.collection);
-            return {...flashcard, color: collection?.color || "#CCC"};
+            const collection = collections.find(
+                (c) => c.name === flashcard.collection
+            );
+            return { ...flashcard, color: collection?.color || "#CCC" };
         });
 
-    return (
-        <FlashcardList flashcards={filteredFlashcards} collections={collections} onDelete={handleDelete}/>
-    );
+  const filteredFlashcards = flashcardsFromCollection.filter((flashcard) => {
+    return flashcard.isCorrectlyAnswered !== "true";
+  });
+
+  const isEmpty = flashcardsFromCollection.length === 0 ? true : false;
+
+  return (
+    <>
+      <Headline headline={name}></Headline>
+
+      <FlashcardList
+        flashcards={filteredFlashcards}
+        collections={collections}
+        isEmpty={isEmpty}
+      />
+      <StyledLink href={`/archives/${name}`} title={`to the ${name} archive`}>
+        <StyledIcon />
+        <p>To the archive</p>
+      </StyledLink>
+    </>
+  );
 }
+
+const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  font-size: 20px;
+`;
+
+const StyledIcon = styled(AiOutlineContainer)`
+  width: 100px;
+  height: 100px;
+  background-color: #00757f;
+  border-radius: 99px;
+  padding: 20px;
+  fill: #fff;
+  &:hover {
+    background-color: #009ba8;
+  }
+`;

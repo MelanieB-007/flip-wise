@@ -1,13 +1,16 @@
+import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
+import { useRouter } from "next/router";
+import Headline from "@/components/Headline/Headline";
 
-import CollectionList from "@/components/Collection/CollectionList";
+export default function CollectionArchive() {
+  const router = useRouter();
+  const { archive } = router.query;
 
-export default function HomePage() {
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
     error: errorFlashcards,
-    mutate: mutateFlashcards,
   } = useSWR(`/api/flashcards`);
 
   const {
@@ -27,7 +30,10 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsWithColor = flashcards
+  const filteredFlashcards = flashcards
+    .filter(
+      (collectionFlashcards) => collectionFlashcards.collection === archive
+    )
     .map((flashcard) => {
       const collection = collections.find(
         (c) => c.name === flashcard.collection
@@ -35,13 +41,18 @@ export default function HomePage() {
       return { ...flashcard, color: collection?.color || "#CCC" };
     })
     .filter((flashcard) => {
-      return flashcard.isCorrectlyAnswered !== "true";
+      return flashcard.isCorrectlyAnswered === "true";
     });
 
   return (
-    <CollectionList
-      flashcards={flashcardsWithColor}
-      collections={collections}
-    />
+    <>
+      <Headline headline={`${archive} Archive`}></Headline>
+
+      <FlashcardList
+        flashcards={filteredFlashcards}
+        collections={collections}
+        isArchive={true}
+      />
+    </>
   );
 }
