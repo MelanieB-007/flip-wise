@@ -14,11 +14,15 @@ export async function deleteFlashcard(id) {
   await dbDelete(`${API_FLASHCARDS}/${id}`, "flashcard");
 }
 
-export function getFlashcardsFromCollection(flashcards, collections, name) {
+export function getFlashcardsWithColorFromCollection(flashcards, collections, name) {
   return addColorToFlashcards(
     flashcards.filter((flashcard) => flashcard.collection === name),
     collections
   );
+}
+
+export function getFlashcardsFromCollection(flashcards, name) {
+  return flashcards.filter((flashcard) => flashcard.collection === name);
 }
 
 export function getUnansweredFlashcards(flashcards) {

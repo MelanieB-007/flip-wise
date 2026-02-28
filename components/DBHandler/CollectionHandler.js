@@ -1,6 +1,5 @@
 import {
-  getAnsweredFlashcards,
-  getFlashcardsFromCollection,
+  getAnsweredFlashcards, getFlashcardsFromCollection
 } from "@/components/DBHandler/FlashcardHandler";
 
 export const API_COLLECTIONS = "api/collections";
