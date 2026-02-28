@@ -8,8 +8,8 @@ import CardContainer from "@/components/Container/CardContainer";
 import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
-import useSWR from "swr";
 import CardWrapper from "../Container/CardWrapper";
+import { updateFlashcard } from "@/components/DBHandler/FlashcardHandler";
 
 export default function Flashcard({
   id,
@@ -24,7 +24,6 @@ export default function Flashcard({
   const [isEditing, setIsEditing] = useState(false);
   const [isShowingAnswer, setIsShowingAnswer] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
-  const { mutate } = useSWR("/api/flashcards");
 
   function flipFlashcard() {
     setIsFlipping(true);
@@ -43,21 +42,7 @@ export default function Flashcard({
   }
 
   async function setIsAnswered(value) {
-    const response = await fetch("/api/flashcards", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        isCorrectlyAnswered: value,
-        _id: id,
-      }),
-    });
-    if (!response.ok) {
-      console.error(response.status);
-      return;
-    }
-    mutate();
+    await updateFlashcard({ isCorrectlyAnswered: value }, null, id);
   }
 
   if (isEditing) {
@@ -94,6 +79,7 @@ export default function Flashcard({
           )}
         </BodyContainer>
       </FlashcardContainer>
+
       {isArchive ? (
         <ButtonCorrectlyAnswered
           onClick={() => setIsAnswered(false)}

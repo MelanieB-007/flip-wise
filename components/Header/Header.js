@@ -1,5 +1,3 @@
-'use client'
-
 import styled from "styled-components";
 import FlipWiseLogo from "@/components/Header/FlipWiseLogo";
 import { useEffect, useState } from "react";

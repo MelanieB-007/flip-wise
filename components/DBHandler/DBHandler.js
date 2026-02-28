@@ -41,10 +41,10 @@ export async function dbUpdate(text, data, api, onClose){
     console.error(`Error updating: `, error);
   }
 
-  onClose();
+  if(onClose) onClose();
 }
 
-export async function dbDelete(api, text, onClose){
+export async function dbDelete(api, text){
   try {
     const response = await fetch(api, {
       method: "DELETE"
@@ -59,6 +59,4 @@ export async function dbDelete(api, text, onClose){
   } catch (error) {
     console.error("Deleting failed:", error);
   }
-
-  onClose();
 }

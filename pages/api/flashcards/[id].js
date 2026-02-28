@@ -15,12 +15,15 @@ export default async function handler(request, response) {
       );
 
       if (!flashcardToUpdate) {
-        return response.status(404).json({ status: "Flashcard not found" });
+        response.status(404).json({ status: "Flashcard not found" });
+        return;
       }
 
-      return response.status(200).json(flashcardToUpdate);
+      response.status(200).json(flashcardToUpdate);
+      return;
     } catch (error) {
-      return response.status(500).json({ status: "error updating flashcard" });
+      response.status(500).json({ status: "error updating flashcard" });
+      return;
     }
   }
 
@@ -29,16 +32,18 @@ export default async function handler(request, response) {
       const deleted = await Flashcard.findByIdAndDelete(id);
 
       if (!deleted) {
-        return response.status(404).json({ status: "Flashcard not found" });
+        response.status(404).json({ status: "Flashcard not found" });
+        return;
       }
 
-      return response.status(200).json("Flashcard deleted");
+      response.status(200).json("Flashcard deleted");
+      return;
     } catch (error) {
-      return response.status(500).json({ status: "error deleting flashcard" });
+      response.status(500).json({ status: "error deleting flashcard" });
+      return;
     }
   }
 
   response.setHeader("Allow", ["PUT", "DELETE"]);
-  return response.status(405).end(`Method ${request.method} not allowed`);
-
+  response.status(405).end(`Method ${request.method} not allowed`);
 }

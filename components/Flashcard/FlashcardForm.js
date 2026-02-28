@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import useSWR from "swr";
 import { StyledButton } from "/components/Button";
 import { addFlashcard, updateFlashcard } from "@/components/DBHandler/FlashcardHandler";
 

@@ -5,7 +5,12 @@ import Headline from "@/components/Headline/Headline";
 import styled from "styled-components";
 import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
-import { dbDelete } from "@/components/DBHandler/DBHandler";
+
+import {
+  deleteFlashcard,
+  getFlashcardsFromCollection,
+  getUnansweredFlashcards,
+} from "@/components/DBHandler/FlashcardHandler";
 
 export default function CollectionPage() {
   const router = useRouter();
@@ -34,23 +39,8 @@ export default function CollectionPage() {
     return <h1>Loading...</h1>;
   }
 
-  async function handleDelete(id) {
-    await dbDelete(`/api/flashcards/${id}`, "flashcard");
-  }
-
-  const flashcardsFromCollection = flashcards
-    .filter((collectionFlashcards) => collectionFlashcards.collection === name)
-    .map((flashcard) => {
-      const collection = collections.find(
-        (c) => c.name === flashcard.collection,
-      );
-      return { ...flashcard, color: collection?.color || "#CCC" };
-    });
-
-  const filteredFlashcards = flashcardsFromCollection.filter((flashcard) => {
-    return flashcard.isCorrectlyAnswered !== "true";
-  });
-
+  const flashcardsFromCollection = getFlashcardsFromCollection(flashcards, collections, name);
+  const filteredFlashcards = getUnansweredFlashcards(flashcardsFromCollection);
   const isEmpty = flashcardsFromCollection.length === 0;
 
   return (
@@ -60,7 +50,7 @@ export default function CollectionPage() {
       <FlashcardList
         flashcards={filteredFlashcards}
         collections={collections}
-        onDelete={handleDelete}
+        onDelete={deleteFlashcard}
         isEmpty={isEmpty}
       />
       <StyledLink href={`/archives/${name}`} title={`to the ${name} archive`}>
