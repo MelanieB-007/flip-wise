@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
 
-export default function CollectionPae() {
+export default function CollectionPage() {
     const router = useRouter();
     const {name} = router.query;
 
