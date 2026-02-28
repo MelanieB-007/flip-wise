@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {StyledButton} from "/components/Button";
 import {addFlashcard, updateFlashcard} from "@/components/DBHandler/FlashcardHandler";
 import HeaderContainer from "@/components/Container/HeaderContainer";
-import CardContainer from "@/components/Container/CardContainer";
 import BodyContainer from "@/components/Container/BodyContainer";
 import FormContainer from "@/components/Container/FormContainer";
 
