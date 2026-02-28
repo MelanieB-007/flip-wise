@@ -18,9 +18,9 @@ export default async function handler(request, response) {
         return response.status(404).json({ status: "Flashcard not found" });
       }
 
-      response.status(200).json(flashcardToUpdate);
+      return response.status(200).json(flashcardToUpdate);
     } catch (error) {
-      response.status(500).json({ status: "error updating flashcard" });
+      return response.status(500).json({ status: "error updating flashcard" });
     }
   }
 
@@ -29,12 +29,12 @@ export default async function handler(request, response) {
       const deleted = await Flashcard.findByIdAndDelete(id);
 
       if (!deleted) {
-        return response.status(404).json({ status: "KaFlashcard not found" });
+        return response.status(404).json({ status: "Flashcard not found" });
       }
 
-      response.status(200).json("Flashcard deleted");
+      return response.status(200).json("Flashcard deleted");
     } catch (error) {
-      response.status(500).json({ status: "error deleting flashcard" });
+      return response.status(500).json({ status: "error deleting flashcard" });
     }
   }
 

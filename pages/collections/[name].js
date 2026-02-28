@@ -5,68 +5,53 @@ import Headline from "@/components/Headline/Headline";
 import styled from "styled-components";
 import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
+import { dbDelete } from "@/components/DBHandler/DBHandler";
 
 export default function CollectionPage() {
-    const router = useRouter();
-    const {name} = router.query;
+  const router = useRouter();
+  const { name } = router.query;
 
-    const {
-        data: flashcards,
-        isLoading: loadingFlashcards,
-        error: errorFlashcards,
-        mutate: mutateFlashcards,
-    } = useSWR(`/api/flashcards`);
+  const {
+    data: flashcards,
+    isLoading: loadingFlashcards,
+    error: errorFlashcards,
+  } = useSWR(`/api/flashcards`);
 
-    const {
-        data: collections,
-        isLoading: loadingCollections,
-        error: errorCollections,
-    } = useSWR(`/api/collections`);
+  const {
+    data: collections,
+    isLoading: loadingCollections,
+    error: errorCollections,
+  } = useSWR(`/api/collections`);
 
-    const error = errorFlashcards || errorCollections;
-    const isLoading = loadingFlashcards || loadingCollections;
+  const error = errorFlashcards || errorCollections;
+  const isLoading = loadingFlashcards || loadingCollections;
 
-    if (error) {
-        return <div>Fehler beim Laden: {error.message} (Retry?)</div>;
-    }
+  if (error) {
+    return <div>Fehler beim Laden: {error.message} (Retry?)</div>;
+  }
 
-    if (isLoading || !flashcards || !collections) {
-        return <h1>Loading...</h1>;
-    }
+  if (isLoading || !flashcards || !collections) {
+    return <h1>Loading...</h1>;
+  }
 
-    async function handleDelete(id) {
-        try {
-            const response = await fetch("/api/flashcards", {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ _id: id }),
-            });
+  async function handleDelete(id) {
+    await dbDelete(`/api/flashcards/${id}`, "flashcard");
+  }
 
-            if (!response.ok) {
-                console.error("Deleting flashcard failed:", response.statusText);
-                return;
-            }
-
-            mutateFlashcards();
-        } catch (error) {
-            console.error("Deleting failed:", error);
-        }
-    }
-
-    const flashcardsFromCollection = flashcards
-        .filter((collectionFlashcards) => collectionFlashcards.collection === name)
-        .map((flashcard) => {
-            const collection = collections.find(
-                (c) => c.name === flashcard.collection
-            );
-            return { ...flashcard, color: collection?.color || "#CCC" };
-        });
+  const flashcardsFromCollection = flashcards
+    .filter((collectionFlashcards) => collectionFlashcards.collection === name)
+    .map((flashcard) => {
+      const collection = collections.find(
+        (c) => c.name === flashcard.collection,
+      );
+      return { ...flashcard, color: collection?.color || "#CCC" };
+    });
 
   const filteredFlashcards = flashcardsFromCollection.filter((flashcard) => {
     return flashcard.isCorrectlyAnswered !== "true";
   });
 
-  const isEmpty = flashcardsFromCollection.length === 0 ? true : false;
+  const isEmpty = flashcardsFromCollection.length === 0;
 
   return (
     <>
@@ -75,6 +60,7 @@ export default function CollectionPage() {
       <FlashcardList
         flashcards={filteredFlashcards}
         collections={collections}
+        onDelete={handleDelete}
         isEmpty={isEmpty}
       />
       <StyledLink href={`/archives/${name}`} title={`to the ${name} archive`}>
@@ -102,6 +88,7 @@ const StyledIcon = styled(AiOutlineContainer)`
   border-radius: 99px;
   padding: 20px;
   fill: #fff;
+
   &:hover {
     background-color: #009ba8;
   }
