@@ -17,7 +17,7 @@ const StyledCardWrapper = styled.div`
   padding: 0;
   height: 300px;
   overflow-clip-margin: 1px;
-  transform: ${({ $isFlipping }) =>
-    $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
+  transform: ${({ $isFlipping }) => 
+      $isFlipping ? "rotateY(90deg)" : "none"};
   transition: transform 0.2s ease-in-out;
 `;

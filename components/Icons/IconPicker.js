@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import { BsMusicNote } from "react-icons/bs";
 import { MdMovie, MdLanguage, MdSportsSoccer } from "react-icons/md";
 import { FaReact } from "react-icons/fa";
@@ -46,6 +46,7 @@ export default function IconPicker({ value, onChange }) {
 const PickerContainer = styled.div`
   position: relative;
   width: 100%;
+  overflow: visible;
 `;
 
 const PickerButton = styled.button`
@@ -65,15 +66,16 @@ const PickerButton = styled.button`
 `;
 
 const OptionList = styled.div`
-  position: fixed;
-  top: 100%;
+  position: absolute;
+  bottom: 100%;
   left: 0;
-  width: 388px;
+  width: 100%;
   border: 2px solid #222;
   border-radius: 10px;
   background: #fff;
   z-index: 1000;
   overflow: hidden;
+  margin-bottom: 4px;
 `;
 
 const OptionItem = styled.div`
@@ -83,7 +85,7 @@ const OptionItem = styled.div`
   gap: 8px;
   cursor: pointer;
   font-family: "Nunito", sans-serif;
-  
+
   &:hover {
     background: #f0ede8;
   }
