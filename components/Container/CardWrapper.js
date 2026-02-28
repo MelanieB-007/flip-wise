@@ -11,7 +11,7 @@ export default function CardWrapper({ children, color, isFlipping }) {
 const StyledCardWrapper = styled.div`
   border: 3px solid ${({ color }) => color};
   border-radius: 20px;
-  overflow: clip;
+  overflow: hidden;
   font-family: "Caveat", cursive;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 0;

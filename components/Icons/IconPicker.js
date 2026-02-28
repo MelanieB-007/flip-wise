@@ -65,14 +65,14 @@ const PickerButton = styled.button`
 `;
 
 const OptionList = styled.div`
-  position: absolute;
+  position: fixed;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 388px;
   border: 2px solid #222;
   border-radius: 10px;
   background: #fff;
-  z-index: 100;
+  z-index: 1000;
   overflow: hidden;
 `;
 

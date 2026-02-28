@@ -15,12 +15,13 @@ export default function HeaderContainer({ color, headline,onEdit, onDelete }) {
 }
 
 const Header = styled.div`
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }) => color || "#267dc0"};
   padding: 0.8rem 1.2rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  border-radius: 17px 17px 0 0;
 `;
 
 const Headline = styled.div`

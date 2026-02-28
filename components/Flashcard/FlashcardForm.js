@@ -1,108 +1,88 @@
 import styled from "styled-components";
-import { StyledButton } from "/components/Button";
-import { addFlashcard, updateFlashcard } from "@/components/DBHandler/FlashcardHandler";
+import {StyledButton} from "/components/Button";
+import {addFlashcard, updateFlashcard} from "@/components/DBHandler/FlashcardHandler";
+import HeaderContainer from "@/components/Container/HeaderContainer";
+import CardContainer from "@/components/Container/CardContainer";
+import BodyContainer from "@/components/Container/BodyContainer";
+import FormContainer from "@/components/Container/FormContainer";
 
-export default function FlashcardForm({ collections, onClose, initialData = null }) {
-  const isEditMode = initialData !== null;
+export default function FlashcardForm({collections, onClose, initialData = null}) {
+    const isEditMode = initialData !== null;
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+    async function handleSubmit(event) {
+        event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData);
 
-    if (isEditMode) {
-      await updateFlashcard(data, onClose, initialData.id);
-    } else {
-      await addFlashcard(data, onClose);
+        if (isEditMode) {
+            await updateFlashcard(data, onClose, initialData.id);
+        } else {
+            await addFlashcard(data, onClose);
+        }
     }
-  }
-  return (<CardContainer>
-    <CardHeader>
-      <Headline>{isEditMode ? "Edit card" : "Add new card"}</Headline>
-    </CardHeader>
-    <CardBody>
-      <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="question">Question:</Label>
-          <Input
-            type="text"
-            id="question"
-            name="question"
-            placeholder="question"
-            defaultValue={initialData?.question ?? ""}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="answer">Answer:</Label>
-          <Input
-            type="text"
-            id="answer"
-            name="answer"
-            placeholder="answer"
-            defaultValue={initialData?.answer ?? ""}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="collection">Collection:</Label>
-          <SelectWrapper>
-            <Select
-              id="collection"
-              name="collection"
-              defaultValue={initialData?.collection ?? ""}
-              required
-            >
-              <option value="" disabled>
-                Please select a collection
-              </option>
-              {collections.map((collection) => (<option key={collection._id} value={collection.name}>
-                {collection.name}
-              </option>))}
-            </Select>
-          </SelectWrapper>
-        </FormGroup>
 
-        <Actions>
-          <ButtonSubmit type="submit">
-            {isEditMode ? "Save" : "Add"}
-          </ButtonSubmit>
-          <ButtonCancel type="button" onClick={onClose}>
-            Cancel
-          </ButtonCancel>
-        </Actions>
-      </form>
-    </CardBody>
-  </CardContainer>);
+    return (
+        <FormContainer>
+            <HeaderContainer
+                color="#267dc0"
+                headline={isEditMode ? "Edit card" : "Add new card"}
+            />
+            <BodyContainer>
+                <form onSubmit={handleSubmit}>
+                    <FormGroup>
+                        <Label htmlFor="question">Question:</Label>
+                        <Input
+                            type="text"
+                            id="question"
+                            name="question"
+                            placeholder="question"
+                            defaultValue={initialData?.question ?? ""}
+                            required
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="answer">Answer:</Label>
+                        <Input
+                            type="text"
+                            id="answer"
+                            name="answer"
+                            placeholder="answer"
+                            defaultValue={initialData?.answer ?? ""}
+                            required
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="collection">Collection:</Label>
+                        <SelectWrapper>
+                            <Select
+                                id="collection"
+                                name="collection"
+                                defaultValue={initialData?.collection ?? ""}
+                                required
+                            >
+                                <option value="" disabled>
+                                    Please select a collection
+                                </option>
+                                {collections.map((collection) => (<option key={collection._id} value={collection.name}>
+                                    {collection.name}
+                                </option>))}
+                            </Select>
+                        </SelectWrapper>
+                    </FormGroup>
+
+                    <Actions>
+                        <ButtonSubmit type="submit">
+                            {isEditMode ? "Save" : "Add"}
+                        </ButtonSubmit>
+                        <ButtonCancel type="button" onClick={onClose}>
+                            Cancel
+                        </ButtonCancel>
+                    </Actions>
+                </form>
+            </BodyContainer>
+        </FormContainer>);
 }
-
-const CardContainer = styled.div`
-  width: 100%;
-  max-width: 420px;
-  border: 3px solid #2d8c6e;
-  border-radius: 20px;
-  overflow: hidden;
-  font-family: "Caveat", cursive;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-`;
-
-const CardHeader = styled.div`
-  background-color: #2d8c6e;
-  padding: 0.8rem 1.2rem;
-`;
-
-const Headline = styled.div`
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
-  line-height: 1;
-`;
-
-const CardBody = styled.div`
-  background-color: white;
-  padding: 1.5rem 1.8rem;
-`;
 
 const FormGroup = styled.div`
   margin-bottom: 16px;

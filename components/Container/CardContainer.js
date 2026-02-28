@@ -8,7 +8,7 @@ export default function CardContainer({ children, className, ...props }) {
   );
 }
 
-const StyledCardContainer = styled.button`
+const StyledCardContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
