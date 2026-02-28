@@ -9,7 +9,7 @@ import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
 import useSWR from "swr";
-import CardWrapper from "../Card/CardWrapper";
+import CardWrapper from "../Container/CardWrapper";
 
 export default function Flashcard({
   id,
@@ -74,7 +74,6 @@ export default function Flashcard({
     <CardWrapper color={color} isFlipping={isFlipping}>
       <FlashcardContainer
           color={color}
-          onClick={flipFlashcard}
           $isShowingAnswer={isShowingAnswer}
           onClick={flipFlashcard}>
         <HeaderContainer

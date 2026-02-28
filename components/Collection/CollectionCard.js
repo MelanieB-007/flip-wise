@@ -3,7 +3,7 @@ import CardContainer from "@/components/Container/CardContainer";
 import BodyContainer from "@/components/Container/BodyContainer";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import CardWrapper from "../Card/CardWrapper";
+import CardWrapper from "../Container/CardWrapper";
 
 export default function CollectionCard({
   collection,

@@ -5,7 +5,6 @@ import Headline from "@/components/Headline/Headline";
 import styled from "styled-components";
 import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
-import {useRouter} from "next/router";
 
 export default function CollectionPae() {
     const router = useRouter();
