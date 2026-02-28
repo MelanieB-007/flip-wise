@@ -1,6 +1,4 @@
 import { mutate } from "swr";
-import { API_FLASHCARDS } from "@/components/DBHandler/FlashcardHandler";
-
 
 export async function dbInsert(text, data, api, onClose){
   try {
@@ -15,7 +13,7 @@ export async function dbInsert(text, data, api, onClose){
       return;
     }
 
-    await mutate(API_FLASHCARDS);
+    await mutate(api);
   } catch (error) {
     console.error(`Error creating:`, error);
   }
@@ -36,7 +34,7 @@ export async function dbUpdate(text, data, api, onClose){
       return;
     }
 
-    await mutate(API_FLASHCARDS);
+    await mutate(api);
   } catch (error) {
     console.error(`Error updating: `, error);
   }
@@ -55,7 +53,7 @@ export async function dbDelete(api, text){
       return;
     }
 
-    await mutate(API_FLASHCARDS);
+    await mutate(api);
   } catch (error) {
     console.error("Deleting failed:", error);
   }

@@ -103,7 +103,7 @@ const FlashcardContainer = styled(CardContainer)`
   background-color: ${({ $isShowingAnswer }) =>
     $isShowingAnswer ? ({ color }) => color : "#fff"};
   transform: ${({ $isFlipping }) =>
-    $isFlipping ? "rotateY(90deg)" : "rotateY(0)"};
+    $isFlipping ? "rotateY(90deg)" :"none"};
   transition: transform 0.2s ease-in-out;
 `;
 

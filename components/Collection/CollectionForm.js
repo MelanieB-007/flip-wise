@@ -5,8 +5,9 @@ import {useState} from "react";
 import HeaderContainer from "@/components/Container/HeaderContainer";
 import BodyContainer from "@/components/Container/BodyContainer";
 import FormContainer from "@/components/Container/FormContainer";
+import {addCollection} from "@/components/DBHandler/CollectionHandler";
 
-export default function CollectionForm() {
+export default function CollectionForm({onClose}) {
     const [selectedIcon, setSelectedIcon] = useState("");
     const [selectedColor, setSelectedColor] = useState("#000000");
 
@@ -15,6 +16,8 @@ export default function CollectionForm() {
 
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
+
+        await addCollection(data, onClose);
     }
 
     return (
