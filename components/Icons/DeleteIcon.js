@@ -2,7 +2,13 @@ import styled from "styled-components";
 
 export default function DeleteIcon({onDelete}) {
     return (
-        <IconButton onClick={onDelete} title="Delete" aria-label="Delete card">
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          title="Delete"
+          aria-label="Delete card">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
