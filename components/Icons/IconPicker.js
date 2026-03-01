@@ -1,16 +1,6 @@
 import {useState} from "react";
-import { BsMusicNote } from "react-icons/bs";
-import { MdMovie, MdLanguage, MdSportsSoccer } from "react-icons/md";
-import { FaReact } from "react-icons/fa";
 import styled from "styled-components";
-
-const ICONS = [
-    { name: "BsMusicNote", label: "Musik", Icon: BsMusicNote },
-    { name: "MdMovie", label: "Film", Icon: MdMovie },
-    { name: "FaReact", label: "React", Icon: FaReact },
-    { name: "MdLanguage", label: "Sprachen", Icon: MdLanguage },
-    { name: "MdSportsSoccer", label: "Sport", Icon: MdSportsSoccer },
-];
+import {ICONS} from "@/components/Icons/giIcons";
 
 export default function IconPicker({ value, onChange }) {
     const [isOpen, setIsOpen] = useState(false);
