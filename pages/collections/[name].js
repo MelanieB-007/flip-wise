@@ -78,7 +78,7 @@ const StyledIcon = styled(AiOutlineContainer)`
   border-radius: 99px;
   padding: 20px;
   fill: #fff;
-
+  
   &:hover {
     background-color: #009ba8;
   }
