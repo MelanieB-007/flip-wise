@@ -21,7 +21,7 @@ export async function dbInsert(text, data, api, onClose){
   onClose();
 }
 
-export async function dbUpdate(text, data, api, onClose){
+export async function dbUpdate(text, data, api, onClose, baseApi){
   try{
     const response = await fetch(api, {
       method: "PUT", headers: {
@@ -34,7 +34,7 @@ export async function dbUpdate(text, data, api, onClose){
       return;
     }
 
-    await mutate(api);
+    await mutate(baseApi || api);
   } catch (error) {
     console.error(`Error updating: `, error);
   }
@@ -42,7 +42,7 @@ export async function dbUpdate(text, data, api, onClose){
   if(onClose) onClose();
 }
 
-export async function dbDelete(api, text){
+export async function dbDelete(api, text, baseApi){
   try {
     const response = await fetch(api, {
       method: "DELETE"
@@ -53,7 +53,7 @@ export async function dbDelete(api, text){
       return;
     }
 
-    await mutate(api);
+    await mutate(baseApi || api);
   } catch (error) {
     console.error("Deleting failed:", error);
   }

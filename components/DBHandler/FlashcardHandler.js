@@ -7,11 +7,11 @@ export async function addFlashcard(data, onClose) {
 }
 
 export async function updateFlashcard(data, onClose, id) {
-  await dbUpdate("flashcard", data, `${API_FLASHCARDS}/${id}`, onClose);
+  await dbUpdate("flashcard", data, `${API_FLASHCARDS}/${id}`, onClose, `${API_FLASHCARDS}`);
 }
 
 export async function deleteFlashcard(id) {
-  await dbDelete(`${API_FLASHCARDS}/${id}`, "flashcard");
+  await dbDelete(`${API_FLASHCARDS}/${id}`, "flashcard", `${API_FLASHCARDS}`);
 }
 
 export function getFlashcardsFromCollection(flashcards, collections, name) {

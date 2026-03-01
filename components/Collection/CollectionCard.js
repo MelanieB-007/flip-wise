@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import CardWrapper from "../Container/CardWrapper";
 import * as GiIcons from "react-icons/gi";
+import { useState } from "react";
+import CollectionForm from "@/components/Collection/CollectionForm";
 
 export default function CollectionCard({
   collection,
@@ -13,6 +15,7 @@ export default function CollectionCard({
   onDelete,
 }) {
   const router = useRouter();
+  const [isEditing, setIsEditing] = useState(false);
 
   const Icon = GiIcons[collection.icon];
 
@@ -20,6 +23,20 @@ export default function CollectionCard({
     if (window.confirm("Are you sure you want to delete this collection?")) {
       onDelete();
     }
+  }
+
+  if (isEditing) {
+    return (
+      <CollectionForm
+        onClose={() => setIsEditing(false)}
+        initialData={{
+          id: collection._id,
+          name: collection.name,
+          color: collection.color,
+          icon: collection.icon,
+        }}
+      />
+    );
   }
 
   return (
@@ -31,6 +48,7 @@ export default function CollectionCard({
         <HeaderContainer
           color={collection.color}
           headline=""
+          onEdit={() => setIsEditing(true)}
           onDelete={handleDelete}
         />
         <BodyContainer>

@@ -1,83 +1,87 @@
 import styled from "styled-components";
-import {StyledButton} from "@/components/Button";
+import { StyledButton } from "@/components/Button";
 import IconPicker from "@/components/Icons/IconPicker";
-import {useState} from "react";
+import { useState } from "react";
 import HeaderContainer from "@/components/Container/HeaderContainer";
 import BodyContainer from "@/components/Container/BodyContainer";
 import FormContainer from "@/components/Container/FormContainer";
-import {addCollection} from "@/components/DBHandler/CollectionHandler";
+import {addCollection, updateCollection} from "@/components/DBHandler/CollectionHandler";
 
-export default function CollectionForm({onClose}) {
-    const [selectedIcon, setSelectedIcon] = useState("");
-    const [selectedColor, setSelectedColor] = useState("#000000");
+export default function CollectionForm({ onClose, initialData = null }) {
+  const [selectedIcon, setSelectedIcon] = useState(initialData?.icon ?? "");
+  const [selectedColor, setSelectedColor] = useState(initialData?.color ?? "#000000");
+  const isEditMode = initialData !== null;
 
-    async function handleSubmit(event) {
-        event.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
 
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData);
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
 
-        await addCollection(data, onClose);
+    if (isEditMode) {
+      await updateCollection(data, onClose, initialData.id);
+    } else {
+      await addCollection(data, onClose);
     }
+  }
 
-    return (
-        <FormContainer>
-            <HeaderContainer
-                color="#267dc0"
-                headline="Add new collection"
+  return (
+    <FormContainer>
+      <HeaderContainer
+          color="#267dc0"
+          headline={isEditMode ? "Edit collection" : "Add new collection"} />
+      <BodyContainer>
+        <form onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label htmlFor="name">Collection name:</Label>
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="name"
+              defaultValue={initialData?.name ?? ""}
+              required
             />
-            <BodyContainer>
-                <form onSubmit={handleSubmit}>
-                    <FormGroup>
-                        <Label htmlFor="name">Collection name:</Label>
-                        <Input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="name"
-                            defaultValue={""}
-                            required
-                        />
-                    </FormGroup>
+          </FormGroup>
 
-                    <FormGroup>
-                        <Label htmlFor="color">Color:</Label>
-                        <ColorRow>
-                            <ColorInput
-                                type="color"
-                                id="color"
-                                name="color"
-                                value={selectedColor}
-                                onChange={(e) => setSelectedColor(e.target.value)}
-                                required
-                            />
-                            <Input
-                                type="text"
-                                value={selectedColor}
-                                onChange={(e) => setSelectedColor(e.target.value)}
-                                placeholder="#000000"
-                            />
-                        </ColorRow>
-                    </FormGroup>
+          <FormGroup>
+            <Label htmlFor="color">Color:</Label>
+            <ColorRow>
+              <ColorInput
+                type="color"
+                id="color"
+                name="color"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                required
+              />
+              <Input
+                type="text"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                placeholder="#000000"
+              />
+            </ColorRow>
+          </FormGroup>
 
-                    <FormGroup>
-                        <Label htmlFor="icon">Icon:</Label>
-                        <IconPicker value={selectedIcon} onChange={setSelectedIcon}/>
-                    </FormGroup>
+          <FormGroup>
+            <Label htmlFor="icon">Icon:</Label>
+            <IconPicker value={selectedIcon} onChange={setSelectedIcon} />
+          </FormGroup>
 
-                    <Actions>
-                        <ButtonSubmit type="submit">
-                            Add
-                        </ButtonSubmit>
-                        <ButtonCancel type="button">
-                            Cancel
-                        </ButtonCancel>
-                    </Actions>
-                </form>
-            </BodyContainer>
-        </FormContainer>);
+          <Actions>
+            <ButtonSubmit type="submit">
+              {isEditMode ? "Save" : "Add"}
+            </ButtonSubmit>
+            <ButtonCancel type="button" onClick={onClose}>
+              Cancel
+            </ButtonCancel>
+          </Actions>
+        </form>
+      </BodyContainer>
+    </FormContainer>
+  );
 }
-
 
 const FormGroup = styled.div`
   margin-bottom: 16px;

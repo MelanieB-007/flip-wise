@@ -6,6 +6,28 @@ export default async function handler(request, response) {
   await dbConnect();
   const { id } = request.query;
 
+  if (request.method === "PUT") {
+    try {
+      const collectionData = request.body;
+      const collectionToUpdate = await Collection.findByIdAndUpdate(
+          id,
+          collectionData,
+          { new: true }
+      );
+
+      if (!collectionToUpdate) {
+        response.status(404).json({ status: "Collection not found" });
+        return;
+      }
+
+      response.status(200).json(collectionToUpdate);
+      return;
+    } catch (error) {
+      response.status(500).json({ status: "error updating collection" });
+      return;
+    }
+  }
+
   if (request.method === "DELETE") {
     try {
       const deleted = await Collection.findByIdAndDelete(id);
