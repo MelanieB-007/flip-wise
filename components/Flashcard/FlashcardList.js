@@ -1,9 +1,12 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import Collapsible from "@/components/Collapsible";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
-import ListContainer from "@/components/Container/ListContainer"
-import styled from "styled-components";
+import ListContainer from "@/components/Container/ListContainer";
 import {useState} from "react";
+import EmptyContainer from "@/components/Container/EmptyContainer";
+import EmptyMessageContainer from "@/components/Container/EmptyMessageContainer";
+import EmptySubtextContainer from "@/components/Container/EmptySubtextContainer";
+import SuccessMessageContainer from "@/components/Container/SuccessMessageContainer";
 
 export default function FlashcardList({
   flashcards,
@@ -23,8 +26,13 @@ export default function FlashcardList({
   if (isEmpty) {
     return (
       <EmptyContainer>
-        <EmptyMessage>No flashcards yet!</EmptyMessage>
-        <EmptySubtext>Start learning by adding your first card.</EmptySubtext>
+        <EmptyMessageContainer>
+            No flashcards yet!
+        </EmptyMessageContainer>
+        <EmptySubtextContainer>
+            Start learning by adding your first card.
+        </EmptySubtextContainer>
+
         <Collapsible label="+ Add Flashcard">
           {({ onClose }) => (
             <FlashcardForm collections={collections} onClose={onClose} />
@@ -37,11 +45,11 @@ export default function FlashcardList({
   if (flashcards === 0) {
     return (
       <EmptyContainer>
-        <EmptyMessage>
+        <EmptyMessageContainer>
           {isArchive
             ? "No flashcards have been correctly answered yet!"
             : "All flashcards have been correctly answered!"}
-        </EmptyMessage>
+        </EmptyMessageContainer>
       </EmptyContainer>
     );
   }
@@ -49,13 +57,17 @@ export default function FlashcardList({
   return (
     <ListContainer>
       {showSuccess && (
-        <SuccessMessage>✓ Flashcard successfully deleted!</SuccessMessage>
+        <SuccessMessageContainer>
+            ✓ Flashcard successfully deleted!
+        </SuccessMessageContainer>
       )}
+
       <Collapsible label="+ Add Flashcard">
         {({ onClose }) => (
           <FlashcardForm collections={collections} onClose={onClose} />
         )}
       </Collapsible>
+
       {flashcards.map((flashcard) => (
         <Flashcard
           key={flashcard._id}
@@ -72,38 +84,3 @@ export default function FlashcardList({
     </ListContainer>
   );
 }
-
-const SuccessMessage = styled.div`
-  grid-column: 1 / -1;
-  background-color: #2d8c6e;
-  color: white;
-  padding: 0.8rem 1.2rem;
-  border-radius: 12px;
-  font-family: "Caveat", cursive;
-  font-size: 1.3rem;
-  text-align: center;
-`;
-
-const EmptyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 4rem 2rem;
-  text-align: center;
-`;
-
-const EmptyMessage = styled.h2`
-  font-family: "Caveat", cursive;
-  font-size: 2rem;
-  color: #2d8c6e;
-  margin: 0;
-`;
-
-const EmptySubtext = styled.p`
-  font-family: "Caveat", cursive;
-  font-size: 1.3rem;
-  color: #888;
-  margin: 0;
-`;

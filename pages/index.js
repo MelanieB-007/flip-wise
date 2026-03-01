@@ -1,4 +1,6 @@
 import useSWR from "swr";
+import {deleteCollection} from "@/components/DBHandler/CollectionHandler";
+
 
 import CollectionList from "@/components/Collection/CollectionList";
 import {
@@ -37,6 +39,7 @@ export default function HomePage() {
     <CollectionList
       flashcards={filteredFlashcards}
       collections={collections}
+      onDelete={deleteCollection}
     />
   );
 }

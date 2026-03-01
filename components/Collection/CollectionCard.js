@@ -10,10 +10,17 @@ export default function CollectionCard({
   collection,
   flashcardCount,
   correctFlashcardCount,
+  onDelete,
 }) {
   const router = useRouter();
 
   const Icon = GiIcons[collection.icon];
+
+  function handleDelete() {
+    if (window.confirm("Are you sure you want to delete this collection?")) {
+      onDelete();
+    }
+  }
 
   return (
     <CardWrapper color={collection.color}>
@@ -23,17 +30,15 @@ export default function CollectionCard({
       >
         <HeaderContainer
           color={collection.color}
-          headline="" />
+          headline=""
+          onDelete={handleDelete}
+        />
         <BodyContainer>
           <Title>
             {Icon && <Icon />} {collection.name}
           </Title>
-          <Info>
-            {flashcardCount} cards
-          </Info>
-          <Info>
-            {correctFlashcardCount} correctly answered
-          </Info>
+          <Info>{flashcardCount} cards</Info>
+          <Info>{correctFlashcardCount} correctly answered</Info>
         </BodyContainer>
       </CardContainer>
     </CardWrapper>
