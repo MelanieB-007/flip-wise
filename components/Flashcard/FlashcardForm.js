@@ -5,7 +5,7 @@ import HeaderContainer from "@/components/Container/HeaderContainer";
 import BodyContainer from "@/components/Container/BodyContainer";
 import FormContainer from "@/components/Container/FormContainer";
 
-export default function FlashcardForm({collections, onClose, initialData = null}) {
+export default function FlashcardForm({collections, onClose, initialData = null, preselectedCollection = null}) {
     const isEditMode = initialData !== null;
 
     async function handleSubmit(event) {
@@ -57,7 +57,8 @@ export default function FlashcardForm({collections, onClose, initialData = null}
                             <Select
                                 id="collection"
                                 name="collection"
-                                defaultValue={initialData?.collection ?? ""}
+                                defaultValue={preselectedCollection ?? initialData?.collection ?? ""}
+                                disabled={preselectedCollection !== null}
                                 required
                             >
                                 <option value="" disabled>
