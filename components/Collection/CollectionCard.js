@@ -41,12 +41,15 @@ export default function CollectionCard({
 }
 
 const Title = styled.h2`
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: ${({ color }) => color};
+  font-family: "Caveat", cursive;
 `;
 
 const Info = styled.div`
   font-size: 1rem;
+  font-weight: 700;
   color: #666;
+  font-family: 'Quicksand', sans-serif;
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Footer() {
   return (
     <StyledFooter>
-      <p>© {new Date().getFullYear()} FlipWise — Learn smarter, flip faster.</p>
+      <p>© {new Date().getFullYear()} FlipWise — Learn smarter, flip faster - Det er sjovt at lære.</p>
       <Developers>
         Made by Melanie Busse, Hannah Capell & Ramon Isbarn
       </Developers>
