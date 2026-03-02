@@ -66,6 +66,7 @@ export default function CollectionCardForm({ onClose }) {
                 <option value="" disabled>
                   Please select an icon
                 </option>
+                <option value="GiAtom">⚛️ Physik</option>
                <option value="">💭</option>
                <option value="">🎶</option>
                <option value="">💡</option>
