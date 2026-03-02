@@ -7,7 +7,7 @@ const flashcardSchema = new Schema(
     collection: { type: String, required: true },
     question: { type: String, required: true },
     answer: { type: String, required: true },
-    isCorrectlyAnswered: { type: String },
+    isCorrectlyAnswered: { type: Boolean },
   },
   { timestamps: true }
 );

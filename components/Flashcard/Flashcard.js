@@ -9,7 +9,9 @@ import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
 import CardWrapper from "../Container/CardWrapper";
-import { updateFlashcard } from "@/components/Service/FlashcardService";
+import {
+  setFlashcardIsAnswered,
+} from "@/components/Service/FlashcardService";
 
 export default function Flashcard({
   id,
@@ -42,7 +44,7 @@ export default function Flashcard({
   }
 
   async function setIsAnswered(value) {
-    await updateFlashcard({ isCorrectlyAnswered: value }, null, id);
+    await setFlashcardIsAnswered(value, id);
   }
 
   if (isEditing) {
@@ -58,9 +60,10 @@ export default function Flashcard({
   return (
     <CardWrapper color={color} isFlipping={isFlipping}>
       <FlashcardContainer
-          color={color}
-          $isShowingAnswer={isShowingAnswer}
-          onClick={flipFlashcard}>
+        color={color}
+        $isShowingAnswer={isShowingAnswer}
+        onClick={flipFlashcard}
+      >
         <HeaderContainer
           color={color}
           headline={collection}
@@ -116,11 +119,13 @@ const ButtonCorrectlyAnswered = styled(StyledButton)`
   bottom: 40px;
   left: 50%;
   transform: translate(-50%);
+
   &:hover {
     color: ${({ $isShowingAnswer }) => ($isShowingAnswer ? "#ddd" : "#333")};
     border-color: ${({ $isShowingAnswer }) =>
       $isShowingAnswer ? "#ddd" : "#fff"};
   }
+
   &:active {
     transform: translate(-48%, 2px);
   }

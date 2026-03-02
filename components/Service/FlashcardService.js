@@ -40,6 +40,28 @@ export async function updateFlashcard(data, id) {
   }
 }
 
+export async function setFlashcardIsAnswered(value, id) {
+  try {
+    const response = await fetch(`${API_FLASHCARDS}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        isCorrectlyAnswered: Boolean(value),
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Error updating flashcard:`, response.statusText);
+      return;
+    }
+
+    await mutate(`${API_FLASHCARDS}/${id}`);
+    await mutate(API_FLASHCARDS);
+  } catch (error) {
+    console.error(`Error updating:`, error);
+  }
+}
+
 export async function deleteFlashcard(id) {
   try {
     const response = await fetch(`${API_FLASHCARDS}/${id}`, {
