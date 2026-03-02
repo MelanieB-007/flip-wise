@@ -3,13 +3,15 @@ import { useState } from "react";
 
 import FlashcardQuestion from "@/components/Flashcard/FlashcardQuestion";
 import FlashcardAnswer from "@/components/Flashcard/FlashcardAnswer";
-import HeaderContainer from "@/components/Card/HeaderContainer";
-import CardContainer from "@/components/Card/CardContainer";
-import BodyContainer from "@/components/Card/BodyContainer";
+import HeaderContainer from "@/components/Container/HeaderContainer";
+import CardContainer from "@/components/Container/CardContainer";
+import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
-import useSWR from "swr";
-import CardWrapper from "../Card/CardWrapper";
+import CardWrapper from "../Container/CardWrapper";
+import {
+  setFlashcardIsAnswered,
+} from "@/components/Service/FlashcardService";
 
 export default function Flashcard({
   id,
@@ -24,7 +26,6 @@ export default function Flashcard({
   const [isEditing, setIsEditing] = useState(false);
   const [isShowingAnswer, setIsShowingAnswer] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
-  const { mutate } = useSWR("/api/flashcards");
 
   function flipFlashcard() {
     setIsFlipping(true);
@@ -43,21 +44,7 @@ export default function Flashcard({
   }
 
   async function setIsAnswered(value) {
-    const response = await fetch("/api/flashcards", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        isCorrectlyAnswered: value,
-        _id: id,
-      }),
-    });
-    if (!response.ok) {
-      console.error(response.status);
-      return;
-    }
-    mutate();
+    await setFlashcardIsAnswered(value, id);
   }
 
   if (isEditing) {
@@ -72,10 +59,14 @@ export default function Flashcard({
 
   return (
     <CardWrapper color={color} isFlipping={isFlipping}>
-      <FlashcardContainer onClick={flipFlashcard}>
+      <FlashcardContainer
+        color={color}
+        $isShowingAnswer={isShowingAnswer}
+        onClick={flipFlashcard}
+      >
         <HeaderContainer
           color={color}
-          headline={collection.headline}
+          headline={collection}
           onEdit={() => setIsEditing(true)}
           onDelete={handleDelete}
         />
@@ -91,6 +82,7 @@ export default function Flashcard({
           )}
         </BodyContainer>
       </FlashcardContainer>
+
       {isArchive ? (
         <ButtonCorrectlyAnswered
           onClick={() => setIsAnswered(false)}
@@ -127,11 +119,13 @@ const ButtonCorrectlyAnswered = styled(StyledButton)`
   bottom: 40px;
   left: 50%;
   transform: translate(-50%);
+
   &:hover {
     color: ${({ $isShowingAnswer }) => ($isShowingAnswer ? "#ddd" : "#333")};
     border-color: ${({ $isShowingAnswer }) =>
       $isShowingAnswer ? "#ddd" : "#fff"};
   }
+
   &:active {
     transform: translate(-48%, 2px);
   }

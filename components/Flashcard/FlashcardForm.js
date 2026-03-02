@@ -1,112 +1,81 @@
 import styled from "styled-components";
-import useSWR from "swr";
 import { StyledButton } from "/components/Button";
+import { addFlashcard, updateFlashcard } from "@/components/Service/FlashcardService";
 
-export default function FlashcardForm({
-  collections,
-  onClose,
-  initialData = null,
-}) {
+export default function FlashcardForm({ collections, onClose, initialData = null }) {
   const isEditMode = initialData !== null;
-
-  const { mutate } = useSWR("/api/flashcards");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    let response;
 
     if (isEditMode) {
-      response = await fetch("/api/flashcards", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, _id: initialData.id }),
-      });
+      await updateFlashcard(data, initialData.id);
     } else {
-      response = await fetch("/api/flashcards", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      await addFlashcard(data);
     }
-
-    if (!response.ok) {
-      console.error(response.status);
-      return;
-    }
-
-    mutate();
     onClose();
   }
-
-  return (
-    <CardContainer>
-      <CardHeader>
-        <Headline>{isEditMode ? "Edit card" : "Add new card"}</Headline>
-      </CardHeader>
-      <CardBody>
-        <form onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label htmlFor="question">Question:</Label>
-            <Input
-              type="text"
-              id="question"
-              name="question"
-              placeholder="question"
-              defaultValue={initialData?.question ?? ""}
+  return (<CardContainer>
+    <CardHeader>
+      <Headline>{isEditMode ? "Edit card" : "Add new card"}</Headline>
+    </CardHeader>
+    <CardBody>
+      <form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="question">Question:</Label>
+          <Input
+            type="text"
+            id="question"
+            name="question"
+            placeholder="question"
+            defaultValue={initialData?.question ?? ""}
+            required
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="answer">Answer:</Label>
+          <Input
+            type="text"
+            id="answer"
+            name="answer"
+            placeholder="answer"
+            defaultValue={initialData?.answer ?? ""}
+            required
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="collection">Collection:</Label>
+          <SelectWrapper>
+            <Select
+              id="collection"
+              name="collection"
+              defaultValue={initialData?.collection ?? ""}
               required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="answer">Answer:</Label>
-            <Input
-              type="text"
-              id="answer"
-              name="answer"
-              placeholder="answer"
-              defaultValue={initialData?.answer ?? ""}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="collection">Collection:</Label>
-            <SelectWrapper>
-              <Select
-                id="collection"
-                name="collection"
-                defaultValue={initialData?.collection ?? ""}
-                required
-              >
-                <option value="" disabled>
-                  Please select a collection
-                </option>
-                {collections.map((collection) => (
-                  <option key={collection._id} value={collection.name}>
-                    {collection.name}
-                  </option>
-                ))}
-              </Select>
-            </SelectWrapper>
-          </FormGroup>
+            >
+              <option value="" disabled>
+                Please select a collection
+              </option>
+              {collections.map((collection) => (<option key={collection._id} value={collection.name}>
+                {collection.name}
+              </option>))}
+            </Select>
+          </SelectWrapper>
+        </FormGroup>
 
-          <Actions>
-            <ButtonSubmit type="submit">
-              {isEditMode ? "Save" : "Add"}
-            </ButtonSubmit>
-            <ButtonCancel type="button" onClick={onClose}>
-              Cancel
-            </ButtonCancel>
-          </Actions>
-        </form>
-      </CardBody>
-    </CardContainer>
-  );
+        <Actions>
+          <ButtonSubmit type="submit">
+            {isEditMode ? "Save" : "Add"}
+          </ButtonSubmit>
+          <ButtonCancel type="button" onClick={onClose}>
+            Cancel
+          </ButtonCancel>
+        </Actions>
+      </form>
+    </CardBody>
+  </CardContainer>);
 }
 
 const CardContainer = styled.div`

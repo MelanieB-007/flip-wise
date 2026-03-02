@@ -1,13 +1,16 @@
 import useSWR from "swr";
 
 import CollectionList from "@/components/Collection/CollectionList";
+import {
+  addColorToFlashcards,
+  getUnansweredFlashcards,
+} from "@/components/Service/FlashcardService";
 
 export default function HomePage() {
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
     error: errorFlashcards,
-    mutate: mutateFlashcards,
   } = useSWR(`/api/flashcards`);
 
   const {
@@ -27,20 +30,12 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsWithColor = flashcards
-    .map((flashcard) => {
-      const collection = collections.find(
-        (c) => c.name === flashcard.collection
-      );
-      return { ...flashcard, color: collection?.color || "#CCC" };
-    })
-    .filter((flashcard) => {
-      return flashcard.isCorrectlyAnswered !== "true";
-    });
+  const filteredFlashcards = getUnansweredFlashcards(
+    addColorToFlashcards(flashcards, collections));
 
   return (
     <CollectionList
-      flashcards={flashcardsWithColor}
+      flashcards={filteredFlashcards}
       collections={collections}
     />
   );
