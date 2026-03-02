@@ -25,4 +25,5 @@ const AnswerValue = styled.p`
   font-size: 1.6rem;
   color: #fff;
   margin: 0;
+  font-family: "Caveat", cursive;
 `;

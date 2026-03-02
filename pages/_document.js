@@ -28,9 +28,11 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-          <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Nunito&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker:wght@400&display=swap" rel="stylesheet" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link
+              href="https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand:wght@400;700&family=Permanent+Marker&display=swap"
+              rel="stylesheet"
+          />
         </Head>
         <body>
           <Main />
