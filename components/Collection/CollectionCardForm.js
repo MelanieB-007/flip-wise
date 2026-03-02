@@ -1,56 +1,24 @@
 import styled from "styled-components";
 import useSWR from "swr";
 import { StyledButton } from "/components/Button";
+import { useState } from "react";
 
-export default function CollectionCardForm({
-  collections,
-  onClose,
-  initialData = null,
-}) {
-  const isEditMode = initialData !== null;
-
-  const { mutate } = useSWR("/api/flashcards");
+export default function CollectionCardForm({ onClose }) {
+  const [selectedColor, setSelectedColor] = useState("#777");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    let response;
 
-    if (isEditMode) {
-      response = await fetch("/api/collections", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, _id: initialData.id }),
-      });
-    } else {
-      response = await fetch("/api/collections", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    }
-
-    if (!response.ok) {
-      console.error(response.status);
-      return;
-    }
-
-    mutate();
     onClose();
   }
 
   return (
     <CardContainer>
       <CardHeader>
-        <Headline>
-          {isEditMode ? "Edit collection" : "Add new Collection"}
-        </Headline>
+        <Headline>{"Add new Collection"}</Headline>
       </CardHeader>
       <CardBody>
         <form onSubmit={handleSubmit}>
@@ -61,45 +29,54 @@ export default function CollectionCardForm({
               id="title"
               name="title"
               placeholder="title"
-              defaultValue={initialData?.title ?? ""}
+              defaultValue={""}
               required
             />
           </FormGroup>
+
           <FormGroup>
             <Label htmlFor="color">Color:</Label>
-            <Input
-              type="color"
-              id="color"
-              name="color"
-              placeholder="color"
-              defaultValue={initialData?.color ?? ""}
-              required
-            />
+            <div>
+              <Input
+                type="color"
+                id="color"
+                name="color"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                required
+              />
+              <Input
+                type="text"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                placeholder="#333"
+              />
+            </div>
           </FormGroup>
+
           <FormGroup>
-            <Label htmlFor="collection">Collection:</Label>
+            <Label htmlFor="icon">Icon:</Label>
             <SelectWrapper>
               <Select
                 id="collection"
                 name="collection"
-                defaultValue={initialData?.collection ?? ""}
+                defaultValue={""}
                 required
               >
                 <option value="" disabled>
-                  Please select a collection
+                  Please select an icon
                 </option>
-                {collections.map((collection) => (
-                  <option key={collection._id} value={collection.name}>
-                    {collection.name}
-                  </option>
-                ))}
+               <option value="">💭</option>
+               <option value="">🎶</option>
+               <option value="">💡</option>
+               <option value="">⚠️</option>
               </Select>
             </SelectWrapper>
           </FormGroup>
 
           <Actions>
             <ButtonSubmit type="submit">
-              {isEditMode ? "Save" : "Add"}
+              {"Add"}
             </ButtonSubmit>
             <ButtonCancel type="button" onClick={onClose}>
               Cancel
