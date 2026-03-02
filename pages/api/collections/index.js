@@ -6,7 +6,7 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const collections = await Collection.find();
+      const collections = await Collection.find().sort({_id: -1});
       return response.status(200).json(collections);
     } catch (error) {
       return response.status(500).json({ error: error.message });
