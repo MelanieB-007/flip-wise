@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { StyledButton } from "/components/Button";
-import { addFlashcard, updateFlashcard } from "@/components/DBHandler/FlashcardHandler";
+import { addFlashcard, updateFlashcard } from "@/components/Service/FlashcardService";
 
 export default function FlashcardForm({ collections, onClose, initialData = null }) {
   const isEditMode = initialData !== null;

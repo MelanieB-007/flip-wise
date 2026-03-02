@@ -10,7 +10,7 @@ import {
   deleteFlashcard,
   getFlashcardsWithColorFromCollection,
   getUnansweredFlashcards,
-} from "@/components/DBHandler/FlashcardHandler";
+} from "@/components/Service/FlashcardService";
 
 export default function CollectionPage() {
   const router = useRouter();

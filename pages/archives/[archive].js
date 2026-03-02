@@ -2,7 +2,7 @@ import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Headline from "@/components/Headline/Headline";
-import { getAnsweredFlashcards, getFlashcardsWithColorFromCollection } from "@/components/DBHandler/FlashcardHandler";
+import { getAnsweredFlashcards, getFlashcardsWithColorFromCollection } from "@/components/Service/FlashcardService";
 
 export default function CollectionArchive() {
   const router = useRouter();

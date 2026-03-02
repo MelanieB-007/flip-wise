@@ -1,6 +1,6 @@
 import ListContainer from "@/components/Container/ListContainer";
 import CollectionCard from "@/components/Collection/CollectionCard";
-import { getCollectionStats } from "@/components/DBHandler/CollectionHandler";
+import { getCollectionStats } from "@/components/Service/CollectionService";
 
 export default function CollectionList({ flashcards, collections }) {
   return (

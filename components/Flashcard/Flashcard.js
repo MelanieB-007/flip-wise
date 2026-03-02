@@ -9,7 +9,7 @@ import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
 import CardWrapper from "../Container/CardWrapper";
-import { updateFlashcard } from "@/components/DBHandler/FlashcardHandler";
+import { updateFlashcard } from "@/components/Service/FlashcardService";
 
 export default function Flashcard({
   id,
