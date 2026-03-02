@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import Headline from "@/components/Headline/Headline";
 import {
   addColorToFlashcards,
-  getAnsweredFlashcards,
-  getFlashcardsWithColorFromCollection
+  getAnsweredFlashcards
 } from "@/components/Service/FlashcardService";
 
 export default function CollectionArchive() {

@@ -9,7 +9,6 @@ import { AiOutlineContainer } from "react-icons/ai";
 import {
   addColorToFlashcards,
   deleteFlashcard,
-  getFlashcardsWithColorFromCollection,
   getUnansweredFlashcards,
 } from "@/components/Service/FlashcardService";
 
