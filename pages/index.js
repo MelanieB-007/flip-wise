@@ -4,7 +4,7 @@ import CollectionList from "@/components/Collection/CollectionList";
 import {
   addColorToFlashcards,
   getUnansweredFlashcards,
-} from "@/components/DBHandler/FlashcardHandler";
+} from "@/components/Service/FlashcardService";
 
 export default function HomePage() {
   const {
