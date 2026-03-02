@@ -7,6 +7,7 @@ import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
 
 import {
+  addColorToFlashcards,
   deleteFlashcard,
   getFlashcardsWithColorFromCollection,
   getUnansweredFlashcards,
@@ -39,7 +40,9 @@ export default function CollectionPage() {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsFromCollection = getFlashcardsWithColorFromCollection(flashcards, collections, name);
+  const flashcardsFromCollection =  addColorToFlashcards(
+      flashcards.filter((flashcard) => flashcard.collection === name),
+      collections);
   const filteredFlashcards = getUnansweredFlashcards(flashcardsFromCollection);
   const isEmpty = flashcardsFromCollection.length === 0;
 

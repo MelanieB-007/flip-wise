@@ -57,13 +57,6 @@ export async function deleteFlashcard(id) {
   }
 }
 
-export function getFlashcardsWithColorFromCollection(flashcards, collections, name) {
-  return addColorToFlashcards(
-    flashcards.filter((flashcard) => flashcard.collection === name),
-    collections
-  );
-}
-
 export function getFlashcardsFromCollection(flashcards, name) {
   return flashcards.filter((flashcard) => flashcard.collection === name);
 }
