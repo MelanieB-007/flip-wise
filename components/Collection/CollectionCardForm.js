@@ -31,12 +31,12 @@ export default function CollectionCardForm({ onClose, mutate }) {
       <CardBody>
         <form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="title">Title:</Label>
+            <Label htmlFor="name">Name:</Label>
             <Input
-              type="text"
-              id="title"
-              name="title"
-              placeholder="title"
+              type="name"
+              id="name"
+              name="name"
+              placeholder="Name"
               defaultValue={""}
               required
             />
