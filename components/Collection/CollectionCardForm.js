@@ -36,7 +36,7 @@ export default function CollectionCardForm({ onClose }) {
 
           <FormGroup>
             <Label htmlFor="color">Color:</Label>
-            <div>
+            <span>
               <Input
                 type="color"
                 id="color"
@@ -51,7 +51,7 @@ export default function CollectionCardForm({ onClose }) {
                 onChange={(e) => setSelectedColor(e.target.value)}
                 placeholder="#333"
               />
-            </div>
+            </span>
           </FormGroup>
 
           <FormGroup>
