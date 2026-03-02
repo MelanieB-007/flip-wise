@@ -2,8 +2,10 @@ import styled from "styled-components";
 import useSWR from "swr";
 import { StyledButton } from "/components/Button";
 import { useState } from "react";
+import IconPicker from "../Icons/IconPicker";
 
 export default function CollectionCardForm({ onClose }) {
+  const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
 
   async function handleSubmit(event) {
@@ -36,7 +38,7 @@ export default function CollectionCardForm({ onClose }) {
 
           <FormGroup>
             <Label htmlFor="color">Color:</Label>
-            <span>
+            <ColorRow>
               <Input
                 type="color"
                 id="color"
@@ -51,34 +53,16 @@ export default function CollectionCardForm({ onClose }) {
                 onChange={(e) => setSelectedColor(e.target.value)}
                 placeholder="#333"
               />
-            </span>
+            </ColorRow>
           </FormGroup>
 
           <FormGroup>
             <Label htmlFor="icon">Icon:</Label>
-            <SelectWrapper>
-              <Select
-                id="collection"
-                name="collection"
-                defaultValue={""}
-                required
-              >
-                <option value="" disabled>
-                  Please select an icon
-                </option>
-                <option value="GiAtom">⚛️ Physik</option>
-               <option value="">💭</option>
-               <option value="">🎶</option>
-               <option value="">💡</option>
-               <option value="">⚠️</option>
-              </Select>
-            </SelectWrapper>
+            <IconPicker value={selectedIcon} onChange={setSelectedIcon} />
           </FormGroup>
 
           <Actions>
-            <ButtonSubmit type="submit">
-              {"Add"}
-            </ButtonSubmit>
+            <ButtonSubmit type="submit">{"Add"}</ButtonSubmit>
             <ButtonCancel type="button" onClick={onClose}>
               Cancel
             </ButtonCancel>
@@ -145,41 +129,10 @@ const Input = styled.input`
     box-shadow: 3px 3px 0 #b3a8e8;
   }
 `;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 10px 14px;
-  border: 2px solid #222;
-  border-radius: 10px;
-  font-family: "Nunito", sans-serif;
-  font-size: 0.95rem;
-  background: #fff;
-  color: #222;
-  outline: none;
-  transition: box-shadow 0.15s;
-  appearance: none;
-  -webkit-appearance: none;
-
-  &:focus {
-    box-shadow: 3px 3px 0 #b3a8e8;
-  }
-`;
-
-const SelectWrapper = styled.div`
-  position: relative;
-
-  &::after {
-    content: "V";
-    font-family: "Caveat", cursive;
-    font-size: 1.1rem;
-    font-weight: 700;
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #222;
-  }
+const ColorRow = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
 `;
 
 const Actions = styled.div`

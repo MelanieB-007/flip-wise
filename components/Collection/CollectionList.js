@@ -6,6 +6,11 @@ import CollectionCardForm from "./CollectionCardForm";
 export default function CollectionList({flashcards, collections}) {
     return (
         <ListContainer>
+                  <Collapsible label="+ Add Collection">
+                    {({ onClose }) => (
+                      <CollectionCardForm collections={collections} onClose={onClose} />
+                    )}
+                  </Collapsible>
             {collections.map((collection) => {
                 const count = flashcards.filter(flashcard => flashcard.collection === collection.name).length;
                 const countCorrectAnswer = flashcards.filter(flashcard => flashcard.isCorrectlyAnswered).length;
@@ -18,11 +23,6 @@ export default function CollectionList({flashcards, collections}) {
                     />
                 );
             })}
-                  <Collapsible label="+ Add Collection">
-                    {({ onClose }) => (
-                      <CollectionCardForm collections={collections} onClose={onClose} />
-                    )}
-                  </Collapsible>
         </ListContainer>
     );
 }
