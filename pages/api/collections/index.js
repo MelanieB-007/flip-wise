@@ -11,7 +11,22 @@ export default async function handler(request, response) {
     } catch (error) {
       return response.status(500).json({ error: error.message });
     }
-  } else {
+  }
+  
+  if (request.method === "POST") {
+    try {
+      const collectionCardData = request.body;
+      await Collection.create(collectionCardData);
+      response.status(201).json({ status: "Collection created." });
+      return;
+    } catch (error) {
+      console.error(error);
+      response.status(400).json({ error: error.message });
+      return;
+    }
+  }
+  
+  else {
     return response.status(405).json({ message: "Method not allowed" });
   }
 }
