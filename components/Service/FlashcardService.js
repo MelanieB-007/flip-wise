@@ -2,7 +2,7 @@ import {mutate} from "swr";
 
 export const API_FLASHCARDS = "/api/flashcards";
 
-export async function addFlashcard(data, onClose) {
+export async function addFlashcard(data) {
   try {
     const response = await fetch(API_FLASHCARDS, {
       method: "POST",
@@ -19,11 +19,9 @@ export async function addFlashcard(data, onClose) {
   } catch (error) {
     console.error(`Error creating:`, error);
   }
-
-  onClose();
 }
 
-export async function updateFlashcard(data, onClose, id) {
+export async function updateFlashcard(data, id) {
   try {
     const response = await fetch(`${API_FLASHCARDS}/${id}`, {
       method: "PUT",
@@ -40,8 +38,6 @@ export async function updateFlashcard(data, onClose, id) {
   } catch (error) {
     console.error(`Error updating:`, error);
   }
-
-  if (onClose) onClose();
 }
 
 export async function deleteFlashcard(id) {

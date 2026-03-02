@@ -12,10 +12,11 @@ export default function FlashcardForm({ collections, onClose, initialData = null
     const data = Object.fromEntries(formData);
 
     if (isEditMode) {
-      await updateFlashcard(data, onClose, initialData.id);
+      await updateFlashcard(data, initialData.id);
     } else {
-      await addFlashcard(data, onClose);
+      await addFlashcard(data);
     }
+    onClose();
   }
   return (<CardContainer>
     <CardHeader>
