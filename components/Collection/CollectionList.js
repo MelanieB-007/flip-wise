@@ -1,5 +1,7 @@
 import ListContainer from "@/components/Card/ListContainer";
 import CollectionCard from "@/components/Collection/CollectionCard";
+import Collapsible from "../Collapsible";
+import CollectionCardForm from "./CollectionCardForm";
 
 export default function CollectionList({flashcards, collections}) {
     return (
@@ -16,6 +18,11 @@ export default function CollectionList({flashcards, collections}) {
                     />
                 );
             })}
+                  <Collapsible label="+ Add Collection">
+                    {({ onClose }) => (
+                      <CollectionCardForm collections={collections} onClose={onClose} />
+                    )}
+                  </Collapsible>
         </ListContainer>
     );
 }
