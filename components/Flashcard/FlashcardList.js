@@ -34,7 +34,7 @@ export default function FlashcardList({
     );
   }
 
-  if (flashcards === 0) {
+  if (flashcards.length === 0) {
     return (
       <EmptyContainer>
         <EmptyMessage>
