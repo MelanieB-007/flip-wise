@@ -14,6 +14,7 @@ export default function HomePage() {
     data: collections,
     isLoading: loadingCollections,
     error: errorCollections,
+    mutate: mutateCollections
   } = useSWR(`/api/collections`);
 
   const error = errorFlashcards || errorCollections;
@@ -42,6 +43,7 @@ export default function HomePage() {
     <CollectionList
       flashcards={flashcardsWithColor}
       collections={collections}
+      mutateCollections={mutateCollections}
     />
   );
 }

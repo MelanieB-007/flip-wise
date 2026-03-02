@@ -3,12 +3,12 @@ import CollectionCard from "@/components/Collection/CollectionCard";
 import Collapsible from "../Collapsible";
 import CollectionCardForm from "./CollectionCardForm";
 
-export default function CollectionList({flashcards, collections}) {
+export default function CollectionList({flashcards, collections, mutateCollections}) {
     return (
         <ListContainer>
                   <Collapsible label="+ Add Collection">
                     {({ onClose }) => (
-                      <CollectionCardForm collections={collections} onClose={onClose} />
+                      <CollectionCardForm collections={collections} onClose={onClose} mutate={mutateCollections} />
                     )}
                   </Collapsible>
             {collections.map((collection) => {

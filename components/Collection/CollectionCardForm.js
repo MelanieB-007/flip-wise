@@ -4,7 +4,7 @@ import { StyledButton } from "/components/Button";
 import { useState } from "react";
 import IconPicker from "../Icons/IconPicker";
 
-export default function CollectionCardForm({ onClose }) {
+export default function CollectionCardForm({ onClose, mutate }) {
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
 
@@ -14,6 +14,12 @@ export default function CollectionCardForm({ onClose }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
+    await fetch("/api/collections", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    mutate();
     onClose();
   }
 
