@@ -4,8 +4,12 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
 import { SWRConfig } from "swr";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <>
       <GlobalStyle />
@@ -15,13 +19,15 @@ export default function App({ Component, pageProps }) {
             fetch(resource, init).then((res) => res.json()),
         }}
       >
-        <Header />
-        <ContentWrapper>
-          <Sidebar />
-          <StyledMain>
-            <Component {...pageProps} />
-          </StyledMain>
-        </ContentWrapper>
+        <SessionProvider session={session}>
+          <Header />
+          <ContentWrapper>
+            <Sidebar />
+            <StyledMain>
+              <Component {...pageProps} />
+            </StyledMain>
+          </ContentWrapper>
+        </SessionProvider>
         <Footer />
       </SWRConfig>
     </>

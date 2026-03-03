@@ -1,34 +1,34 @@
 import styled from "styled-components";
 import Link from "next/link";
 import useSWR from "swr";
-import {AiOutlineHome} from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
 import * as GiIcons from "react-icons/gi";
 
 export default function Sidebar() {
-    const {
-        data: collections = [],
-    } = useSWR(`/api/collections`);
+  const { data: collections = [] } = useSWR(`/api/collections`);
 
-    return (
-        <StyledSidebar>
-            <ul>
-                <li>
-                    <Link href="/"><AiOutlineHome/> Home</Link>
-                </li>
-                {collections.map((collection) => {
-                    const IconComponent = GiIcons[collection.icon];
-                    return (
-                        <li key={collection.name}>
-                            <Link href={`/collections/${collection.name}`}>
-                                {IconComponent && <IconComponent/>}
-                                {collection.name}
-                            </Link>
-                        </li>
-                    );
-                })}
-            </ul>
-        </StyledSidebar>
-    );
+  return (
+    <StyledSidebar>
+      <ul>
+        <li>
+          <Link href="/">
+            <AiOutlineHome /> Home
+          </Link>
+        </li>
+        {collections.map((collection) => {
+          const IconComponent = GiIcons[collection.icon];
+          return (
+            <li key={collection.name}>
+              <Link href={`/collections/${collection.name}`}>
+                {IconComponent && <IconComponent />}
+                {collection.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </StyledSidebar>
+  );
 }
 
 const StyledSidebar = styled.aside`
@@ -59,7 +59,9 @@ const StyledSidebar = styled.aside`
     font-size: 0.9rem;
     padding: 8px 12px;
     border-radius: 10px;
-    transition: background 0.2s, color 0.2s;
+    transition:
+      background 0.2s,
+      color 0.2s;
 
     &:hover {
       background: rgba(255, 255, 255, 0.12);
