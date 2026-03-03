@@ -56,7 +56,8 @@ const StyledSidebar = styled.aside`
     gap: 10px;
     color: #e0f7f4;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-family: "Caveat", cursive;
+    font-size: 1.2rem;
     padding: 8px 12px;
     border-radius: 10px;
     transition:
