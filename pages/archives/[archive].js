@@ -2,6 +2,10 @@ import FlashcardList from "@/components/Flashcard/FlashcardList";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Headline from "@/components/Headline/Headline";
+import {
+  addColorToFlashcards,
+  getAnsweredFlashcards
+} from "@/components/Service/FlashcardService";
 
 export default function CollectionArchive() {
   const router = useRouter();
@@ -30,19 +34,11 @@ export default function CollectionArchive() {
     return <h1>Loading...</h1>;
   }
 
-  const filteredFlashcards = flashcards
-    .filter(
-      (collectionFlashcards) => collectionFlashcards.collection === archive
-    )
-    .map((flashcard) => {
-      const collection = collections.find(
-        (c) => c.name === flashcard.collection
-      );
-      return { ...flashcard, color: collection?.color || "#CCC" };
-    })
-    .filter((flashcard) => {
-      return flashcard.isCorrectlyAnswered === "true";
-    });
+  const filteredFlashcards = getAnsweredFlashcards(
+      addColorToFlashcards(
+          flashcards.filter((flashcard) => flashcard.collection === archive),
+          collections)
+  );
 
   return (
     <>

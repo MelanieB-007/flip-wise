@@ -6,7 +6,13 @@ import styled from "styled-components";
 import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
 
-export default function CollectionPae() {
+import {
+  addColorToFlashcards,
+  deleteFlashcard,
+  getUnansweredFlashcards,
+} from "@/components/Service/FlashcardService";
+
+export default function CollectionPage() {
   const router = useRouter();
   const { name } = router.query;
 
@@ -14,7 +20,6 @@ export default function CollectionPae() {
     data: flashcards,
     isLoading: loadingFlashcards,
     error: errorFlashcards,
-    mutate: mutateFlashcards,
   } = useSWR(`/api/flashcards`);
 
   const {
@@ -34,39 +39,11 @@ export default function CollectionPae() {
     return <h1>Loading...</h1>;
   }
 
-  async function handleDelete(id) {
-    try {
-      const response = await fetch("/api/flashcards", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ _id: id }),
-      });
-
-      if (!response.ok) {
-        console.error("Deleting flashcard failed:", response.statusText);
-        return;
-      }
-
-      mutateFlashcards();
-    } catch (error) {
-      console.error("Deleting failed:", error);
-    }
-  }
-
-  const flashcardsFromCollection = flashcards
-    .filter((collectionFlashcards) => collectionFlashcards.collection === name)
-    .map((flashcard) => {
-      const collection = collections.find(
-        (c) => c.name === flashcard.collection
-      );
-      return { ...flashcard, color: collection?.color || "#CCC" };
-    });
-
-  const filteredFlashcards = flashcardsFromCollection.filter((flashcard) => {
-    return flashcard.isCorrectlyAnswered !== "true";
-  });
-
-  const isEmpty = flashcardsFromCollection.length === 0 ? true : false;
+  const flashcardsFromCollection =  addColorToFlashcards(
+      flashcards.filter((flashcard) => flashcard.collection === name),
+      collections);
+  const filteredFlashcards = getUnansweredFlashcards(flashcardsFromCollection);
+  const isEmpty = flashcardsFromCollection.length === 0;
 
   return (
     <>
@@ -75,8 +52,8 @@ export default function CollectionPae() {
       <FlashcardList
         flashcards={filteredFlashcards}
         collections={collections}
+        onDelete={deleteFlashcard}
         isEmpty={isEmpty}
-        onDelete={handleDelete}
       />
       <StyledLink href={`/archives/${name}`} title={`to the ${name} archive`}>
         <StyledIcon />
@@ -103,6 +80,7 @@ const StyledIcon = styled(AiOutlineContainer)`
   border-radius: 99px;
   padding: 20px;
   fill: #fff;
+
   &:hover {
     background-color: #009ba8;
   }

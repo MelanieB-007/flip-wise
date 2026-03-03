@@ -28,6 +28,7 @@ const Headline = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 1;
+  font-family: "Caveat", cursive;
 `;
 
 const IconGroup = styled.div`
