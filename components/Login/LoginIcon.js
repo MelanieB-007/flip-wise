@@ -10,7 +10,13 @@ export default function LoginIcon() {
     return (
       <>
         <LogoutButton>
-          <StyledProfilePicture src={session.user.image}></StyledProfilePicture>
+          {session.user.image ? (
+            <StyledProfilePicture
+              src={session.user.image}
+            ></StyledProfilePicture>
+          ) : (
+            <StyledLoginIcon $isLoggedIn={true} />
+          )}
         </LogoutButton>
       </>
     );
@@ -25,7 +31,7 @@ export default function LoginIcon() {
 }
 
 const StyledLoginIcon = styled(AiOutlineUser)`
-  fill: #fff;
+  fill: ${({ $isLoggedIn }) => ($isLoggedIn ? "#000" : "#fff")};
   width: 40px;
   height: 40px;
 `;
