@@ -5,11 +5,13 @@ import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
 import { SWRConfig } from "swr";
 import { SessionProvider } from "next-auth/react";
+import { useState } from "react";
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <>
       <GlobalStyle />
@@ -20,9 +22,12 @@ export default function App({
         }}
       >
         <SessionProvider session={session}>
-          <Header />
+          <Header
+            onMenuOpen={() => setIsMenuOpen(!isMenuOpen)}
+            isOpen={isMenuOpen}
+          />
           <ContentWrapper>
-            <Sidebar />
+            <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
             <StyledMain>
               <Component {...pageProps} />
             </StyledMain>

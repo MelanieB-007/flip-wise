@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import LoginIcon from "../Login/LoginIcon";
 import Sidebar from "../Sidebar";
 
-export default function Header() {
+export default function Header({ onMenuOpen, isOpen }) {
   const [flipKey, setFlipKey] = useState(0);
   const router = useRouter();
 
@@ -28,6 +28,10 @@ export default function Header() {
 
   return (
     <StyledHeader>
+      <HamburgerButton onClick={onMenuOpen}>
+        {isOpen ? "✕" : "☰"}
+      </HamburgerButton>
+
       <FlipWiseLogo flipKey={flipKey} onClick={goToHomepage} />
       <LoginIcon />
     </StyledHeader>
@@ -36,6 +40,7 @@ export default function Header() {
 
 const StyledHeader = styled.header`
   flex-shrink: 0;
+  position: relative;
   padding: 1rem 1.5rem 0.5rem;
   margin: 10px auto 5px auto;
   width: 100%;
@@ -54,4 +59,28 @@ const StyledHeader = styled.header`
   grid-template-rows: auto auto;
   gap: 0.75rem;
   align-items: center;
+
+  @media (max-width: 768px) {
+    padding-top: 2rem;
+  }
+`;
+
+const HamburgerButton = styled.button`
+  display: none;
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3000;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;

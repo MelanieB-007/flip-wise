@@ -11,6 +11,7 @@ export default function FlashcardList({
   onDelete,
   isArchive,
   isEmpty,
+  collectionName,
 }) {
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -53,7 +54,11 @@ export default function FlashcardList({
       )}
       <Collapsible label="+ Add Flashcard">
         {({ onClose }) => (
-          <FlashcardForm collections={collections} onClose={onClose} />
+          <FlashcardForm
+            collections={collections}
+            onClose={onClose}
+            preselectedCollection={collectionName}
+          />
         )}
       </Collapsible>
       {flashcards.map((flashcard) => (
