@@ -54,6 +54,7 @@ export default function CollectionPage() {
         collections={collections}
         onDelete={deleteFlashcard}
         isEmpty={isEmpty}
+        collectionName={name}
       />
       <StyledLink href={`/archives/${name}`} title={`to the ${name} archive`}>
         <StyledIcon />

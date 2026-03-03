@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { StyledButton } from "/components/Button";
 import { addFlashcard, updateFlashcard } from "@/components/Service/FlashcardService";
 
-export default function FlashcardForm({ collections, onClose, initialData = null }) {
+export default function FlashcardForm({ collections, onClose, initialData = null, preselectedCollection = null }) {
   const isEditMode = initialData !== null;
 
   async function handleSubmit(event) {
@@ -50,10 +50,11 @@ export default function FlashcardForm({ collections, onClose, initialData = null
           <Label htmlFor="collection">Collection:</Label>
           <SelectWrapper>
             <Select
-              id="collection"
-              name="collection"
-              defaultValue={initialData?.collection ?? ""}
-              required
+                id="collection"
+                name="collection"
+                defaultValue={preselectedCollection ?? initialData?.collection ?? ""}
+                disabled={preselectedCollection !== null}
+                required
             >
               <option value="" disabled>
                 Please select a collection
