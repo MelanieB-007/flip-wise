@@ -4,8 +4,11 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
 import { SWRConfig } from "swr";
+import {useState} from "react";
 
 export default function App({ Component, pageProps }) {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <>
       <GlobalStyle />
@@ -15,9 +18,12 @@ export default function App({ Component, pageProps }) {
             fetch(resource, init).then((res) => res.json()),
         }}
       >
-        <Header />
+          <Header
+              onMenuOpen={() => setIsMenuOpen(!isMenuOpen)}
+              isOpen={isMenuOpen}
+          />
         <ContentWrapper>
-          <Sidebar />
+            <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
           <StyledMain>
             <Component {...pageProps} />
           </StyledMain>
