@@ -1,36 +1,40 @@
-import {useState} from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import {ICONS} from "@/components/Icons/giIcons";
+import { ICONS } from "@/components/Icons/giIcons";
 
 export default function IconPicker({ value, onChange }) {
-    const [isOpen, setIsOpen] = useState(false);
-    const selected = ICONS.find((i) => i.name === value);
+  const [isOpen, setIsOpen] = useState(false);
+  const selected = ICONS.find((i) => i.name === value);
 
-    return (
-        <PickerContainer>
-            <PickerButton type="button" onClick={() => setIsOpen(!isOpen)}>
-                {selected ? (
-                    <><selected.Icon /> {selected.label}</>
-                ) : "Please select an icon"}
-            </PickerButton>
-            {isOpen && (
-                <OptionList>
-                    {ICONS.map(({ name, label, Icon }) => (
-                        <OptionItem
-                            key={name}
-                            onClick={() => {
-                                onChange(name);
-                                setIsOpen(false);
-                            }}
-                        >
-                            <Icon /> {label}
-                        </OptionItem>
-                    ))}
-                </OptionList>
-            )}
-            <input type="hidden" name="icon" value={value || ""} />
-        </PickerContainer>
-    );
+  return (
+    <PickerContainer>
+      <PickerButton type="button" onClick={() => setIsOpen(!isOpen)}>
+        {selected ? (
+          <>
+            <selected.Icon /> {selected.label}
+          </>
+        ) : (
+          "Please select an icon"
+        )}
+      </PickerButton>
+      {isOpen && (
+        <OptionList>
+          {ICONS.map(({ name, label, Icon }) => (
+            <OptionItem
+              key={name}
+              onClick={() => {
+                onChange(name);
+                setIsOpen(false);
+              }}
+            >
+              <Icon /> {label}
+            </OptionItem>
+          ))}
+        </OptionList>
+      )}
+      <input type="hidden" name="icon" value={value || ""} />
+    </PickerContainer>
+  );
 }
 
 const PickerContainer = styled.div`
@@ -60,11 +64,13 @@ const OptionList = styled.div`
   bottom: 100%;
   left: 0;
   width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
   border: 2px solid #222;
   border-radius: 10px;
   background: #fff;
   z-index: 1000;
-  overflow: hidden;
+  //   overflow: hidden;
   margin-bottom: 4px;
 `;
 
