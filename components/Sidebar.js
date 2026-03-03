@@ -8,30 +8,33 @@ export default function Sidebar({ isOpen, onClose }) {
   const { data: collections = [] } = useSWR(`/api/collections`);
 
   return (
-      <>
-        <Overlay $isOpen={isOpen} onClick={onClose} />
+    <>
+      <Overlay $isOpen={isOpen} onClick={onClose} />
 
-        <StyledSidebar $isOpen={isOpen}>
-          <ul>
-            <li>
-              <Link href="/" onClick={onClose}>
-                <AiOutlineHome /> Home
-              </Link>
-            </li>
-            {collections.map((collection) => {
-              const IconComponent = GiIcons[collection.icon];
-              return (
-                  <li key={collection.name}>
-                    <Link href={`/collections/${collection.name}`} onClick={onClose}>
-                      {IconComponent && <IconComponent />}
-                      {collection.name}
-                    </Link>
-                  </li>
-              );
-            })}
-          </ul>
-        </StyledSidebar>
-      </>
+      <StyledSidebar $isOpen={isOpen}>
+        <ul>
+          <li>
+            <Link href="/" onClick={onClose}>
+              <AiOutlineHome /> Home
+            </Link>
+          </li>
+          {collections.map((collection) => {
+            const IconComponent = GiIcons[collection.icon];
+            return (
+              <li key={collection.name}>
+                <Link
+                  href={`/collections/${collection.name}`}
+                  onClick={onClose}
+                >
+                  {IconComponent && <IconComponent />}
+                  {collection.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </StyledSidebar>
+    </>
   );
 }
 
@@ -75,7 +78,9 @@ const StyledSidebar = styled.aside`
     font-size: 0.9rem;
     padding: 8px 12px;
     border-radius: 10px;
-    transition: background 0.2s, color 0.2s;
+    transition:
+      background 0.2s,
+      color 0.2s;
 
     &:hover {
       background: rgba(255, 255, 255, 0.12);

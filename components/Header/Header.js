@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import FlipWiseLogo from "@/components/Header/FlipWiseLogo";
 import { useEffect, useState } from "react";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+import LoginIcon from "../Login/LoginIcon";
+import Sidebar from "../Sidebar";
 
-export default function Header({onMenuOpen, isOpen}) {
+export default function Header({ onMenuOpen, isOpen }) {
   const [flipKey, setFlipKey] = useState(0);
   const router = useRouter();
 
@@ -20,8 +22,8 @@ export default function Header({onMenuOpen, isOpen}) {
     return () => clearTimeout(initial);
   }, []);
 
-  function goToHomepage(){
-    router.push('/');
+  function goToHomepage() {
+    router.push("/");
   }
 
   return (
@@ -31,6 +33,7 @@ export default function Header({onMenuOpen, isOpen}) {
       </HamburgerButton>
 
       <FlipWiseLogo flipKey={flipKey} onClick={goToHomepage} />
+      <LoginIcon />
     </StyledHeader>
   );
 }
@@ -55,6 +58,7 @@ const StyledHeader = styled.header`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   grid-template-rows: auto auto;
   gap: 0.75rem;
+  align-items: center;
 
   @media (max-width: 768px) {
     padding-top: 2rem;
