@@ -37,17 +37,29 @@ export default function HomePage() {
     addColorToFlashcards(flashcards, collections)
   );
 
+  async function handleAddCollection(event, onClose) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    await fetch("/api/collections", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    mutateCollections();
+    onClose();
+  }
+
   return (
-    <CollectionList
-      flashcards={filteredFlashcards}
-      collections={collections}
-    >
+    <CollectionList flashcards={filteredFlashcards} collections={collections}>
       <Collapsible label="+ Add Collection">
         {({ onClose }) => (
           <CollectionCardForm
             collections={collections}
             onClose={onClose}
-            mutate={mutateCollections}
+            onSubmit={(event) => handleAddCollection(event, onClose)}
           />
         )}
       </Collapsible>

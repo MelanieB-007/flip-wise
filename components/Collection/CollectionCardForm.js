@@ -1,27 +1,12 @@
 import styled from "styled-components";
-import useSWR from "swr";
 import { StyledButton } from "/components/Button";
 import { useState } from "react";
 import IconPicker from "../Icons/IconPicker";
 
-export default function CollectionCardForm({ onClose, mutate }) {
+export default function CollectionCardForm({ onClose, onSubmit }) {
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    await fetch("/api/collections", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    mutate();
-    onClose();
-  }
 
   return (
     <CardContainer>
@@ -29,7 +14,7 @@ export default function CollectionCardForm({ onClose, mutate }) {
         <Headline>{"Add new Collection"}</Headline>
       </CardHeader>
       <CardBody>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <FormGroup>
             <Label htmlFor="name">Name:</Label>
             <Input
