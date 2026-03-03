@@ -238,5 +238,155 @@
     "collection": "Math",
     "question": "How many sides does a hexagon have?",
     "answer": "Six"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvad hedder du?",
+    "answer": "Wie heißt du?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvor kommer du fra?",
+    "answer": "Woher kommst du?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvordan går det?",
+    "answer": "Wie geht es dir?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg taler kun lidt dansk.",
+    "answer": "Ich spreche nur wenig Dänisch."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvad koster det?",
+    "answer": "Was kostet das?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Taler du tysk?",
+    "answer": "Sprichst du Deutsch?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg forstår det ikke.",
+    "answer": "Ich verstehe das nicht."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Kan du gentage det?",
+    "answer": "Kannst du das wiederholen?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvor er toilettet?",
+    "answer": "Wo ist die Toilette?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg er sulten.",
+    "answer": "Ich habe Hunger."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvad tid er det?",
+    "answer": "Wie viel Uhr ist es?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Vejret er godt i dag.",
+    "answer": "Das Wetter ist heute gut."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg elsker at programmere.",
+    "answer": "Ich liebe es zu programmieren."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Mange tak for hjælpen.",
+    "answer": "Vielen Dank für die Hilfe."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Vi ses i morgen!",
+    "answer": "Wir sehen uns morgen!"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Det glæder mig at møde dig.",
+    "answer": "Es freut mich, dich kennenzulernen."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvad laver du i din fritid?",
+    "answer": "Was machst du in deiner Freizeit?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg bor i Tyskland.",
+    "answer": "Ich wohne in Deutschland."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Kan jeg få en kop kaffe?",
+    "answer": "Kann ich eine Tasse Kaffee haben?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvor ligger stationen?",
+    "answer": "Wo liegt der Bahnhof?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Det ved jeg ikke.",
+    "answer": "Das weiß ich nicht."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Er du klar?",
+    "answer": "Bist du bereit?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg har brug for en pause.",
+    "answer": "Ich brauche eine Pause."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvor gammel er du?",
+    "answer": "Wie alt bist du?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Det var så lidt.",
+    "answer": "Gern geschehen."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hav en god dag!",
+    "answer": "Hab einen schönen Tag!"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvad betyder det?",
+    "answer": "Was bedeutet das?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Jeg er træt.",
+    "answer": "Ich bin müde."
+  },
+  {
+    "collection": "Dansk",
+    "question": "Hvad er din yndlingsfarve?",
+    "answer": "Was ist deine Lieblingsfarbe?"
+  },
+  {
+    "collection": "Dansk",
+    "question": "Nu ser det perfekt ud!",
+    "answer": "Jetzt sieht es perfekt aus!"
   }
 ]
