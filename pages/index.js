@@ -1,4 +1,6 @@
 import useSWR from "swr";
+import Collapsible from "@/components/Collapsible";
+import CollectionCardForm from "@/components/Collection/CollectionCardForm";
 
 import CollectionList from "@/components/Collection/CollectionList";
 import {
@@ -17,7 +19,7 @@ export default function HomePage() {
     data: collections,
     isLoading: loadingCollections,
     error: errorCollections,
-    mutate: mutateCollections
+    mutate: mutateCollections,
   } = useSWR(`/api/collections`);
 
   const error = errorFlashcards || errorCollections;
@@ -32,13 +34,23 @@ export default function HomePage() {
   }
 
   const filteredFlashcards = getUnansweredFlashcards(
-    addColorToFlashcards(flashcards, collections));
+    addColorToFlashcards(flashcards, collections)
+  );
 
   return (
     <CollectionList
       flashcards={filteredFlashcards}
       collections={collections}
-      mutateCollections={mutateCollections}
-    />
+    >
+      <Collapsible label="+ Add Collection">
+        {({ onClose }) => (
+          <CollectionCardForm
+            collections={collections}
+            onClose={onClose}
+            mutate={mutateCollections}
+          />
+        )}
+      </Collapsible>
+    </CollectionList>
   );
 }

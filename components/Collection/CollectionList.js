@@ -1,19 +1,16 @@
 import ListContainer from "@/components/Container/ListContainer";
 import CollectionCard from "@/components/Collection/CollectionCard";
 import { getCollectionStats } from "@/components/Service/CollectionService";
-import Collapsible from "../Collapsible";
-import CollectionCardForm from "./CollectionCardForm";
 
-export default function CollectionList({ flashcards, collections , mutateCollections}) {
+export default function CollectionList({ flashcards, collections, children }) {
   return (
     <ListContainer>
-                  <Collapsible label="+ Add Collection">
-                    {({ onClose }) => (
-                      <CollectionCardForm collections={collections} onClose={onClose} mutate={mutateCollections} />
-                    )}
-                  </Collapsible>
+      {children}
       {collections.map((collection) => {
-        const { count, countCorrectAnswer } = getCollectionStats(flashcards, collection.name);
+        const { count, countCorrectAnswer } = getCollectionStats(
+          flashcards,
+          collection.name
+        );
 
         return (
           <CollectionCard
