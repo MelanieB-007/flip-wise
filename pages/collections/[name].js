@@ -50,11 +50,11 @@ export default function CollectionPage() {
         (collection) => collection.owner === "default"
       );
 
-  const collectionExists = collections.find(
+  const currentCollection = collections.find(
     (collection) => collection.name === name
   );
 
-  if (!collectionExists) {
+  if (!currentCollection) {
     return (
       <>
         <Headline headline={"404"}></Headline>
@@ -66,7 +66,9 @@ export default function CollectionPage() {
   }
 
   const flashcardsFromCollection = addColorToFlashcards(
-    flashcards.filter((flashcard) => flashcard.collection === name),
+    flashcards.filter(
+      (flashcard) => flashcard.collection === currentCollection._id
+    ),
     collections
   );
   const filteredFlashcards = getUnansweredFlashcards(flashcardsFromCollection);
