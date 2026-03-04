@@ -4,7 +4,7 @@ import {
 } from "@/components/Service/FlashcardService";
 import { mutate } from "swr";
 
-export const API_COLLECTIONS = "api/collections";
+export const API_COLLECTIONS = "/api/collections";
 
 export function getCollectionStats(flashcards, collectionName) {
   const collectionFlashcards = getFlashcardsFromCollection(

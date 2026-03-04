@@ -24,7 +24,6 @@ export default function HomePage() {
     data: collections,
     isLoading: loadingCollections,
     error: errorCollections,
-    mutate: mutateCollections,
   } = useSWR(`/api/collections`);
 
   const error = errorFlashcards || errorCollections;
@@ -42,14 +41,6 @@ export default function HomePage() {
     addColorToFlashcards(flashcards, collections)
   );
 
-  async function handleAddCollection(event, onClose) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    await addCollection(data);
-    onClose();
-  }
-
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
@@ -57,7 +48,6 @@ export default function HomePage() {
           <CollectionCardForm
             collections={collections}
             onClose={onClose}
-            onSubmit={(event) => handleAddCollection(event, onClose)}
           />
         )}
       </Collapsible>

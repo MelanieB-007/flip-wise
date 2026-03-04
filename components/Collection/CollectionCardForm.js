@@ -2,19 +2,28 @@ import styled from "styled-components";
 import { StyledButton } from "/components/Button";
 import { useState } from "react";
 import IconPicker from "../Icons/IconPicker";
+import BodyContainer from "../Container/BodyContainer";
+import { addCollection } from "../Service/CollectionService";
 
 export default function CollectionCardForm({ onClose, onSubmit }) {
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
 
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    await addCollection(data);
+    onClose();
+  }
 
   return (
     <CardContainer>
       <CardHeader>
         <Headline>{"Add new Collection"}</Headline>
       </CardHeader>
-      <CardBody>
-        <form onSubmit={onSubmit}>
+      <BodyContainer>
+        <form onSubmit={handleSubmit}>
           <FormGroup>
             <Label htmlFor="name">Name:</Label>
             <Input
@@ -59,7 +68,7 @@ export default function CollectionCardForm({ onClose, onSubmit }) {
             </ButtonCancel>
           </Actions>
         </form>
-      </CardBody>
+      </BodyContainer>
     </CardContainer>
   );
 }
@@ -84,11 +93,6 @@ const Headline = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 1;
-`;
-
-const CardBody = styled.div`
-  background-color: white;
-  padding: 1.5rem 1.8rem;
 `;
 
 const FormGroup = styled.div`
