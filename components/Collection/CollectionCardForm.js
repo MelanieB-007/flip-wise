@@ -13,6 +13,10 @@ export default function CollectionCardForm({ onClose, onSubmit }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    if (!data.icon) {
+      alert("Please select an icon");
+      return;
+    }
     await addCollection(data);
     onClose();
   }
@@ -27,7 +31,7 @@ export default function CollectionCardForm({ onClose, onSubmit }) {
           <FormGroup>
             <Label htmlFor="name">Name:</Label>
             <Input
-              type="name"
+              type="text"
               id="name"
               name="name"
               placeholder="Name"
