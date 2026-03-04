@@ -1,5 +1,4 @@
 import useSWR from "swr";
-
 import CollectionList from "@/components/Collection/CollectionList";
 import {
   addColorToFlashcards,
@@ -31,12 +30,10 @@ export default function HomePage() {
   }
 
   const filteredFlashcards = getUnansweredFlashcards(
-    addColorToFlashcards(flashcards, collections));
+    addColorToFlashcards(flashcards, collections)
+  );
 
   return (
-    <CollectionList
-      flashcards={filteredFlashcards}
-      collections={collections}
-    />
+    <CollectionList flashcards={filteredFlashcards} collections={collections} />
   );
 }

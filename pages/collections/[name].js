@@ -5,6 +5,7 @@ import Headline from "@/components/Headline/Headline";
 import styled from "styled-components";
 import Link from "next/link";
 import { AiOutlineContainer } from "react-icons/ai";
+import { useSession } from "next-auth/react";
 
 import {
   addColorToFlashcards,
@@ -16,6 +17,8 @@ export default function CollectionPage() {
   const router = useRouter();
   const { name } = router.query;
 
+  const { data: session } = useSession();
+
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
@@ -23,7 +26,7 @@ export default function CollectionPage() {
   } = useSWR(`/api/flashcards`);
 
   const {
-    data: collections,
+    data: unfilteredCollections,
     isLoading: loadingCollections,
     error: errorCollections,
   } = useSWR(`/api/collections`);
@@ -35,13 +38,37 @@ export default function CollectionPage() {
     return <div>Fehler beim Laden: {error.message} (Retry?)</div>;
   }
 
-  if (isLoading || !flashcards || !collections) {
+  if (isLoading || !flashcards || !unfilteredCollections) {
     return <h1>Loading...</h1>;
   }
 
-  const flashcardsFromCollection =  addColorToFlashcards(
-      flashcards.filter((flashcard) => flashcard.collection === name),
-      collections);
+  const collections = session
+    ? unfilteredCollections.filter(
+        (collection) => collection.owner === session.user.name
+      )
+    : unfilteredCollections.filter(
+        (collection) => collection.owner === "default"
+      );
+
+  const collectionExists = collections.find(
+    (collection) => collection.name === name
+  );
+
+  if (!collectionExists) {
+    return (
+      <>
+        <Headline headline={"404"}></Headline>
+        <StyledErrorMessage>
+          No collection with the name {name} found
+        </StyledErrorMessage>
+      </>
+    );
+  }
+
+  const flashcardsFromCollection = addColorToFlashcards(
+    flashcards.filter((flashcard) => flashcard.collection === name),
+    collections
+  );
   const filteredFlashcards = getUnansweredFlashcards(flashcardsFromCollection);
   const isEmpty = flashcardsFromCollection.length === 0;
 
@@ -85,4 +112,7 @@ const StyledIcon = styled(AiOutlineContainer)`
   &:hover {
     background-color: #009ba8;
   }
+`;
+const StyledErrorMessage = styled.p`
+  text-align: center;
 `;

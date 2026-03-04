@@ -3,9 +3,18 @@ import Link from "next/link";
 import useSWR from "swr";
 import { AiOutlineHome } from "react-icons/ai";
 import * as GiIcons from "react-icons/gi";
+import { useSession } from "next-auth/react";
 
 export default function Sidebar({ isOpen, onClose }) {
-  const { data: collections = [] } = useSWR(`/api/collections`);
+  const { data: session } = useSession();
+  const { data: unfilteredCollections = [] } = useSWR(`/api/collections`);
+  const collections = session
+    ? unfilteredCollections.filter(
+        (collection) => collection.owner === session.user.name
+      )
+    : unfilteredCollections.filter(
+        (collection) => collection.owner === "default"
+      );
 
   return (
     <>
