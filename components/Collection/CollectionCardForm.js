@@ -18,15 +18,6 @@ export default function CollectionCardForm({ onClose }) {
       return;
     }
 
-    const user = "";
-
-    if (user && user.id) {
-      data.userId = user.id;
-    } else {
-      alert("You must be logged in to create a collection");
-      return;
-    }
-
     await addCollection(data);
     onClose();
   }
