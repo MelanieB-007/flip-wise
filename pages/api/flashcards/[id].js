@@ -10,17 +10,15 @@ export default async function handler(request, response) {
 
   if (request.method === "PUT") {
     try {
-      if (session) {
-        const flashcardData = request.body;
-        const flashcardToUpdate = await Flashcard.findByIdAndUpdate(
-          id,
-          flashcardData,
-          { new: true }
-        );
-      }
       if (!session) {
-        response.status(401).json({ status: "Not authorized" });
+        return response.status(401).json({ status: "Not authorized" });
       }
+      const flashcardData = request.body;
+      const flashcardToUpdate = await Flashcard.findByIdAndUpdate(
+        id,
+        flashcardData,
+        { new: true }
+      );
 
       if (!flashcardToUpdate) {
         response.status(404).json({ status: "Flashcard not found" });
@@ -37,12 +35,10 @@ export default async function handler(request, response) {
 
   if (request.method === "DELETE") {
     try {
-      if (session) {
-        const deleted = await Flashcard.findByIdAndDelete(id);
-      }
       if (!session) {
-        response.status(401).json({ status: "Not authorized" });
+        return response.status(401).json({ status: "Not authorized" });
       }
+      const deleted = await Flashcard.findByIdAndDelete(id);
 
       if (!deleted) {
         response.status(404).json({ status: "Flashcard not found" });

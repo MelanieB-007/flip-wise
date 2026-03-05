@@ -12,8 +12,10 @@ import {
   getUnansweredFlashcards,
 } from "@/components/Service/FlashcardService";
 import ListContainer from "@/components/Container/ListContainer";
+import { useSession } from "next-auth/react";
 
 export default function HomePage() {
+  const { data: session } = useSession();
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
@@ -41,6 +43,10 @@ export default function HomePage() {
     addColorToFlashcards(flashcards, collections)
   );
 
+  const userCollections = session
+    ? collections.filter((collection) => collection.owner === session.user.id)
+    : collections.filter((collection) => collection.owner === "default");
+
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
@@ -48,7 +54,7 @@ export default function HomePage() {
           <CollectionCardForm collections={collections} onClose={onClose} />
         )}
       </Collapsible>
-      {collections.map((collection) => {
+      {userCollections.map((collection) => {
         const { count, countCorrectAnswer } = getCollectionStats(
           filteredFlashcards,
           collection.name

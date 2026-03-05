@@ -10,7 +10,7 @@ export default function Sidebar({ isOpen, onClose }) {
   const { data: unfilteredCollections = [] } = useSWR(`/api/collections`);
   const collections = session
     ? unfilteredCollections.filter(
-        (collection) => collection.owner === session.user.name
+        (collection) => collection.owner === session.user.id
       )
     : unfilteredCollections.filter(
         (collection) => collection.owner === "default"

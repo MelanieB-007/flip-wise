@@ -44,7 +44,7 @@ export default function CollectionPage() {
 
   const collections = session
     ? unfilteredCollections.filter(
-        (collection) => collection.owner === session.user.name
+        (collection) => collection.owner === session.user.id
       )
     : unfilteredCollections.filter(
         (collection) => collection.owner === "default"
