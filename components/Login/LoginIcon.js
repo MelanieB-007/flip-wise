@@ -23,7 +23,9 @@ export default function LoginIcon() {
           )}
         </ProfileButton>
         <StyledProfileMenu $isOpen={isOpen}>
-          <StyledProfileLink href="/profile">Profile</StyledProfileLink>
+          <StyledProfileLink href="/profile" onClick={() => setIsOpen(false)}>
+            Profile
+          </StyledProfileLink>
           <StyledLogoutButton onClick={() => signOut()}>
             Log out
           </StyledLogoutButton>
