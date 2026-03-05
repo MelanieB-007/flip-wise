@@ -6,7 +6,7 @@ import BodyContainer from "../Container/BodyContainer";
 import { addCollection } from "../Service/CollectionService";
 import { useSession } from "next-auth/react";
 
-export default function CollectionCardForm({ onClose, onSubmit }) {
+export default function CollectionCardForm({ onClose }) {
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
   const { data: session } = useSession();
