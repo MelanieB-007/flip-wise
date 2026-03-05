@@ -4,10 +4,12 @@ import { useState } from "react";
 import IconPicker from "../Icons/IconPicker";
 import BodyContainer from "../Container/BodyContainer";
 import { addCollection } from "../Service/CollectionService";
+import { useSession } from "next-auth/react";
 
 export default function CollectionCardForm({ onClose }) {
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
+  const { data: session } = useSession();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -17,7 +19,7 @@ export default function CollectionCardForm({ onClose }) {
       alert("Please select an icon");
       return;
     }
-
+    data.owner = session.user.id;
     await addCollection(data);
     onClose();
   }
