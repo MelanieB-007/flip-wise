@@ -6,7 +6,11 @@ const collectionSchema = new Schema({
   name: { type: String, required: true },
   color: { type: String, required: true },
   icon: { type: String, required: true },
-  owner: { type: String, required: true },
+  owner: {
+  type: Schema.Types.ObjectId,
+  ref: "User",
+  required: true,
+}
 });
 
 const Collection =
