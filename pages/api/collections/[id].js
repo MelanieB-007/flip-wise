@@ -11,7 +11,7 @@ export default async function handler(request, response) {
       const deleted = await Collection.findByIdAndDelete(id);
 
       if (!deleted) {
-        response.status(404).json({ status: "Flashcard not found" });
+        response.status(404).json({ status: "Collection not found" });
         return;
       }
       await Flashcard.deleteMany({ collection: deleted.name });
