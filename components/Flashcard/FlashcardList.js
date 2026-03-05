@@ -1,9 +1,9 @@
 import Flashcard from "@/components/Flashcard/Flashcard";
 import Collapsible from "@/components/Collapsible";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
-import ListContainer from "@/components/Container/ListContainer"
+import ListContainer from "@/components/Container/ListContainer";
 import styled from "styled-components";
-import {useState} from "react";
+import { useState } from "react";
 
 export default function FlashcardList({
   flashcards,

@@ -1,4 +1,4 @@
-import {mutate} from "swr";
+import { mutate } from "swr";
 
 export const API_FLASHCARDS = "/api/flashcards";
 
@@ -84,18 +84,18 @@ export function getFlashcardsFromCollection(flashcards, name) {
 }
 
 export function getUnansweredFlashcards(flashcards) {
-  return flashcards.filter((flashcard) =>
-    !flashcard.isCorrectlyAnswered);
+  return flashcards.filter((flashcard) => !flashcard.isCorrectlyAnswered);
 }
 
 export function getAnsweredFlashcards(flashcards) {
-  return flashcards.filter((flashcard) =>
-    flashcard.isCorrectlyAnswered);
+  return flashcards.filter((flashcard) => flashcard.isCorrectlyAnswered);
 }
 
 export function addColorToFlashcards(flashcards, collections) {
   return flashcards.map((flashcard) => ({
     ...flashcard,
-    color: collections.find((c) => c.name === flashcard.collection)?.color || "#CCC",
+    color:
+      collections.find((c) => c._id === flashcard.collection)?.color || "#CCC",
+    collection: collections.find((c) => c._id === flashcard.collection)?.name,
   }));
 }
