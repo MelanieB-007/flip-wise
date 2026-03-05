@@ -15,8 +15,8 @@ const StyledLoginButton = styled.button`
   overflow: hidden;
   background-color: #003d45;
   padding: 0;
-  width: 70px;
-  height: 70px;
+  height: 50%;
+  aspect-ratio: 1;
   cursor: pointer;
   &:hover {
     background-color: #00575f;
