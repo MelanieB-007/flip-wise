@@ -3,31 +3,41 @@ import { StyledButton } from "/components/Button";
 import { useState } from "react";
 import IconPicker from "../Icons/IconPicker";
 import BodyContainer from "../Container/BodyContainer";
-import { addCollection } from "../Service/CollectionService";
+import { addCollection, updateCollection } from "../Service/CollectionService";
 import { useSession } from "next-auth/react";
 
-export default function CollectionCardForm({ onClose, onSubmit }) {
-  const [selectedIcon, setSelectedIcon] = useState("");
-  const [selectedColor, setSelectedColor] = useState("#777");
+export default function CollectionCardForm({ onClose, initialData = null }) {
+  const [selectedIcon, setSelectedIcon] = useState(initialData?.icon ?? "");
+  const [selectedColor, setSelectedColor] = useState(
+    initialData?.color ?? "#777"
+  );
   const { data: session } = useSession();
+  const isEditMode = initialData !== null;
 
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
     if (!data.icon) {
       alert("Please select an icon");
       return;
     }
-    data.owner = session.user.id;
-    await addCollection(data);
+    if (isEditMode) {
+      await updateCollection(data, initialData.id);
+    } else {
+      data.owner = session.user.id;
+      await addCollection(data);
+    }
     onClose();
   }
 
   return (
     <CardContainer>
       <CardHeader>
-        <Headline>{"Add new Collection"}</Headline>
+        <Headline>
+          {isEditMode ? "Edit Collection" : "Add new Collection"}
+        </Headline>
       </CardHeader>
       <BodyContainer>
         <form onSubmit={handleSubmit}>
@@ -38,7 +48,7 @@ export default function CollectionCardForm({ onClose, onSubmit }) {
               id="name"
               name="name"
               placeholder="Name"
-              defaultValue={""}
+              defaultValue={initialData?.name ?? ""}
               required
             />
           </FormGroup>
@@ -69,7 +79,9 @@ export default function CollectionCardForm({ onClose, onSubmit }) {
           </FormGroup>
 
           <Actions>
-            <ButtonSubmit type="submit">{"Add"}</ButtonSubmit>
+            <ButtonSubmit type="submit">
+              {isEditMode ? "Save" : "Add"}
+            </ButtonSubmit>
             <ButtonCancel type="button" onClick={onClose}>
               Cancel
             </ButtonCancel>

@@ -36,6 +36,26 @@ export async function addCollection(data) {
   }
 }
 
+export async function updateCollection(data, id) {
+  try {
+    const response = await fetch(`${API_COLLECTIONS}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...data }),
+    });
+
+    if (!response.ok) {
+      console.error(`Error updating collection:`, response.statusText);
+      return;
+    }
+
+    await mutate(`${API_COLLECTIONS}/${id}`);
+    await mutate(API_COLLECTIONS)
+  } catch (error) {
+    console.error(`Error updating:`, error);
+  }
+}
+
 export async function deleteCollection(id) {
   try {
     const response = await fetch(`${API_COLLECTIONS}/${id}`, {
