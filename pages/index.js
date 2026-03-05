@@ -1,10 +1,13 @@
 import useSWR from "swr";
 import Collapsible from "@/components/Collapsible";
 import CollectionCardForm from "@/components/Collection/CollectionCardForm";
-import CollectionCard from "@/components/Collection/CollectionCard";
 import ListContainer from "@/components/Container/ListContainer";
+import {useSession} from "next-auth/react";
+import CollectionCard from "@/components/Collection/CollectionCard";
 
 export default function HomePage() {
+  const { data: session } = useSession();
+
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
@@ -28,6 +31,10 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
+  const userCollections = session
+      ? collections.filter((collection) => collection.owner === session.user.id)
+      : collections.filter((collection) => collection.owner === "default");
+
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
@@ -38,7 +45,7 @@ export default function HomePage() {
           />
         )}
       </Collapsible>
-      {collections.map((collection) => {
+      {  userCollections.map((collection) => {
         const cardsInCollection = flashcards.filter(
             (card) => card.collection === collection.name
         );
