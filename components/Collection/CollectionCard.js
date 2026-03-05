@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import CardWrapper from "../Container/CardWrapper";
 import * as GiIcons from "react-icons/gi";
+import { deleteCollection } from "../Service/CollectionService";
 
 export default function CollectionCard({
   collection,
@@ -23,17 +24,21 @@ export default function CollectionCard({
       >
         <HeaderContainer
           color={collection.color}
-          headline="" />
+          headline=""
+          onDelete={() => {
+            if (
+              window.confirm("Are you sure you want to delete this flashcard?")
+            ) {
+              deleteCollection(collection._id);
+            }
+          }}
+        />
         <BodyContainer>
           <Title>
             {Icon && <Icon />} {collection.name}
           </Title>
-          <Info>
-            {flashcardCount} cards
-          </Info>
-          <Info>
-            {correctFlashcardCount} correctly answered
-          </Info>
+          <Info>{flashcardCount} cards</Info>
+          <Info>{correctFlashcardCount} correctly answered</Info>
         </BodyContainer>
       </CardContainer>
     </CardWrapper>
@@ -51,5 +56,5 @@ const Info = styled.div`
   font-size: 1rem;
   font-weight: 700;
   color: #666;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 `;
