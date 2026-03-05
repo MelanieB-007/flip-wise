@@ -39,15 +39,12 @@ export default function HomePage() {
         )}
       </Collapsible>
       {collections.map((collection) => {
-        // 1. Filtere alle Flashcards, die zu dieser Collection gehören
         const cardsInCollection = flashcards.filter(
             (card) => card.collection === collection.name
         );
 
-        // 2. Berechne die Gesamtanzahl
         const totalCount = cardsInCollection.length;
 
-        // 3. Berechne die Anzahl der richtig beantworteten Karten
         const correctlyAnsweredCount = cardsInCollection.filter(
             (card) => card.isCorrectlyAnswered === true
         ).length;
