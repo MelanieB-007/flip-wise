@@ -1,10 +1,17 @@
 import useSWR from "swr";
+import Collapsible from "@/components/Collapsible";
+import CollectionCardForm from "@/components/Collection/CollectionCardForm";
+import CollectionCard from "@/components/Collection/CollectionCard";
+import {
+  getCollectionStats,
+  addCollection,
+} from "@/components/Service/CollectionService";
 
-import CollectionList from "@/components/Collection/CollectionList";
 import {
   addColorToFlashcards,
   getUnansweredFlashcards,
 } from "@/components/Service/FlashcardService";
+import ListContainer from "@/components/Container/ListContainer";
 
 export default function HomePage() {
   const {
@@ -31,12 +38,34 @@ export default function HomePage() {
   }
 
   const filteredFlashcards = getUnansweredFlashcards(
-    addColorToFlashcards(flashcards, collections));
+    addColorToFlashcards(flashcards, collections)
+  );
 
   return (
-    <CollectionList
-      flashcards={filteredFlashcards}
-      collections={collections}
-    />
+    <ListContainer>
+      <Collapsible label="+ Add Collection">
+        {({ onClose }) => (
+          <CollectionCardForm
+            collections={collections}
+            onClose={onClose}
+          />
+        )}
+      </Collapsible>
+      {collections.map((collection) => {
+        const { count, countCorrectAnswer } = getCollectionStats(
+          filteredFlashcards,
+          collection.name
+        );
+
+        return (
+          <CollectionCard
+            key={collection.name}
+            collection={collection}
+            flashcardCount={count}
+            correctFlashcardCount={countCorrectAnswer}
+          />
+        );
+      })}
+    </ListContainer>
   );
 }
