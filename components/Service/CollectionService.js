@@ -21,3 +21,19 @@ export async function addCollection(data) {
     console.error(`Error creating:`, error);
   }
 }
+
+export async function deleteCollection(id) {
+  try {
+    const response = await fetch(`${API_COLLECTIONS}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      console.error("Deleting collection failed:", response.statusText);
+      return;
+    }
+    await mutate(API_COLLECTIONS);
+  } catch (error) {
+    console.error("Deleting failed", error);
+  }
+}

@@ -1,8 +1,16 @@
 import styled from "styled-components";
 import { StyledButton } from "/components/Button";
-import { addFlashcard, updateFlashcard } from "@/components/Service/FlashcardService";
+import {
+  addFlashcard,
+  updateFlashcard,
+} from "@/components/Service/FlashcardService";
 
-export default function FlashcardForm({ collections, onClose, initialData = null, preselectedCollection = null }) {
+export default function FlashcardForm({
+  collections,
+  onClose,
+  initialData = null,
+  preselectedCollection = null,
+}) {
   const isEditMode = initialData !== null;
 
   async function handleSubmit(event) {
@@ -10,6 +18,7 @@ export default function FlashcardForm({ collections, onClose, initialData = null
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    data.collection = collections.find((c) => c.name === data.collection)?._id;
 
     if (isEditMode) {
       await updateFlashcard(data, initialData.id);
@@ -18,65 +27,71 @@ export default function FlashcardForm({ collections, onClose, initialData = null
     }
     onClose();
   }
-  return (<CardContainer>
-    <CardHeader>
-      <Headline>{isEditMode ? "Edit card" : "Add new card"}</Headline>
-    </CardHeader>
-    <CardBody>
-      <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="question">Question:</Label>
-          <Input
-            type="text"
-            id="question"
-            name="question"
-            placeholder="question"
-            defaultValue={initialData?.question ?? ""}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="answer">Answer:</Label>
-          <Input
-            type="text"
-            id="answer"
-            name="answer"
-            placeholder="answer"
-            defaultValue={initialData?.answer ?? ""}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="collection">Collection:</Label>
-          <SelectWrapper>
-            <Select
+  return (
+    <CardContainer>
+      <CardHeader>
+        <Headline>{isEditMode ? "Edit card" : "Add new card"}</Headline>
+      </CardHeader>
+      <CardBody>
+        <form onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label htmlFor="question">Question:</Label>
+            <Input
+              type="text"
+              id="question"
+              name="question"
+              placeholder="question"
+              defaultValue={initialData?.question ?? ""}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="answer">Answer:</Label>
+            <Input
+              type="text"
+              id="answer"
+              name="answer"
+              placeholder="answer"
+              defaultValue={initialData?.answer ?? ""}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="collection">Collection:</Label>
+            <SelectWrapper>
+              <Select
                 id="collection"
                 name="collection"
-                defaultValue={preselectedCollection ?? initialData?.collection ?? ""}
+                defaultValue={
+                  preselectedCollection ?? initialData?.collection ?? ""
+                }
                 disabled={preselectedCollection !== null}
                 required
-            >
-              <option value="" disabled>
-                Please select a collection
-              </option>
-              {collections.map((collection) => (<option key={collection._id} value={collection.name}>
-                {collection.name}
-              </option>))}
-            </Select>
-          </SelectWrapper>
-        </FormGroup>
+              >
+                <option value="" disabled>
+                  Please select a collection
+                </option>
+                {collections.map((collection) => (
+                  <option key={collection._id} value={collection.name}>
+                    {collection.name}
+                  </option>
+                ))}
+              </Select>
+            </SelectWrapper>
+          </FormGroup>
 
-        <Actions>
-          <ButtonSubmit type="submit">
-            {isEditMode ? "Save" : "Add"}
-          </ButtonSubmit>
-          <ButtonCancel type="button" onClick={onClose}>
-            Cancel
-          </ButtonCancel>
-        </Actions>
-      </form>
-    </CardBody>
-  </CardContainer>);
+          <Actions>
+            <ButtonSubmit type="submit">
+              {isEditMode ? "Save" : "Add"}
+            </ButtonSubmit>
+            <ButtonCancel type="button" onClick={onClose}>
+              Cancel
+            </ButtonCancel>
+          </Actions>
+        </form>
+      </CardBody>
+    </CardContainer>
+  );
 }
 
 const CardContainer = styled.div`

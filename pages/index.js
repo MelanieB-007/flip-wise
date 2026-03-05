@@ -2,9 +2,19 @@ import useSWR from "swr";
 import Collapsible from "@/components/Collapsible";
 import CollectionCardForm from "@/components/Collection/CollectionCardForm";
 import CollectionCard from "@/components/Collection/CollectionCard";
+import {
+  getCollectionStats,
+  addCollection,
+} from "@/components/Service/CollectionService";
+
+import {
+  getUnansweredFlashcards,
+} from "@/components/Service/FlashcardService";
 import ListContainer from "@/components/Container/ListContainer";
+import { useSession } from "next-auth/react";
 
 export default function HomePage() {
+  const { data: session } = useSession();
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
@@ -28,6 +38,10 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
+  const userCollections = session
+    ? collections.filter((collection) => collection.owner === session.user.id)
+    : collections.filter((collection) => collection.owner === "default");
+
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
@@ -41,6 +55,10 @@ export default function HomePage() {
       {collections.map((collection) => {
         const cardsInCollection = flashcards.filter(
             (card) => card.collection === collection.name
+      {userCollections.map((collection) => {
+        const { count, countCorrectAnswer } = getCollectionStats(
+          filteredFlashcards,
+          collection.name
         );
 
         const totalCount = cardsInCollection.length;
