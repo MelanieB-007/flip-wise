@@ -5,7 +5,7 @@ import IconPicker from "../Icons/IconPicker";
 import BodyContainer from "../Container/BodyContainer";
 import { addCollection } from "../Service/CollectionService";
 
-export default function CollectionCardForm({ onClose, onSubmit }) {
+export default function CollectionCardForm({ onClose }) {
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("#777");
 
@@ -17,6 +17,16 @@ export default function CollectionCardForm({ onClose, onSubmit }) {
       alert("Please select an icon");
       return;
     }
+
+    const user = "";
+
+    if (user && user.id) {
+      data.userId = user.id;
+    } else {
+      alert("You must be logged in to create a collection");
+      return;
+    }
+
     await addCollection(data);
     onClose();
   }

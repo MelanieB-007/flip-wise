@@ -2,15 +2,6 @@ import useSWR from "swr";
 import Collapsible from "@/components/Collapsible";
 import CollectionCardForm from "@/components/Collection/CollectionCardForm";
 import CollectionCard from "@/components/Collection/CollectionCard";
-import {
-  getCollectionStats,
-  addCollection,
-} from "@/components/Service/CollectionService";
-
-import {
-  addColorToFlashcards,
-  getUnansweredFlashcards,
-} from "@/components/Service/FlashcardService";
 import ListContainer from "@/components/Container/ListContainer";
 
 export default function HomePage() {
@@ -37,10 +28,6 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const filteredFlashcards = getUnansweredFlashcards(
-    addColorToFlashcards(flashcards, collections)
-  );
-
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
@@ -52,17 +39,25 @@ export default function HomePage() {
         )}
       </Collapsible>
       {collections.map((collection) => {
-        const { count, countCorrectAnswer } = getCollectionStats(
-          filteredFlashcards,
-          collection.name
+        // 1. Filtere alle Flashcards, die zu dieser Collection gehören
+        const cardsInCollection = flashcards.filter(
+            (card) => card.collection === collection.name
         );
+
+        // 2. Berechne die Gesamtanzahl
+        const totalCount = cardsInCollection.length;
+
+        // 3. Berechne die Anzahl der richtig beantworteten Karten
+        const correctlyAnsweredCount = cardsInCollection.filter(
+            (card) => card.isCorrectlyAnswered === true
+        ).length;
 
         return (
           <CollectionCard
             key={collection.name}
             collection={collection}
-            flashcardCount={count}
-            correctFlashcardCount={countCorrectAnswer}
+            flashcardCount={totalCount}
+            correctFlashcardCount={correctlyAnsweredCount}
           />
         );
       })}
