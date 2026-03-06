@@ -1,21 +1,13 @@
 import useSWR from "swr";
 import Collapsible from "@/components/Collapsible";
 import CollectionCardForm from "@/components/Collection/CollectionCardForm";
-import CollectionCard from "@/components/Collection/CollectionCard";
-import {
-  getCollectionStats,
-  addCollection,
-} from "@/components/Service/CollectionService";
-
-import {
-  addColorToFlashcards,
-  getUnansweredFlashcards,
-} from "@/components/Service/FlashcardService";
 import ListContainer from "@/components/Container/ListContainer";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
+import CollectionCard from "@/components/Collection/CollectionCard";
 
 export default function HomePage() {
   const { data: session } = useSession();
+
   const {
     data: flashcards,
     isLoading: loadingFlashcards,
@@ -39,33 +31,37 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const filteredFlashcards = getUnansweredFlashcards(
-    addColorToFlashcards(flashcards, collections)
-  );
-
   const userCollections = session
-    ? collections.filter((collection) => collection.owner === session.user.id)
-    : collections.filter((collection) => collection.owner === "default");
+      ? collections.filter((collection) => collection.owner === session.user.id)
+      : collections.filter((collection) => collection.owner === "default");
 
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
         {({ onClose }) => (
-          <CollectionCardForm collections={collections} onClose={onClose} />
+          <CollectionCardForm
+            collections={collections}
+            onClose={onClose}
+          />
         )}
       </Collapsible>
-      {userCollections.map((collection) => {
-        const { count, countCorrectAnswer } = getCollectionStats(
-          filteredFlashcards,
-          collection.name
+      {  userCollections.map((collection) => {
+        const cardsInCollection = flashcards.filter(
+            (card) => card.collection === collection.name
         );
+
+        const totalCount = cardsInCollection.length;
+
+        const correctlyAnsweredCount = cardsInCollection.filter(
+            (card) => card.isCorrectlyAnswered === true
+        ).length;
 
         return (
           <CollectionCard
             key={collection.name}
             collection={collection}
-            flashcardCount={count}
-            correctFlashcardCount={countCorrectAnswer}
+            flashcardCount={totalCount}
+            correctFlashcardCount={correctlyAnsweredCount}
           />
         );
       })}
