@@ -38,8 +38,8 @@ export default function ProfilePage() {
 
           <SettingsSection>
             <StyledSubheading>Settings</StyledSubheading>
-            <LogButton onClick={() => signOut()}>Log out</LogButton>
             <ToggleButton></ToggleButton>
+            <LogButton onClick={() => signOut()}>Log out</LogButton>
           </SettingsSection>
         </ProfileCard>
       </ListContainer>

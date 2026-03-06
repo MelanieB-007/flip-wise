@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function ToggleButton() {
+  const [darkmode, setDarkmode] = useState(false);
   return (
     <>
       <StyledContainer>
         <p>Darkmode</p>
-        <StyledButton />
+        <StyledButton
+          onClick={() => setDarkmode(!darkmode)}
+          $darkmode={darkmode}
+        />
       </StyledContainer>
     </>
   );
@@ -28,10 +33,12 @@ const StyledButton = styled.button`
     position: absolute;
     border-radius: 99px;
     bottom: 3px;
-    left: 3px;
+    left: ${({ $darkmode }) => ($darkmode ? "53px" : "3px")};
+    transition: 0.2s ease;
   }
 `;
 
 const StyledContainer = styled.div`
   display: flex;
+  margin-bottom: 10px;
 `;
