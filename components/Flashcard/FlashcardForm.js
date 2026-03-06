@@ -18,7 +18,10 @@ export default function FlashcardForm({
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    data.collection = collections.find((c) => c.name === data.collection)?._id;
+
+    const collectionName = data.collection || preselectedCollection;
+
+    data.collection = collections.find((c) => c.name === collectionName)?._id;
 
     if (isEditMode) {
       await updateFlashcard(data, initialData.id);
