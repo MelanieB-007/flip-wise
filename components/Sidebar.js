@@ -8,13 +8,11 @@ import { useSession } from "next-auth/react";
 export default function Sidebar({ isOpen, onClose }) {
   const { data: session } = useSession();
   const { data: unfilteredCollections = [] } = useSWR(`/api/collections`);
-  const collections = session
-    ? unfilteredCollections.filter(
-        (collection) => collection.owner === session.user.id
-      )
-    : unfilteredCollections.filter(
-        (collection) => collection.owner === "default"
-      );
+
+  const user = session ? session.user.id : "default";
+  const collections = unfilteredCollections.filter(
+    (collection) => collection.owner === user
+  );
 
   return (
     <>

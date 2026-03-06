@@ -31,9 +31,10 @@ export default function HomePage() {
     return <h1>Loading...</h1>;
   }
 
-  const userCollections = session
-    ? collections.filter((collection) => collection.owner === session.user.id)
-    : collections.filter((collection) => collection.owner === "default");
+  const user = session ? session.user.id : "default";
+  const userCollections = collections.filter(
+    (collection) => collection.owner === user
+  );
 
   return (
     <ListContainer>
