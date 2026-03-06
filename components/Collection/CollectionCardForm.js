@@ -18,7 +18,6 @@ export default function CollectionCardForm({ onClose, initialData = null }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
     if (!data.icon) {
       alert("Please select an icon");
       return;
