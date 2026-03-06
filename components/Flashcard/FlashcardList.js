@@ -28,7 +28,7 @@ export default function FlashcardList({
         <EmptySubtext>Start learning by adding your first card.</EmptySubtext>
         <Collapsible label="+ Add Flashcard">
           {({ onClose }) => (
-            <FlashcardForm collections={collections} onClose={onClose} />
+            <FlashcardForm collections={collections} onClose={onClose} preselectedCollection={collectionName} />
           )}
         </Collapsible>
       </EmptyContainer>
