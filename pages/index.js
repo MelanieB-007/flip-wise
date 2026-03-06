@@ -35,8 +35,6 @@ export default function HomePage() {
     ? collections.filter((collection) => collection.owner === session.user.id)
     : collections.filter((collection) => collection.owner === "default");
 
-  console.log(userCollections);
-
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
