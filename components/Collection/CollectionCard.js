@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import CardWrapper from "../Container/CardWrapper";
 import * as GiIcons from "react-icons/gi";
 import { deleteCollection } from "../Service/CollectionService";
+import CollectionCardForm from "./CollectionCardForm";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function CollectionCard({
@@ -13,10 +15,24 @@ export default function CollectionCard({
   flashcardCount,
   correctFlashcardCount,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
-
   const Icon = GiIcons[collection.icon];
   const { data: session } = useSession();
+
+  if (isEditing) {
+    return (
+      <CollectionCardForm
+        onClose={() => setIsEditing(false)}
+        initialData={{
+          id: collection._id,
+          name: collection.name,
+          color: collection.color,
+          icon: collection.icon,
+        }}
+      />
+    );
+  }
 
   return (
     <CardWrapper color={collection.color}>
@@ -27,6 +43,7 @@ export default function CollectionCard({
         <HeaderContainer
           color={collection.color}
           headline=""
+          onEdit={() => setIsEditing(true)}
           onDelete={() => {
             if (
               window.confirm("Are you sure you want to delete this flashcard?")
