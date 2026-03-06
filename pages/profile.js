@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import { signOut, signIn } from "next-auth/react";
 import { StyledButton } from "@/components/Button";
+import ToggleButton from "@/components/ToggleButton";
 
 export default function ProfilePage() {
   const { data: session } = useSession();
@@ -15,6 +16,7 @@ export default function ProfilePage() {
         <p>E-Mail address: {session.user.email}</p>
         <StyledSubheading>Settings</StyledSubheading>
         <StyledButton onClick={signOut}>Log out</StyledButton>
+        <ToggleButton></ToggleButton>
       </>
     );
   }
