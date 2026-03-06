@@ -9,9 +9,8 @@ import BodyContainer from "@/components/Container/BodyContainer";
 import FlashcardForm from "@/components/Flashcard/FlashcardForm";
 import { StyledButton } from "@/components/Button";
 import CardWrapper from "../Container/CardWrapper";
-import {
-  setFlashcardIsAnswered,
-} from "@/components/Service/FlashcardService";
+import { setFlashcardIsAnswered } from "@/components/Service/FlashcardService";
+import { useSession } from "next-auth/react";
 
 export default function Flashcard({
   id,
@@ -26,6 +25,7 @@ export default function Flashcard({
   const [isEditing, setIsEditing] = useState(false);
   const [isShowingAnswer, setIsShowingAnswer] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
+  const { data: session } = useSession();
 
   function flipFlashcard() {
     setIsFlipping(true);
@@ -83,20 +83,22 @@ export default function Flashcard({
         </BodyContainer>
       </FlashcardContainer>
 
-      {isArchive ? (
-        <ButtonCorrectlyAnswered
-          onClick={() => setIsAnswered(false)}
-          $isShowingAnswer={isShowingAnswer}
-        >
-          Mark as Incorrect
-        </ButtonCorrectlyAnswered>
-      ) : isShowingAnswer ? (
-        <ButtonCorrectlyAnswered
-          onClick={() => setIsAnswered(true)}
-          $isShowingAnswer={isShowingAnswer}
-        >
-          Mark as Correct
-        </ButtonCorrectlyAnswered>
+      {session ? (
+        isArchive ? (
+          <ButtonCorrectlyAnswered
+            onClick={() => setIsAnswered(false)}
+            $isShowingAnswer={isShowingAnswer}
+          >
+            Mark as Incorrect
+          </ButtonCorrectlyAnswered>
+        ) : isShowingAnswer ? (
+          <ButtonCorrectlyAnswered
+            onClick={() => setIsAnswered(true)}
+            $isShowingAnswer={isShowingAnswer}
+          >
+            Mark as Correct
+          </ButtonCorrectlyAnswered>
+        ) : null
       ) : null}
     </CardWrapper>
   );

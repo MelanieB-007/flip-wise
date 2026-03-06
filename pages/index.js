@@ -2,7 +2,7 @@ import useSWR from "swr";
 import Collapsible from "@/components/Collapsible";
 import CollectionCardForm from "@/components/Collection/CollectionCardForm";
 import ListContainer from "@/components/Container/ListContainer";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 import CollectionCard from "@/components/Collection/CollectionCard";
 
 export default function HomePage() {
@@ -32,28 +32,27 @@ export default function HomePage() {
   }
 
   const userCollections = session
-      ? collections.filter((collection) => collection.owner === session.user.id)
-      : collections.filter((collection) => collection.owner === "default");
+    ? collections.filter((collection) => collection.owner === session.user.id)
+    : collections.filter((collection) => collection.owner === "default");
+
+  console.log(userCollections);
 
   return (
     <ListContainer>
       <Collapsible label="+ Add Collection">
         {({ onClose }) => (
-          <CollectionCardForm
-            collections={collections}
-            onClose={onClose}
-          />
+          <CollectionCardForm collections={collections} onClose={onClose} />
         )}
       </Collapsible>
-      {  userCollections.map((collection) => {
+      {userCollections.map((collection) => {
         const cardsInCollection = flashcards.filter(
-            (card) => card.collection === collection.name
+          (card) => card.collection === collection._id
         );
 
         const totalCount = cardsInCollection.length;
 
         const correctlyAnsweredCount = cardsInCollection.filter(
-            (card) => card.isCorrectlyAnswered === true
+          (card) => card.isCorrectlyAnswered === true
         ).length;
 
         return (

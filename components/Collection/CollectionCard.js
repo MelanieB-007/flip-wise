@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import CardWrapper from "../Container/CardWrapper";
 import * as GiIcons from "react-icons/gi";
 import { deleteCollection } from "../Service/CollectionService";
+import { useSession } from "next-auth/react";
 
 export default function CollectionCard({
   collection,
@@ -15,6 +16,7 @@ export default function CollectionCard({
   const router = useRouter();
 
   const Icon = GiIcons[collection.icon];
+  const { data: session } = useSession();
 
   return (
     <CardWrapper color={collection.color}>
@@ -38,7 +40,9 @@ export default function CollectionCard({
             {Icon && <Icon />} {collection.name}
           </Title>
           <Info>{flashcardCount} cards</Info>
-          <Info>{correctFlashcardCount} correctly answered</Info>
+          {session ? (
+            <Info>{correctFlashcardCount} correctly answered</Info>
+          ) : null}
         </BodyContainer>
       </CardContainer>
     </CardWrapper>
